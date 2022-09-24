@@ -1,0 +1,17 @@
+@mixin respond($breakpoint) {
+  @if $breakpoint == tablet {
+    @media only screen and (min-width: 47.3em) {
+      @content;
+    } //757px / 16px
+  }
+  @if $breakpoint == desktop {
+    @media only screen and (min-width: 61.1em) {
+      @content;
+    } //978px / 16px
+  }
+  @if $breakpoint == desktop-big {
+    @media only screen and (min-width: 75em) {
+      @content;
+    } //978px / 16px
+  }
+}

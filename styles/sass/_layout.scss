@@ -1,0 +1,33 @@
+.flex {
+  display: flex;
+}
+
+.flex-mobile-column {
+  @media (max-width: 757px) {
+    flex-direction: column;
+  }
+}
+
+.flexColumn {
+  @include flexLayout(flexColumn);
+}
+
+.center {
+  @include flexLayout(flexCenter);
+}
+
+.rowCenterVertical {
+  @include flexLayout(rowCenterVertical);
+}
+
+.rowCenterHorizontal {
+  @include flexLayout(rowCenterHorizontal);
+}
+
+.columnCenterVertical {
+  @include flexLayout(columnCenterVertical);
+}
+
+.columnCenterHorizontal {
+  @include flexLayout(columnCenterHorizontal);
+}

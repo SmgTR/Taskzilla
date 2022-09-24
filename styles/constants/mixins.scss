@@ -1,0 +1,36 @@
+@mixin flexLayout($setLayout) {
+  @if $setLayout == flexColumn {
+    display: flex;
+    flex-direction: column;
+  }
+  @if $setLayout == flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @if $setLayout == rowCenterVertical {
+    display: flex;
+    align-items: center;
+  }
+  @if $setLayout == rowCenterHorizontal {
+    display: flex;
+    justify-content: center;
+  }
+  @if $setLayout == columnCenterVertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  @if $setLayout == columnCenterHorizontal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @if $setLayout == columnSideCenter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
