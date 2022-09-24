@@ -3,22 +3,45 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev && echo'",
     "build": "next build",
+    "db-dev-set": "npx prisma migrate dev && npx prisma generate && npx prisma migrate dev",
+    "db-dev-push": "npx prisma db push",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check-types": "tsc --pretty --noEmit",
+    "check-format": "prettier --check .",
+    "check-lint": "eslint . --ext ts --ext tsx --ext js",
+    "format": "prettier --write .",
+    "test-all": "yarn run check-format && yarn run check-lint && npm run check-types &&  yarn run test --watchAll=false && yarn build",
+    "prepare": "husky install",
+    "test": "jest test --watchAll --verbose"
   },
   "dependencies": {
+    "@next-auth/prisma-adapter": "^1.0.4",
+    "@prisma/client": "^4.3.1",
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
     "next": "12.3.1",
+    "next-auth": "^4.10.3",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
     "@types/node": "18.7.18",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
     "eslint": "8.23.1",
     "eslint-config-next": "12.3.1",
+    "eslint-config-prettier": "^8.5.0",
+    "husky": "^8.0.0",
+    "jest": "^29.0.3",
+    "jest-environment-jsdom": "^29.0.3",
+    "prettier": "^2.7.1",
+    "prisma": "^4.3.1",
     "typescript": "4.8.3"
   }
 }
