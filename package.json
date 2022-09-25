@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "db-dev-set": "npx prisma migrate dev && npx prisma generate && npx prisma migrate dev",
+    "db-dev-set": "npx prisma generate && npx prisma migrate dev",
     "db-dev-push": "npx prisma db push",
     "start": "next start",
     "lint": "next lint",
@@ -31,6 +31,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
+    "@types/bcrypt": "^5.0.0",
     "@types/node": "18.7.18",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
