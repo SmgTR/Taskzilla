@@ -11,14 +11,33 @@ export default async function createWorkspace(
   res: NextApiResponse<Workspace | { error: string }>
 ) {
   const session = await getSession({ req });
-  if (!session || !session.user)
-    res.status(401).send({ error: 'You need to be authenticated to use this route' });
-  console.log(session);
-  // const data = await prisma.workspace.create({
 
-  // });
+  const { name } = req.body;
 
-  //   console.log(data);
+  if (!session || !session.id) {
+    return res.status(401).send({ error: 'You need to be authenticated to use this route' });
+  }
 
-  return { name: 'dada' };
+  const userId = session.id as string;
+
+  const newWorkspace = await prisma.workspace.create({
+    data: {
+      owner: userId,
+      name,
+      workspaceMember: {
+        create: [
+          {
+            role: 'admin',
+            memberId: userId
+          }
+        ]
+      }
+    }
+  });
+
+  console.log(newWorkspace);
+
+  res.status(201).send(newWorkspace);
+
+  return newWorkspace;
 }

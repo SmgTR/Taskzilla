@@ -40,7 +40,5 @@ export default async function createWorkspace(
     image: createNewUser.image || ''
   };
 
-  console.log(newUser);
-
   return res.status(201).send({ message: 'User created', data: newUser });
 }

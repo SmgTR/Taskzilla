@@ -8,12 +8,65 @@ generator client {
 }
 
 model Workspace {
-  id                String  @id @default(cuid())
-  owner             String
-  users             Json
-  name              String
-  user              User    @relation(fields: [owner], references: [id], onDelete: Cascade)
+  id              String            @id @default(cuid())
+  owner           String
+  name            String
+  description     String?
+  type            String            @default("private")
+  user            User              @relation(fields: [owner], references: [id], onDelete: Cascade)
+  workspaceMember WorkspaceMember[]
+  createdAt       DateTime          @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime          @updatedAt @db.Timestamptz(3)
+}
 
+model WorkspaceMember {
+  role        String
+  memberId    String
+  workspaceId String
+  user        User      @relation(fields: [memberId], references: [id])
+  project     Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@id([memberId, workspaceId])
+}
+
+model Project {
+  id            String          @id @default(cuid())
+  owner         String
+  name          String
+  type          String          @default("public")
+  description   String?
+  image         String?
+  user          User            @relation(fields: [owner], references: [id], onDelete: Cascade)
+  projectMember ProjectMember[]
+  createdAt     DateTime        @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime        @updatedAt @db.Timestamptz(3)
+  Column        Column[]
+}
+
+model ProjectMember {
+  id        String  @id @default(cuid())
+  role      String
+  memberId  String
+  projectId String
+  tasks     Task[]
+  user      User    @relation(fields: [memberId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Column {
+  id        String  @id @default(cuid())
+  name      String
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+  Task      Task[]
+}
+
+model Task {
+  id         String          @id @default(cuid())
+  name       String
+  assignedTo ProjectMember[]
+  columnId   String
+  column     Column          @relation(fields: [columnId], references: [id])
 }
 
 model Account {
@@ -44,15 +97,18 @@ model Session {
 }
 
 model User {
-  id            String      @id @default(cuid())
-  name          String?
-  email         String?     @unique
-  emailVerified DateTime?
-  password      String?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  workspace     Workspace[]  
+  id              String            @id @default(cuid())
+  name            String?
+  email           String?           @unique
+  emailVerified   DateTime?
+  password        String?
+  image           String?
+  accounts        Account[]
+  sessions        Session[]
+  workspace       Workspace[]
+  WorkspaceMember WorkspaceMember[]
+  Project         Project[]
+  ProjectMember   ProjectMember[]
 }
 
 model VerificationToken {
