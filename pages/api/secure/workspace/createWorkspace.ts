@@ -35,8 +35,6 @@ export default async function createWorkspace(
     }
   });
 
-  console.log(newWorkspace);
-
   res.status(201).send(newWorkspace);
 
   return newWorkspace;

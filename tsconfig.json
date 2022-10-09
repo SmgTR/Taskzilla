@@ -17,12 +17,20 @@
     "baseUrl": ".",
     "paths": {
       "@/src/*": ["src/*"],
+      "@/src/network": ["src/network/*"],
       "@/pages/*": ["pages/*"],
       "@/pages/api/*": ["pages/api/*"],
       "@/styles/*": ["styles/*"],
       "@/types/*": ["types/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "tools/configCheck.mjs",
+    "project.config.js",
+    "tools/configCheck.js"
+  ],
   "exclude": ["node_modules"]
 }

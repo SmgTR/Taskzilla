@@ -12,11 +12,14 @@ model Workspace {
   owner           String
   name            String
   description     String?
+  image           String?
+  projectId      String[]
   type            String            @default("private")
   user            User              @relation(fields: [owner], references: [id], onDelete: Cascade)
   workspaceMember WorkspaceMember[]
   createdAt       DateTime          @default(now()) @db.Timestamptz(3)
   updatedAt       DateTime          @updatedAt @db.Timestamptz(3)
+  projects Project[]
 }
 
 model WorkspaceMember {
@@ -24,7 +27,7 @@ model WorkspaceMember {
   memberId    String
   workspaceId String
   user        User      @relation(fields: [memberId], references: [id])
-  project     Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
   @@id([memberId, workspaceId])
 }
@@ -36,11 +39,13 @@ model Project {
   type          String          @default("public")
   description   String?
   image         String?
+  workspaceId   String
   user          User            @relation(fields: [owner], references: [id], onDelete: Cascade)
   projectMember ProjectMember[]
   createdAt     DateTime        @default(now()) @db.Timestamptz(3)
   updatedAt     DateTime        @updatedAt @db.Timestamptz(3)
   Column        Column[]
+  workspace     Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 }
 
 model ProjectMember {

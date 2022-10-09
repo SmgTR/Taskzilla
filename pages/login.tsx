@@ -4,7 +4,6 @@ export default function Login() {
   const { data: session } = useSession();
 
   if (session) {
-    console.log(session);
     return (
       <>
         Signed in as {session?.user?.email} <br />
@@ -22,8 +21,6 @@ export default function Login() {
 
 export async function getServerSideProps(ctx: any) {
   const session = await getSession(ctx);
-
-  console.log(session);
 
   return {
     props: { session }
