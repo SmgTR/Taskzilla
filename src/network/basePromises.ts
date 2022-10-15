@@ -32,3 +32,14 @@ export async function getPromise<TPayload, TResponse>(
       throw new Error(getErrorMessage(error));
     });
 }
+export async function postPromise<TPayload, TResponse>(
+  url: string,
+  payload?: TPayload
+): Promise<TResponse> {
+  return axios
+    .post(url, payload)
+    .then((response) => responseValue<TResponse>(response))
+    .catch((error) => {
+      throw new Error(getErrorMessage(error));
+    });
+}

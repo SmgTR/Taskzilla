@@ -4,7 +4,11 @@ configureProject();
 
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true
+  swcMinify: true,
+  sassOptions: {
+    includePaths: ['./styles/constants'],
+    prependData: `@import "scssVariables.scss";`
+  }
 };
 
 export default nextConfig;

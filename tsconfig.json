@@ -17,9 +17,12 @@
     "baseUrl": ".",
     "paths": {
       "@/src/*": ["src/*"],
-      "@/src/network": ["src/network/*"],
+      "@/components/*": ["src/components/*"],
+      "@/network/*": ["src/network/*"],
+      "@/dashboard/*": ["src/components/dashboard/*"],
+      "@/containers/*": ["src/containers/*"],
       "@/pages/*": ["pages/*"],
-      "@/pages/api/*": ["pages/api/*"],
+      "@/api/*": ["pages/api/*"],
       "@/styles/*": ["styles/*"],
       "@/types/*": ["types/*"]
     }

@@ -2,17 +2,19 @@ import type { GetServerSideProps, NextPage } from 'next';
 import styles from '../styles/Home.module.css';
 import { getSession } from 'next-auth/react';
 
-import getAllWorkspaces from './api/secure/workspace/getAllWorkspaces';
-import MainPage from '@/src/containers/MainPage';
-import Dashboard from '@/src/containers/Dashboard';
+import MainPage from '@/src/layouts/MainPage';
+import Dashboard from '@/src/layouts/Dashboard';
 import { WorkspaceProvider } from '@/src/context/WorkspacesContext';
+import WorkspaceList from '@/src/components/dashboard/workspacesList/WorkspaceList';
 
 const Home: NextPage<{ loggedIn: any; workspaces: Workspace[] }> = ({ loggedIn }) => {
   return (
     <div className={styles.container}>
       {loggedIn ? (
         <WorkspaceProvider>
-          <Dashboard />
+          <Dashboard>
+            <WorkspaceList />
+          </Dashboard>
         </WorkspaceProvider>
       ) : (
         <MainPage />

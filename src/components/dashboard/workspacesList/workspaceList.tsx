@@ -1,13 +1,15 @@
 import { NextPage } from 'next';
 
-import WorkspaceItem from './workspaceItem';
+import WorkspaceItem from './WorkspaceItem';
 import { useWorkspacesContext } from '@/src/context/WorkspacesContext';
+
+import styles from './WorkspaceList.module.scss';
 
 const WorkspaceList: NextPage = () => {
   const { guestIn, memberIn } = useWorkspacesContext();
   return (
     <div>
-      <h4>Your workspaces</h4>
+      <h4 className={styles.title}>Your workspaces</h4>
       <ul>
         {memberIn &&
           memberIn.map((workspace) => {
@@ -15,7 +17,7 @@ const WorkspaceList: NextPage = () => {
             return <WorkspaceItem name={name} projects={projects} id={id} owner={owner} key={id} />;
           })}
       </ul>
-      <h4>You are guest in</h4>
+      <h4 className={styles.title}>You are guest in</h4>
       <ul>
         {guestIn &&
           guestIn.map((workspace) => {

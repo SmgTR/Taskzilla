@@ -11,7 +11,7 @@ type CustomAppProps = AppProps & {
 function MyApp({ Component, pageProps: { session, ...pageProps } }: CustomAppProps) {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </SessionProvider>
   );
 }

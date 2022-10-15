@@ -31,7 +31,21 @@ export default async function getProject(
         },
         {
           id: projectId as string,
-          type: 'public'
+          type: 'public',
+          workspace: {
+            workspaceMember: {
+              some: {
+                memberId: session.id
+              }
+            }
+          }
+        },
+        {
+          id: projectId as string,
+          type: 'public',
+          workspace: {
+            type: 'public'
+          }
         }
       ]
     },
@@ -43,7 +57,7 @@ export default async function getProject(
   if (!project)
     return res
       .status(404)
-      .send({ error: "Workspace probably do not exist or you don't have required permissions" });
+      .send({ error: "Project probably do not exist or you don't have required permissions" });
 
   return res.status(200).send(project);
 }

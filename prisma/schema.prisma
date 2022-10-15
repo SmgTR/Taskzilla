@@ -13,13 +13,13 @@ model Workspace {
   name            String
   description     String?
   image           String?
-  projectId      String[]
+  projectId       String[]
   type            String            @default("private")
   user            User              @relation(fields: [owner], references: [id], onDelete: Cascade)
   workspaceMember WorkspaceMember[]
   createdAt       DateTime          @default(now()) @db.Timestamptz(3)
   updatedAt       DateTime          @updatedAt @db.Timestamptz(3)
-  projects Project[]
+  projects        Project[]
 }
 
 model WorkspaceMember {
@@ -49,13 +49,15 @@ model Project {
 }
 
 model ProjectMember {
-  id        String  @id @default(cuid())
-  role      String
-  memberId  String
-  projectId String
-  tasks     Task[]
-  user      User    @relation(fields: [memberId], references: [id])
-  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  id           String         @id @default(cuid())
+  role         String
+  memberId     String
+  projectId    String
+  tasks        Task[]
+  user         User           @relation(fields: [memberId], references: [id])
+  project      Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  Comment      Comment[]
+  CommentReply CommentReply[]
 }
 
 model Column {
@@ -67,11 +69,56 @@ model Column {
 }
 
 model Task {
-  id         String          @id @default(cuid())
-  name       String
-  assignedTo ProjectMember[]
-  columnId   String
-  column     Column          @relation(fields: [columnId], references: [id])
+  id            String          @id @default(cuid())
+  name          String
+  assignedTo    ProjectMember[]
+  dueDate       DateTime?
+  availableTime Int?
+  description   String?
+  columnId      String
+  column        Column          @relation(fields: [columnId], references: [id], onDelete: Cascade)
+  createdAt     DateTime        @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime        @updatedAt @db.Timestamptz(3)
+  Attachments   Attachments[]
+  Tags          Tags[]
+  Comment       Comment[]
+}
+
+model Comment {
+  id             String         @id @default(cuid())
+  authorId       String
+  commentContent String
+  taskId         String
+  task           Task           @relation(fields: [taskId], references: [id])
+  author         ProjectMember  @relation(fields: [authorId], references: [id])
+  CommentReply   CommentReply[]
+}
+
+model CommentReply {
+  id             String        @id @default(cuid())
+  authorId       String
+  commentContent String
+  commentId      String
+  comment        Comment       @relation(fields: [commentId], references: [id])
+  author         ProjectMember @relation(fields: [authorId], references: [id])
+}
+
+model Attachments {
+  id          String @id @default(cuid())
+  link        String
+  image       String
+  title       String
+  description String
+  taskId      String
+  task        Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+model Tags {
+  id     String @id @default(cuid())
+  color  String
+  name   String
+  taskId String
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
 }
 
 model Account {
