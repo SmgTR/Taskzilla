@@ -1,0 +1,36 @@
+.button {
+  font-size: $font-medium;
+  padding: 7px 20px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 50px;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-primary;
+  }
+
+  &--solid {
+    border: 2px solid $color-primary;
+    background: $color-primary;
+
+    &:hover {
+      border-color: white;
+      background-color: white;
+      color: $color-primary;
+    }
+  }
+
+  &--outline {
+    background: transparent;
+    border: 2px solid white;
+
+    &:hover {
+      border-color: $color-primary;
+      background-color: transparent;
+      color: $color-primary;
+    }
+  }
+}

@@ -1,0 +1,34 @@
+.container {
+  flex-grow: 1;
+  position: relative;
+  max-width: 1920px;
+  margin: 0 auto;
+  margin-top: 150px;
+  width: 100%;
+  font-family: 'Oswald';
+
+  &:after {
+    content: '';
+    position: absolute;
+    background-image: url('/tasks.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 694px;
+    width: 730px;
+    right: -135px;
+    top: -70px;
+  }
+}
+
+.mainHeadline {
+  font-size: 86px;
+}
+
+.decorSpan {
+  color: $color-primary;
+}
+.headline {
+  font-size: 46px;
+  font-weight: 400;
+  margin: 40px 0;
+}

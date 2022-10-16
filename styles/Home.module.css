@@ -1,5 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;500;600&display=swap');
+
 .container {
-  padding: 0 2rem;
+  padding: 0 4rem;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(180deg, #2d2f45 0%, rgba(20, 23, 51, 0.63) 100%);
+  font-family: 'Montserrat';
 }
 
 .main {
