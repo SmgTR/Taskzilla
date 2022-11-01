@@ -1,10 +1,19 @@
 .container {
   font-size: 24px;
-  background-color: blue;
+
   padding: 20px 0;
   margin: 10px 0;
 }
 
 .workspaceTitle {
   font-size: $font-medium;
+}
+
+.workspaceManage {
+  display: flex;
+  width: 100%;
+  background-color: $color-primary;
+  padding: 2rem;
+  justify-content: space-between;
+  border-radius: $radius-small;
 }

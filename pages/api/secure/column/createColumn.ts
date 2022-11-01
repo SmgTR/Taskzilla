@@ -2,14 +2,16 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import { prisma } from 'prisma/prisma';
 
-type ProjectRequest = {
+export type ColumnRequest = {
   name: string;
   projectId: string;
 };
 
-type Column = {
+export type Column = {
   name: string;
 };
+
+export const path = '/api/secure/column/createColumn';
 
 export default async function createColumn(
   req: NextApiRequest,
@@ -17,7 +19,7 @@ export default async function createColumn(
 ) {
   const session = await getSession({ req });
 
-  const { name, projectId } = req.body as ProjectRequest;
+  const { name, projectId } = req.body as ColumnRequest;
 
   if (!session || !session.id) {
     return res.status(401).send({ error: 'You need to be authenticated to use this route' });

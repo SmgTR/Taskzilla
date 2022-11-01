@@ -14,6 +14,7 @@ html {
 body {
   height: fit-content;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 @media (prefers-color-scheme: dark) {

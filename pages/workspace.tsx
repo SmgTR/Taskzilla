@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getSession } from 'next-auth/react';
 import { getMetaInfo } from 'tools/getMetaData';
 
-export default function Login() {
+export default function Workspace() {
   const sendData = () => {
     axios.post('/api/secure/workspace/createWorkspace', { name: 'Test' });
   };

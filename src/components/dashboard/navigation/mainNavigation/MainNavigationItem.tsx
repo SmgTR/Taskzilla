@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NextPage } from 'next';
 import Link from 'next/link';
 
+import styles from './MainNavigationItem.module.scss';
+
 interface NavigationItem {
   icon: IconProp;
   iconStyle?: {
@@ -13,12 +15,12 @@ interface NavigationItem {
 
 const MainNavigationItem: NextPage<NavigationItem> = ({ icon, iconStyle }) => {
   const defaultIconStyle = {
-    fontSize: 48,
-    color: 'blue'
+    fontSize: 28,
+    color: 'white'
   };
 
   return (
-    <div>
+    <div className={styles.navigationItem}>
       <Link href="/">
         <FontAwesomeIcon icon={icon} style={iconStyle ? iconStyle : defaultIconStyle} />
       </Link>

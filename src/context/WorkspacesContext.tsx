@@ -1,33 +1,72 @@
-import { WorkspacesResponse } from '@/pages/api/secure/workspace/getAllWorkspaces';
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { getWorkspaces } from '../network/secure/workspace/getAllWorkspaces';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  Reducer,
+  useContext,
+  useEffect,
+  useReducer
+} from 'react';
+import { AnyAction } from 'redux';
 
-const workspacesDefaultValues = {} as WorkspacesResponse;
-const WorkspaceContext = createContext<WorkspacesResponse>(workspacesDefaultValues);
-
-export function useWorkspacesContext() {
-  return useContext(WorkspaceContext);
-}
+type WorkspaceContextType = [WorkspaceContextData, Dispatch<AnyAction>];
 
 type Props = {
   children: ReactNode;
+  memberIn: Workspace[];
+  guestIn: Workspace[];
 };
 
-export function WorkspaceProvider({ children }: Props) {
-  const [userWorkspaces, setUserWorkspaces] = useState({} as WorkspacesResponse);
+interface WorkspaceContextData {
+  memberIn: Workspace[];
+  guestIn: Workspace[];
+}
+
+const DefaultWorkspaceContextData: WorkspaceContextData = {
+  memberIn: [],
+  guestIn: []
+};
+
+// REDUX
+const currentWorkspaceSlice = createSlice({
+  name: 'Workspace',
+  reducers: {
+    setNewState: (state, action: PayloadAction<WorkspaceContextData>) => {
+      state.memberIn = action.payload.memberIn;
+      state.guestIn = action.payload.guestIn;
+    }
+  },
+  initialState: DefaultWorkspaceContextData
+});
+
+export const { setNewState } = currentWorkspaceSlice.actions;
+
+const WorkspaceContext = createContext<WorkspaceContextType>([
+  DefaultWorkspaceContextData,
+  () => null
+]);
+
+export function WorkspaceProvider({ children, ...props }: Props) {
+  const [state, dispatch] = useReducer<Reducer<WorkspaceContextData, AnyAction>>(
+    currentWorkspaceSlice.reducer,
+    {
+      memberIn: props.memberIn,
+      guestIn: props.guestIn
+    }
+  );
 
   useEffect(() => {
-    const getAll = async () => {
-      const workspaces = await getWorkspaces();
-      setUserWorkspaces(workspaces);
-    };
-
-    getAll();
-  }, []);
+    dispatch(setNewState({ memberIn: [...props.memberIn], guestIn: [...props.guestIn] }));
+  }, [props.memberIn, props.guestIn]);
 
   return (
     <>
-      <WorkspaceContext.Provider value={userWorkspaces}>{children}</WorkspaceContext.Provider>
+      <WorkspaceContext.Provider value={[state, dispatch]}>{children}</WorkspaceContext.Provider>
     </>
   );
+}
+
+export function useWorkspacesContext(): WorkspaceContextType {
+  return useContext(WorkspaceContext);
 }

@@ -3,7 +3,9 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import { prisma } from 'prisma/prisma';
 
-type ProjectResponse = Project & { projectMember: ProjectMember[] };
+export type ProjectResponse = Project & { projectMember: ProjectMember[] };
+
+export const path = '/api/secure/project';
 
 export default async function getProject(
   req: NextApiRequest,
@@ -14,7 +16,6 @@ export default async function getProject(
   if (!session || !session.id) {
     return res.status(401).send({ error: 'You need to be authenticated to use this route' });
   }
-
   const { projectId } = req.query;
 
   const project = await prisma.project.findFirst({
@@ -50,7 +51,8 @@ export default async function getProject(
       ]
     },
     include: {
-      projectMember: true
+      projectMember: true,
+      Column: true
     }
   });
 

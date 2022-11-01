@@ -11,6 +11,7 @@ const ProjectItem: NextPage<{ project: Project }> = ({ project }) => {
       <div className={styles.container}>
         <h4>{name}</h4>
         <p>{owner}</p>
+        <p>id {id}</p>
         <p>{createdAt.toString()}</p>
       </div>
     </Link>

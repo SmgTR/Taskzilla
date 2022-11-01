@@ -17,4 +17,10 @@ declare global {
     createdAt: Date;
     projectMembers?: [];
   };
+
+  type Column = {
+    id?: string;
+    name: string;
+    projectId: string;
+  };
 }

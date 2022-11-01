@@ -22,6 +22,7 @@
       "@/dashboard/*": ["src/components/dashboard/*"],
       "@/containers/*": ["src/containers/*"],
       "@/pages/*": ["pages/*"],
+      "@/src/assets/*": ["assets/*"],
       "@/api/*": ["pages/api/*"],
       "@/styles/*": ["styles/*"],
       "@/types/*": ["types/*"]

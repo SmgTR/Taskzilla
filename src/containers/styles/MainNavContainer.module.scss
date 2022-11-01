@@ -1,5 +1,10 @@
 .navContainer {
-  border-right: 1px solid $color-accent;
-  padding: 0 10px;
-  height: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: $color-primary;
+  padding: 4rem 1rem;
+  border-radius: 25px;
 }

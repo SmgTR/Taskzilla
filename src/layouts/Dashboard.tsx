@@ -8,15 +8,14 @@ import ProjectNavigation from '../components/dashboard/navigation/projectNavigat
 
 interface Props {
   children: ReactNode;
-  projectNav?: boolean;
 }
 
-const Dashboard: NextPage<Props> = ({ children, projectNav }) => {
+const Dashboard: NextPage<Props> = ({ children }) => {
   return (
     <>
       <DashboardContainer>
         <MainNavContainer />
-        {projectNav ? <ProjectNavigation /> : ''}
+        <ProjectNavigation />
         <DashboardContentContainer>
           <main>{children}</main>
         </DashboardContentContainer>
