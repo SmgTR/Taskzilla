@@ -5,7 +5,7 @@ import { useWorkspacesContext } from '@/src/context/WorkspacesContext';
 
 import styles from './WorkspaceList.module.scss';
 
-const WorkspaceList: NextPage = () => {
+const WorkspacesList: NextPage = () => {
   const context = useWorkspacesContext();
   const { memberIn, guestIn } = context[0];
   return (
@@ -34,4 +34,4 @@ const WorkspaceList: NextPage = () => {
   );
 };
 
-export default WorkspaceList;
+export default WorkspacesList;
