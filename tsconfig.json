@@ -34,7 +34,8 @@
     "**/*.tsx",
     "tools/configCheck.mjs",
     "project.config.js",
-    "tools/configCheck.js"
+    "tools/configCheck.js",
+    "src/**/*"
   ],
   "exclude": ["node_modules"]
 }
