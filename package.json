@@ -10,7 +10,7 @@
     "build": "next build",
     "db-dev-set": "npx prisma generate && npx prisma migrate dev",
     "db-dev-push": "npx prisma db push",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "lint": "next lint",
     "check-types": "tsc --pretty --noEmit",
     "check-format": "prettier --check .",
