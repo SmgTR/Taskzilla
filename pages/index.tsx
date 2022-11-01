@@ -6,7 +6,7 @@ import { prisma } from 'prisma/prisma';
 import MainPage from '@/src/layouts/MainPage';
 import Dashboard from '@/src/layouts/Dashboard';
 import { WorkspaceProvider } from '@/src/context/WorkspacesContext';
-import WorkspaceList from '@/src/components/dashboard/workspacesList/WorkspaceList';
+import WorkspaceList from '@/components/dashboard/workspacesList/WorkspaceList';
 
 interface WorkspaceOutput {
   memberIn: Workspace[];
