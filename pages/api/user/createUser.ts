@@ -15,11 +15,13 @@ export default async function createWorkspace(
 ) {
   const { email, password, image, name } = req.body;
 
+  console.log(password);
+
   const saltRounds = 10;
 
-  const hashPassword = await bcrypt.hash(password, saltRounds);
+  if (!email || !password) res.status(500).send({ error: 'Something went wrong' });
 
-  if (!email || !password || !hashPassword) res.status(500).send({ error: 'Something went wrong' });
+  const hashPassword = await bcrypt.hash(password, saltRounds);
 
   const createNewUser = await prisma.user.create({
     data: {
