@@ -9,13 +9,13 @@ const WorkspaceItem = ({ projects, name, id, owner }: Workspace) => {
 
   const addProjectHandler = async () => {
     const project = await createProject({
-      name: 'Nowy projekt',
+      name: 'New project',
       description: 'DAdadada',
       type: 'private',
       image: '',
       workspaceId: id
     });
-    // if (project) router.push(`/project/${project.id}`);
+    if (project) router.push(`/project/${project.id}`);
   };
 
   return (
