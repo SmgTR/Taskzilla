@@ -1,4 +1,4 @@
-import WorkspaceList from '@/src/components/dashboard/workspacesList/WorkspaceList';
+import WorkspaceList from '@/src/components/dashboard/workspacesList/WorkspacesList';
 import DashboardContainer from '@/containers/DashboardContainer';
 import MainNavContainer from '@/containers/MainNavContainer';
 import DashboardContentContainer from '@/containers/DashboardContentContainer';
