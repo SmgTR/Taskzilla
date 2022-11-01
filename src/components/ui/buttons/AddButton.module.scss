@@ -1,0 +1,13 @@
+.addButton {
+  border-radius: $radius-circle;
+  padding: $padding-vsmall;
+  background-color: $color-primary--light;
+  color: $color-primary;
+  border: none;
+  box-sizing: border-box;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

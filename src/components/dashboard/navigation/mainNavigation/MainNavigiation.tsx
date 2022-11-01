@@ -5,15 +5,15 @@ import MainNavigationItem from './MainNavigationItem';
 
 interface Props {}
 
-const MainNavigiation: NextPage<Props> = ({}) => {
+const MainNavigation: NextPage<Props> = ({}) => {
   return (
     <nav>
-      <MainNavigationItem icon={faHouse} />
-      <MainNavigationItem icon={faUser} />
-      <MainNavigationItem icon={faBell} />
-      <MainNavigationItem icon={faGear} />
+      <MainNavigationItem icon={faHouse} title={'Home'} />
+      <MainNavigationItem icon={faUser} href="/usersManagement" title={'User Management'} />
+      <MainNavigationItem icon={faBell} href="/notifications" title={'Notifications'} />
+      <MainNavigationItem icon={faGear} href="/profileSettings" title={'Settings'} />
     </nav>
   );
 };
 
-export default MainNavigiation;
+export default MainNavigation;

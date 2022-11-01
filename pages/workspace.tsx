@@ -9,7 +9,6 @@ export default function Workspace() {
   };
   const getData = async () => {
     const workspace = await axios.get('/api/secure/workspace/cl8vu3jez0106cnq5cpr2fmmb');
-    console.log(workspace);
   };
 
   const getAll = async () => {

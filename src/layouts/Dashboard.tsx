@@ -1,19 +1,22 @@
-import WorkspaceList from '@/src/components/dashboard/workspacesList/WorkspacesList';
 import DashboardContainer from '@/containers/DashboardContainer';
 import MainNavContainer from '@/containers/MainNavContainer';
 import DashboardContentContainer from '@/containers/DashboardContentContainer';
 import { ReactNode } from 'react';
 import { NextPage } from 'next';
-import ProjectNavigation from '../components/dashboard/navigation/projectNavigation/ProjectNavigation';
+import ProjectNavigation from '@/src/components/dashboard/navigation/workspaceNavigation/WorkspaceNavigation';
+import Flare from '@/components/ui/misc/Flare';
 
 interface Props {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const Dashboard: NextPage<Props> = ({ children }) => {
   return (
     <>
       <DashboardContainer>
+        <Flare flareStyle="flareBottom" />
+        <Flare flareStyle="flareRight" />
+        <Flare flareStyle="flareTop" />
         <MainNavContainer />
         <ProjectNavigation />
         <DashboardContentContainer>

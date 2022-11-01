@@ -1,0 +1,19 @@
+.columnsContainer {
+  display: flex;
+  align-items: center;
+  overflow: scroll;
+  width: 95%;
+
+  button {
+    margin-left: 2rem;
+  }
+}
+
+.columnsList {
+  display: flex;
+
+  & li:not(:first-child) {
+    margin-left: $margin-medium;
+    list-style: none;
+  }
+}

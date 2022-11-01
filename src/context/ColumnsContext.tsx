@@ -2,9 +2,10 @@ import { createContext, useContext, useState, ReactNode, useEffect } from 'react
 import { getColumns } from '../network/secure/column/getColumns';
 
 interface ColumnContext {
-  projectColumns: Column[] | undefined;
+  columns: Column[] | undefined;
   loading: boolean;
   error: Error | null;
+  updateColumns: (column: Column) => void;
 }
 
 const columnsDefaultValues = {} as ColumnContext;
@@ -21,10 +22,16 @@ type Props = {
 
 export function ColumnsProvider({ children, ...props }: Props) {
   const [projectColumns, setProjectColumns] = useState({
-    projectColumns: [],
+    columns: [] as Column[],
     loading: true,
     error: null
   });
+
+  function updateColumns(column: any) {
+    setProjectColumns((prevState) => {
+      return { ...prevState, columns: [...prevState.columns, column] };
+    });
+  }
 
   useEffect(() => {
     const projectColumns = async () => {
@@ -32,7 +39,7 @@ export function ColumnsProvider({ children, ...props }: Props) {
         JSON.parse(JSON.stringify(data))
       );
       setProjectColumns((prevState) => {
-        return { ...prevState, loading: false, projectColumns: responseColumns[0].Column };
+        return { ...prevState, loading: false, columns: responseColumns[0].Column };
       });
     };
 
@@ -41,7 +48,9 @@ export function ColumnsProvider({ children, ...props }: Props) {
 
   return (
     <>
-      <ColumnsContext.Provider value={projectColumns}>{children}</ColumnsContext.Provider>
+      <ColumnsContext.Provider value={{ ...projectColumns, updateColumns }}>
+        {children}
+      </ColumnsContext.Provider>
     </>
   );
 }

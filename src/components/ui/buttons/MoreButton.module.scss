@@ -1,0 +1,17 @@
+.moreButton {
+  color: $color-primary--light;
+  background-color: transparent;
+  border: none;
+
+  &_dot {
+    height: 0.8rem;
+    width: 0.8rem;
+    background-color: $color-primary--light;
+    border-radius: 50%;
+    display: inline-block;
+
+    &:not(:first-child) {
+      margin-left: $margin-xxsmall;
+    }
+  }
+}

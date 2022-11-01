@@ -5,7 +5,6 @@ interface Props {}
 
 const ProjectHeader: NextPage<Props> = ({}) => {
   const project = useProjectContext();
-  console.log(project);
   return <h2>{project[0].name}</h2>;
 };
 

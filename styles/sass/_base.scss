@@ -26,3 +26,41 @@ body {
     background: black;
   }
 }
+
+.flareRight {
+  width: 65vw;
+  height: 100vh;
+  right: 0;
+  bottom: 10%;
+  transform: translate(25%, 50%);
+}
+
+.flareBottom {
+  width: 25vw;
+  height: 40vh;
+  left: 0;
+  bottom: 0;
+  transform: translateY(50%);
+}
+
+.flareTop {
+  width: 25vw;
+  height: 40vh;
+  left: 65%;
+  top: 0;
+  transform: translate(-50%, -50%);
+}
+
+div#__next {
+  height: 100vh;
+}
+
+main {
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+button {
+  cursor: pointer;
+}

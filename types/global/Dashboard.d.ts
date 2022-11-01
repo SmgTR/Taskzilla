@@ -16,6 +16,7 @@ declare global {
     owner: string;
     createdAt: Date;
     projectMembers?: [];
+    workspaceId?: string;
   };
 
   type Column = {

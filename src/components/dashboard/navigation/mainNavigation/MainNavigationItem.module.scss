@@ -1,5 +1,27 @@
 .navigationItem {
-  margin-top: 4rem;
+  margin-top: 2rem;
+  padding: 1rem 0;
   display: flex;
   justify-content: center;
+  width: 100%;
+
+  button {
+    background-color: transparent;
+    border: none;
+  }
+}
+
+.activeNavItem {
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: calc(100% + 1.6rem);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    width: 0.2rem;
+    background-color: $color-menu--highlight;
+  }
 }

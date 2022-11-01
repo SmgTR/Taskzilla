@@ -4,7 +4,7 @@ import Dashboard from '@/src/layouts/Dashboard';
 import { ProjectProvider } from '@/src/context/ProjectContext';
 import { prisma } from 'prisma/prisma';
 import { createColumn } from '@/src/network/secure/column/createColumn';
-import { ColumnsProvider } from '@/src/context/ColumnsContext';
+import { ColumnsProvider, useColumnsContext } from '@/src/context/ColumnsContext';
 import Columns from '@/src/components/dashboard/columns/Columns';
 import ProjectContainer from '@/src/containers/ProjectContainer';
 
@@ -18,19 +18,8 @@ export default function Project({ project }: Props) {
       <ProjectProvider project={project}>
         <ColumnsProvider projectId={project.id ?? ''}>
           <Dashboard>
-            <Columns />
             <ProjectContainer />
-            <button
-              type="button"
-              onClick={() => {
-                createColumn({
-                  name: 'new Column',
-                  projectId: project.id ?? ''
-                });
-              }}
-            >
-              Add Column
-            </button>
+            <Columns projectId={project.id ?? ''} />
           </Dashboard>
         </ColumnsProvider>
       </ProjectProvider>

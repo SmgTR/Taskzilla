@@ -1,0 +1,19 @@
+.search {
+  position: relative;
+  width: min-content;
+}
+.searchInput {
+  background-color: $color-primary;
+  border: none;
+  padding: $padding-vsmall $padding-medium;
+  border-radius: $radius-small;
+}
+
+.searchIcon {
+  position: absolute;
+  color: $color-primary;
+  margin-right: 1rem;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}

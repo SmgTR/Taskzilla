@@ -1,0 +1,12 @@
+.container {
+  width: max-content;
+  padding: $padding-small;
+  margin: $margin-small 0;
+  list-style: none;
+  cursor: pointer;
+}
+
+.listButton {
+  background: none;
+  border: none;
+}

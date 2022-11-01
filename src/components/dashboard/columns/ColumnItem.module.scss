@@ -1,0 +1,12 @@
+.columnItem {
+  font-size: $font-medium;
+  background-color: $color-primary;
+  padding: 1rem 2rem;
+  border-radius: $radius-small;
+  display: flex;
+  align-items: center;
+  min-width: -moz-fit-content;
+  min-width: -webkit-fill-available;
+  min-width: fit-content;
+  box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.25);
+}

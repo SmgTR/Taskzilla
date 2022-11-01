@@ -1,20 +1,23 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import styles from './ProjectItem.module.scss';
 
 const ProjectItem: NextPage<{ project: Project }> = ({ project }) => {
   const { name, owner, createdAt, id } = project;
+  const router = useRouter();
+
+  const projectRouteHandler = () => {
+    router.push(`/project/${id}`);
+  };
 
   return (
-    <Link href={`/project/${id}`}>
-      <div className={styles.container}>
+    <li className={styles.container}>
+      <button onClick={projectRouteHandler} className={styles.listButton}>
         <h4>{name}</h4>
-        <p>{owner}</p>
-        <p>id {id}</p>
-        <p>{createdAt.toString()}</p>
-      </div>
-    </Link>
+      </button>
+    </li>
   );
 };
 

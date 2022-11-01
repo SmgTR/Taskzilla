@@ -15,8 +15,6 @@ export default async function createWorkspace(
 ) {
   const { email, password, image, name } = req.body;
 
-  console.log(password);
-
   const saltRounds = 10;
 
   if (!email || !password) res.status(500).send({ error: 'Something went wrong' });
