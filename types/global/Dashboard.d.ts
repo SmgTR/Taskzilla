@@ -19,9 +19,23 @@ declare global {
     workspaceId?: string;
   };
 
+  type Task = {
+    id?: string;
+    name: string;
+    assignedTo?: [];
+    dueDate?: Date;
+    availableTime?: number;
+    description?: string;
+    columnId: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    Attachments: [];
+  };
+
   type Column = {
     id?: string;
     name: string;
     projectId: string;
+    Task?: Task[];
   };
 }

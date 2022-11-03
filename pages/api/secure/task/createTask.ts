@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import { prisma } from 'prisma/prisma';
 
-type TaskRequest = {
+export type TaskRequest = {
   name: string;
   projectId: string;
   columnId: string;
@@ -12,7 +12,9 @@ type Task = {
   name: string;
 };
 
-export default async function createColumn(
+export const path = '/api/secure/task/createTask';
+
+export default async function createTask(
   req: NextApiRequest,
   res: NextApiResponse<Task | NextApiError>
 ) {

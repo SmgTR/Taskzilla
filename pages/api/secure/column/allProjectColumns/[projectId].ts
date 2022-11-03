@@ -43,7 +43,11 @@ export default async function getAllColumns(
       ]
     },
     select: {
-      Column: true
+      Column: {
+        include: {
+          Task: true
+        }
+      }
     }
   });
 

@@ -13,7 +13,6 @@ interface Props {
 
 const Columns: NextPage<Props> = ({ projectId }) => {
   const projectColumns = useColumnsContext();
-  const project = useProjectContext();
 
   const addColumnHandler = async () => {
     const newColumn = await createColumn({
@@ -32,7 +31,7 @@ const Columns: NextPage<Props> = ({ projectId }) => {
       <div className={styles.columnsContainer}>
         <ul className={styles.columnsList}>
           {projectColumns.columns.map((column) => {
-            return <ColumnItem column={column} key={column.id} />;
+            return <ColumnItem column={column} projectId={projectId} key={column.id} />;
           })}
           <li>
             <PrimaryButton
