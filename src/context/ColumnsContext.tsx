@@ -6,6 +6,7 @@ interface ColumnContext {
   loading: boolean;
   error: Error | null;
   updateColumns: (column: Column) => void;
+  updateTasks: (task: Task, columnId: string) => void;
 }
 
 const columnsDefaultValues = {} as ColumnContext;
@@ -27,9 +28,18 @@ export function ColumnsProvider({ children, ...props }: Props) {
     error: null
   });
 
-  function updateColumns(column: any) {
+  function updateColumns(column: Column) {
     setProjectColumns((prevState) => {
       return { ...prevState, columns: [...prevState.columns, column] };
+    });
+  }
+
+  function updateTasks(task: Task, columnId: string) {
+    setProjectColumns((prevState) => {
+      const addColumn = prevState.columns.find((column) => {
+        if (column.id === columnId && column.Task) column.Task = [...column.Task, task];
+      });
+      return { ...prevState, ...addColumn };
     });
   }
 
@@ -44,11 +54,11 @@ export function ColumnsProvider({ children, ...props }: Props) {
     };
 
     projectColumns();
-  }, [props.projectId]);
+  }, [props.projectId, projectColumns.columns]);
 
   return (
     <>
-      <ColumnsContext.Provider value={{ ...projectColumns, updateColumns }}>
+      <ColumnsContext.Provider value={{ ...projectColumns, updateColumns, updateTasks }}>
         {children}
       </ColumnsContext.Provider>
     </>

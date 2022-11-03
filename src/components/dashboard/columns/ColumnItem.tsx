@@ -1,3 +1,4 @@
+import { useColumnsContext } from '@/src/context/ColumnsContext';
 import { createTask } from '@/src/network/secure/tasks/createTask';
 import { NextPage } from 'next';
 import AddButton from '../../ui/buttons/AddButton';
@@ -13,12 +14,11 @@ interface Props {
 
 const ColumnItem: NextPage<Props> = ({ column, projectId }) => {
   const addColumnTaskHandler = async () => {
-    const newTask = await createTask({
+    return await createTask({
       name: 'new task',
       projectId,
       columnId: column.id ?? ''
     });
-    console.log({ newTask }, column);
   };
 
   return (
