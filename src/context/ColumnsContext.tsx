@@ -54,7 +54,7 @@ export function ColumnsProvider({ children, ...props }: Props) {
     };
 
     projectColumns();
-  }, [props.projectId, projectColumns.columns]);
+  }, [props.projectId]);
 
   return (
     <>
