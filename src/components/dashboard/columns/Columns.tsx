@@ -24,6 +24,7 @@ const Columns: NextPage<Props> = ({ projectId }) => {
       projectColumns.updateColumns(newColumn);
     }
   };
+
   if (projectColumns.loading) return <p>Loading...</p>;
 
   if (projectColumns.columns && projectColumns.columns?.length > 0) {

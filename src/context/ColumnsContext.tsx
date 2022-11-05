@@ -6,7 +6,8 @@ interface ColumnContext {
   loading: boolean;
   error: Error | null;
   updateColumns: (column: Column) => void;
-  updateTasks: (task: Task, columnId: string) => void;
+  addTask: (task: Task, columnId: string) => void;
+  updateTask: (taskId: string, taskData: TaskData) => void;
 }
 
 const columnsDefaultValues = {} as ColumnContext;
@@ -34,13 +35,23 @@ export function ColumnsProvider({ children, ...props }: Props) {
     });
   }
 
-  function updateTasks(task: Task, columnId: string) {
-    setProjectColumns((prevState) => {
-      const addColumn = prevState.columns.find((column) => {
-        if (column.id === columnId && column.Task) column.Task = [...column.Task, task];
+  function addTask(task: Task, columnId: string) {
+    setProjectColumns((state) => {
+      state.columns.find((column) => {
+        if (column.id === columnId && column.Task) {
+          column.Task.push(task);
+        }
+
+        if (column.id === columnId && !column.Task) {
+          column.Task = [task];
+        }
       });
-      return { ...prevState, ...addColumn };
+      return { ...state };
     });
+  }
+
+  function updateTask(taskId: string, taskData: TaskData) {
+    console.log(taskId, taskData);
   }
 
   useEffect(() => {
@@ -48,6 +59,7 @@ export function ColumnsProvider({ children, ...props }: Props) {
       const responseColumns = await getColumns(props.projectId).then((data) =>
         JSON.parse(JSON.stringify(data))
       );
+      console.log(responseColumns);
       setProjectColumns((prevState) => {
         return { ...prevState, loading: false, columns: responseColumns[0].Column };
       });
@@ -58,7 +70,7 @@ export function ColumnsProvider({ children, ...props }: Props) {
 
   return (
     <>
-      <ColumnsContext.Provider value={{ ...projectColumns, updateColumns, updateTasks }}>
+      <ColumnsContext.Provider value={{ ...projectColumns, updateColumns, addTask, updateTask }}>
         {children}
       </ColumnsContext.Provider>
     </>

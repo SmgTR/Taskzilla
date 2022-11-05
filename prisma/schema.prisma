@@ -79,9 +79,10 @@ model Task {
   column        Column          @relation(fields: [columnId], references: [id], onDelete: Cascade)
   createdAt     DateTime        @default(now()) @db.Timestamptz(3)
   updatedAt     DateTime        @updatedAt @db.Timestamptz(3)
-  Attachments   Attachments[]
+  Attachments   Attachment[]
   Tags          Tags[]
   Comment       Comment[]
+  ToDoList      ToDoList[]
 }
 
 model Comment {
@@ -103,7 +104,7 @@ model CommentReply {
   author         ProjectMember @relation(fields: [authorId], references: [id])
 }
 
-model Attachments {
+model Attachment {
   id          String @id @default(cuid())
   link        String
   image       String
@@ -111,6 +112,17 @@ model Attachments {
   description String
   taskId      String
   task        Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+model ToDoList {
+  id     String @id @default(cuid())
+  taskId String
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+model ToDoItem{
+   id     String @id @default(cuid())
+   
 }
 
 model Tags {

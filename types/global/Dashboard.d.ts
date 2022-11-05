@@ -17,6 +17,7 @@ declare global {
     createdAt: Date;
     projectMembers?: [];
     workspaceId?: string;
+    Column?: Column[];
   };
 
   type Task = {
@@ -30,6 +31,19 @@ declare global {
     createdAt?: Date;
     updatedAt?: Date;
     Attachments: [];
+  };
+
+  type TaskData = {
+    id?: string;
+    name?: string;
+    assignedTo?: [];
+    dueDate?: Date;
+    availableTime?: number;
+    description?: string;
+    columnId?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    Attachments?: [];
   };
 
   type Column = {
