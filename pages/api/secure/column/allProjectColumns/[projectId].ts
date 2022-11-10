@@ -45,7 +45,14 @@ export default async function getAllColumns(
     select: {
       Column: {
         include: {
-          Task: true
+          Task: {
+            include: {
+              Attachment: true,
+              ToDoList: true,
+              Tag: true,
+              Comment: true
+            }
+          }
         }
       }
     }

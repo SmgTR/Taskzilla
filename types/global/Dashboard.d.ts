@@ -10,6 +10,12 @@ declare global {
     projects: Project[];
   };
 
+  type WorkspaceUpdate = {
+    name: string;
+    owner: string;
+    id: string;
+  };
+
   type Project = {
     id?: string;
     name: string;

@@ -5,11 +5,15 @@
   "cacheDirectories": [
     ".next/cache"
   ],
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} ./prisma/_seed.ts"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "db-dev-set": "npx prisma generate && npx prisma migrate dev",
     "db-dev-push": "npx prisma db push",
+    "db-dev-seed": "npx prisma db seed",
     "start": "next start -p $PORT",
     "lint": "next lint",
     "check-types": "tsc --pretty --noEmit",

@@ -35,7 +35,8 @@
     "tools/configCheck.mjs",
     "project.config.js",
     "tools/configCheck.js",
-    "src/**/*"
+    "src/**/*",
+    "prisma/_seed.ts"
   ],
   "exclude": ["node_modules"]
 }

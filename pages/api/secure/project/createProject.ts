@@ -1,3 +1,4 @@
+import { Tag } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import { prisma } from 'prisma/prisma';
@@ -43,6 +44,8 @@ export default async function createWorkspace(
       .status(401)
       .send({ error: "Workspace does not exist, or you don't have required permissions" });
 
+  const templateTags = await prisma.tagTemplate.findMany();
+
   const userId = session.id as string;
 
   const newProject = await prisma.project.create({
@@ -60,6 +63,21 @@ export default async function createWorkspace(
             memberId: userId
           }
         ]
+      },
+      Tag: {
+        createMany: {
+          data: [
+            {
+              ...templateTags[0]
+            },
+            {
+              ...templateTags[1]
+            },
+            {
+              ...templateTags[2]
+            }
+          ]
+        }
       }
     }
   });

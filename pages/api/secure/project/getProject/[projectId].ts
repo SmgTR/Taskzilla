@@ -5,7 +5,7 @@ import { prisma } from 'prisma/prisma';
 
 export type ProjectResponse = Project & { projectMember: ProjectMember[] };
 
-export const path = '/api/secure/project';
+export const path = '/api/secure/project/getProject';
 
 export default async function getProject(
   req: NextApiRequest,

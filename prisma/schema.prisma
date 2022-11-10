@@ -46,6 +46,7 @@ model Project {
   updatedAt     DateTime        @updatedAt @db.Timestamptz(3)
   Column        Column[]
   workspace     Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  Tag           Tag[]
 }
 
 model ProjectMember {
@@ -54,6 +55,7 @@ model ProjectMember {
   memberId     String
   projectId    String
   tasks        Task[]
+  toDoList     ToDoItem[]
   user         User           @relation(fields: [memberId], references: [id])
   project      Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
   Comment      Comment[]
@@ -79,8 +81,8 @@ model Task {
   column        Column          @relation(fields: [columnId], references: [id], onDelete: Cascade)
   createdAt     DateTime        @default(now()) @db.Timestamptz(3)
   updatedAt     DateTime        @updatedAt @db.Timestamptz(3)
-  Attachments   Attachment[]
-  Tags          Tags[]
+  Attachment    Attachment[]
+  Tag           Tag[]
   Comment       Comment[]
   ToDoList      ToDoList[]
 }
@@ -115,22 +117,36 @@ model Attachment {
 }
 
 model ToDoList {
-  id     String @id @default(cuid())
+  id     String     @id @default(cuid())
+  title  String
   taskId String
-  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  items  ToDoItem[]
+  task   Task       @relation(fields: [taskId], references: [id], onDelete: Cascade)
 }
 
-model ToDoItem{
-   id     String @id @default(cuid())
-   
+model ToDoItem {
+  id   String  @id @default(cuid())
+  done Boolean @default(false)
+
+  assignedTo ProjectMember[]
+  dueDate    DateTime?
+  toDoListId String
+  toDoList   ToDoList        @relation(fields: [toDoListId], references: [id], onDelete: Cascade)
 }
 
-model Tags {
-  id     String @id @default(cuid())
-  color  String
-  name   String
-  taskId String
-  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+model Tag {
+  id        String  @id @default(cuid())
+  color     String
+  name      String?
+  taskId    String?
+  projectId String
+  task      Task?   @relation(fields: [taskId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model TagTemplate {
+  id    String @id @default(cuid())
+  color String
 }
 
 model Account {
