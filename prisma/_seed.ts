@@ -19,6 +19,31 @@ async function main(): Promise<void> {
 
     console.log('Added empty layout templates.');
   }
+
+  const roleTemplate = await prisma.projectRole.findFirst({ where: undefined });
+  if (!roleTemplate) {
+    await prisma.projectRole.createMany({
+      data: [
+        {
+          id: 0,
+          name: 'admin',
+          update: true
+        },
+        {
+          id: 1,
+          name: 'moderator',
+          update: true
+        },
+        {
+          id: 2,
+          name: 'member',
+          update: false
+        }
+      ]
+    });
+
+    console.log('Added project role templates');
+  }
 }
 main()
   .catch((e) => {

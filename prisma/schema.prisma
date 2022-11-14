@@ -51,7 +51,7 @@ model Project {
 
 model ProjectMember {
   id           String         @id @default(cuid())
-  role         String
+  roleId       Int
   memberId     String
   projectId    String
   tasks        Task[]
@@ -60,6 +60,7 @@ model ProjectMember {
   project      Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
   Comment      Comment[]
   CommentReply CommentReply[]
+  role         ProjectRole    @relation(fields: [roleId], references: [id])
 }
 
 model Column {
@@ -166,6 +167,13 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+}
+
+model ProjectRole {
+  id            Int             @id @default(autoincrement())
+  name          String
+  update        Boolean
+  ProjectMember ProjectMember[]
 }
 
 model Session {

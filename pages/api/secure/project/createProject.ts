@@ -59,7 +59,7 @@ export default async function createWorkspace(
       projectMember: {
         create: [
           {
-            role: 'admin',
+            roleId: 0,
             memberId: userId
           }
         ]

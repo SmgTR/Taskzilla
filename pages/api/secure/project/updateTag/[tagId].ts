@@ -36,7 +36,7 @@ export default async function UpdateTag(
       projectMember: {
         where: {
           memberId: session.id,
-          role: 'admin'
+          roleId: 0
         }
       }
     }
@@ -49,7 +49,7 @@ export default async function UpdateTag(
 
   const tagUpdate = await prisma.tag.update({
     where: {
-      id: tagId as string
+      id: tagId
     },
     data: {
       name
