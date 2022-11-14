@@ -68,13 +68,13 @@ export default async function createWorkspace(
         createMany: {
           data: [
             {
-              ...templateTags[0]
+              color: templateTags[0].color
             },
             {
-              ...templateTags[1]
+              color: templateTags[1].color
             },
             {
-              ...templateTags[2]
+              color: templateTags[2].color
             }
           ]
         }
