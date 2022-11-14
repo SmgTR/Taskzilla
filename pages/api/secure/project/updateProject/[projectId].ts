@@ -35,7 +35,7 @@ export default async function removeWorkspace(
     }
   });
 
-  if (userWorkspaceRole?.role !== 'admin')
+  if (userWorkspaceRole?.roleId !== 0)
     res
       .status(404)
       .send({ error: "Workspace probably do not exist or you don't have required permissions" });

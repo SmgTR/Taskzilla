@@ -28,7 +28,7 @@ export default async function removeProject(
     }
   });
 
-  if (userProjectRole?.role !== 'admin')
+  if (userProjectRole?.roleId !== 0)
     res
       .status(404)
       .send({ error: "Project probably do not exist or you don't have required permissions" });
