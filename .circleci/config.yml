@@ -19,4 +19,4 @@ jobs:
             - ~/.cache/yarn
       - run:
           name: Run tests
-          command: yarn test
+          command: yarn run test --watchAll=false
