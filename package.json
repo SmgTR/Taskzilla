@@ -63,5 +63,9 @@
     "prisma": "^4.3.1",
     "sass": "^1.55.0",
     "typescript": "4.8.3"
+  },
+  "engines": {
+    "npm": "please-use-yarn",
+    "yarn": ">= 1.19.1"
   }
 }
