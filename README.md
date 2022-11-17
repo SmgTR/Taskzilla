@@ -12,9 +12,7 @@ Demo: https://taskzilla.herokuapp.com
 - Use ```yarn dev``` to start project
 
 
-Requries:
-
-PosgreSQL and env configuration.
+Requries: PosgreSQL and env configuration.
 
 ```env
 .env
