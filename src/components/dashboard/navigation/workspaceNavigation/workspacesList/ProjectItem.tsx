@@ -1,14 +1,25 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { io, Socket } from 'socket.io-client';
 
 import styles from './ProjectItem.module.scss';
+
+let socket: Socket;
 
 const ProjectItem: NextPage<{ project: Project }> = ({ project }) => {
   const { name, owner, createdAt, id } = project;
   const router = useRouter();
 
+  useEffect(() => {
+    fetch('/api/socket').finally(() => {
+      socket = io('/projectActiveUsers');
+    });
+  });
+
   const projectRouteHandler = () => {
+    socket.disconnect();
     router.push(`/project/${id}`);
   };
 
