@@ -4,16 +4,26 @@ import { prisma } from 'prisma/prisma';
 
 import { UserType } from '@/types/UserTypes';
 
-interface UserResponse {
+export interface UserResponse {
   data: UserType;
   message: string;
 }
 
-export default async function createWorkspace(
+export interface UserRequest {
+  email: string;
+  lastName?: string;
+  image?: string;
+  name: string;
+  password: string;
+}
+
+export const path = '/api/user/createUser';
+
+export default async function createUser(
   req: NextApiRequest,
-  res: NextApiResponse<UserResponse | { error: string }>
+  res: NextApiResponse<UserResponse | NextApiError>
 ) {
-  const { email, password, image, name } = req.body;
+  const { email, password, image, name } = req.body as UserRequest;
 
   const saltRounds = 10;
 
@@ -26,7 +36,7 @@ export default async function createWorkspace(
       email: email,
       password: hashPassword,
       image: image || '',
-      emailVerified: new Date(),
+      emailVerified: false,
       name: name || ''
     }
   });
