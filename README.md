@@ -6,6 +6,10 @@ Taskzilla is a project managment tool.
 
 Demo: https://taskzilla.herokuapp.com
 
+## 📺 Screenshot
+
+<img src="https://iili.io/HHCYecX.png" alt="App design" title="App Visualization">
+
 ## Installation
 - Use ```yarn install``` to install all dependencies.
 - Use ``` yarn db-dev-seed``` to seed data.
