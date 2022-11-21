@@ -25,7 +25,8 @@
       "@/src/assets/*": ["assets/*"],
       "@/api/*": ["pages/api/*"],
       "@/styles/*": ["styles/*"],
-      "@/types/*": ["types/*"]
+      "@/types/*": ["types/*"],
+      "@/public/*": ["public/*"]
     }
   },
   "include": [

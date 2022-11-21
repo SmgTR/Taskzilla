@@ -7,7 +7,7 @@ import { ProjectProvider } from '@/src/context/ProjectContext';
 import { prisma } from 'prisma/prisma';
 import { ColumnsProvider, useColumnsContext } from '@/src/context/ColumnsContext';
 import Columns from '@/src/components/dashboard/columns/Columns';
-import ProjectContainer from '@/src/containers/ProjectContainer';
+import ProjectContainer from '@/src/containers/dashboard/ProjectContainer';
 
 interface Props {
   project: Project;

@@ -1,6 +1,6 @@
-import DashboardContainer from '@/containers/DashboardContainer';
-import MainNavContainer from '@/containers/MainNavContainer';
-import DashboardContentContainer from '@/containers/DashboardContentContainer';
+import DashboardContainer from '@/src/containers/dashboard/DashboardContainer';
+import MainNavContainer from '@/src/containers/dashboard/MainNavContainer';
+import DashboardContentContainer from '@/src/containers/dashboard/DashboardContentContainer';
 import { ReactNode } from 'react';
 import { NextPage } from 'next';
 import ProjectNavigation from '@/src/components/dashboard/navigation/workspaceNavigation/WorkspaceNavigation';

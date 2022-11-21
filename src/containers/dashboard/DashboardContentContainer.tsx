@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import { ReactNode } from 'react';
+
 import styles from './styles/DashboardContentContainer.module.scss';
 
 interface DashboardContentProps {

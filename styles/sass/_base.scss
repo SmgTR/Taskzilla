@@ -15,6 +15,18 @@ body {
   height: fit-content;
   overflow-x: hidden;
   min-height: 100vh;
+  font-family: 'Cantarell', sans-serif;
+
+  ::-moz-selection {
+    /* Code for Firefox */
+    color: $color-light;
+    background: $color-primary--light;
+  }
+
+  ::selection {
+    color: $color-light;
+    background: $color-primary--light;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,8 +34,8 @@ body {
     color-scheme: dark;
   }
   body {
-    color: white;
-    background: black;
+    color: $color-light;
+    background: $color-primary;
   }
 }
 
@@ -63,4 +75,10 @@ main {
 
 button {
   cursor: pointer;
+}
+
+.main_page_layout {
+  max-width: 95%;
+  width: 100%;
+  margin: 0 auto;
 }
