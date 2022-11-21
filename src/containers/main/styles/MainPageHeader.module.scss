@@ -1,0 +1,29 @@
+.signUpButton {
+  border-radius: $radius-medium;
+  border: none;
+  padding: $padding-vsmall $padding-small;
+  margin-right: $margin-small;
+  background: $color-light;
+  color: $color-primary;
+}
+
+.signInButton {
+  background-color: $color-primary--light;
+  border: 1px solid $color-light;
+  border-radius: $radius-medium;
+  padding: $padding-vsmall $padding-small;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding-top: $margin-medium;
+
+  nav {
+    margin-left: auto;
+  }
+
+  img {
+    transform: translateX(-25%);
+  }
+}
