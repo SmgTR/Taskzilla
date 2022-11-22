@@ -14,7 +14,7 @@ export default function SplineImage() {
   }
 
   return (
-    <div>
+    <>
       <Suspense fallback={<div>Loading...</div>}>
         <Spline
           scene="https://prod.spline.design/FTwZ9K6WYirSwbJG/scene.splinecode"
@@ -22,6 +22,6 @@ export default function SplineImage() {
           onLoad={onLoad}
         />
       </Suspense>
-    </div>
+    </>
   );
 }
