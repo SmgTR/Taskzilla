@@ -1,10 +1,9 @@
 import { NextPage } from 'next';
-import Image from 'next/image';
+
 import { useRef } from 'react';
 
-import cards from '@/public/assets/cards.svg';
-
 import styles from './styles/MainPageHero.module.scss';
+import SplineImage from './SplineImage';
 
 interface Props {}
 
@@ -28,11 +27,15 @@ const MainPageHero: NextPage<Props> = ({}) => {
   return (
     <div className={styles.hero_container} onMouseMove={mouseMovementHandler} ref={container}>
       <div className={styles.hero_content}>
-        <h2>
-          The fastest way to build <br></br> and scale your workflow.
-        </h2>
-        <div className={styles.image_container}>
-          <Image src={cards} alt="Task card image" draggable={false} />
+        <div className={styles.text_container}>
+          <h2>
+            The fastest way to build <br></br> and scale your workflow.
+          </h2>
+          <p>Manage your projects easily with our app</p>
+        </div>
+
+        <div className={styles.spline_container}>
+          <SplineImage />
         </div>
       </div>
       <div className={styles.flares} ref={flares}>

@@ -7,7 +7,7 @@ const nextConfig = {
   swcMinify: true,
   sassOptions: {
     includePaths: ['./styles/constants'],
-    prependData: `@import "scssVariables.scss";`
+    prependData: `@import "scssVariables.scss"; @import "mediaQueries.scss"; @import "mixins.scss";`
   }
 };
 
