@@ -2,37 +2,76 @@
   height: 100%;
 
   .hero_content {
-    min-height: 80vh;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 65vh;
+
+    .spline_container {
+      width: 75%;
+      position: relative;
+      z-index: 100;
+    }
+
+    .text_container {
+      width: 60%;
+      position: relative;
+    }
+
+    @include respond(tablet) {
+      min-height: 80vh;
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+    }
 
     h2 {
       font-family: $font-headings;
+      font-size: $font-xxl;
+      padding: 0 8px;
+      z-index: 10;
+
+      @include respond(tablet) {
+        font-size: $font-hero;
+      }
     }
 
+    p {
+      padding: 0 8px;
+      margin-top: $margin-medium;
+      font-size: $font-big;
+      font-family: $font-headings;
+      letter-spacing: 0.2rem;
+    }
+
+    h2,
     .image_container {
-      z-index: 20;
-      width: 30vw;
       -webkit-user-select: none;
       -khtml-user-select: none;
       -moz-user-select: none;
       -o-user-select: none;
       user-select: none;
     }
+
+    .image_container {
+      z-index: 20;
+      width: 80%;
+      margin: 0 auto;
+      margin-top: 2rem;
+
+      @include respond(tablet) {
+        width: 30vw;
+      }
+    }
   }
 
-  h2 {
-    font-size: $font-hero;
-    z-index: 10;
-  }
   .flares {
     position: absolute;
     width: 100%;
     top: 0;
     left: 0;
     height: 100%;
-    transition: transform 1.2 ease;
+    transition: transform 0.1s ease;
   }
 
   .flareContainer {
@@ -128,7 +167,10 @@
 @keyframes redFlareAnimation {
   0% {
     left: 50%;
-    top: 25%;
+    top: 45%;
+    @include respond(tablet) {
+      top: 25%;
+    }
     transform: translate(-50%, -50%);
   }
   25% {
@@ -143,12 +185,18 @@
   }
   80% {
     left: 50%;
-    top: 10%;
+    top: 45%;
+    @include respond(tablet) {
+      top: 10%;
+    }
     transform: translate(-50%, -50%);
   }
   100% {
     left: 50%;
-    top: 25%;
+    top: 45%;
+    @include respond(tablet) {
+      top: 25%;
+    }
     transform: translate(-50%, -50%);
   }
 }
