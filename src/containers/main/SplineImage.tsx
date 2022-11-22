@@ -1,5 +1,10 @@
-import React, { Suspense } from 'react';
-import Spline from '@splinetool/react-spline';
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
+
+const Spline = dynamic(() => import('@splinetool/react-spline'), {
+  suspense: true
+});
+
 import { useRef } from 'react';
 
 import styles from './styles/SplineImage.module.scss';
