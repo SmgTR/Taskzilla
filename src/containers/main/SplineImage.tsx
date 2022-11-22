@@ -1,3 +1,4 @@
+import React, { Suspense } from 'react';
 import Spline from '@splinetool/react-spline';
 import { useRef } from 'react';
 
@@ -13,10 +14,14 @@ export default function SplineImage() {
   }
 
   return (
-    <Spline
-      scene="https://prod.spline.design/FTwZ9K6WYirSwbJG/scene.splinecode"
-      className={styles.spline}
-      onLoad={onLoad}
-    />
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Spline
+          scene="https://prod.spline.design/FTwZ9K6WYirSwbJG/scene.splinecode"
+          className={styles.spline}
+          onLoad={onLoad}
+        />
+      </Suspense>
+    </div>
   );
 }
