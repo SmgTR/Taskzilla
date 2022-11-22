@@ -1,9 +1,6 @@
 import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
 
-const Spline = dynamic(() => import('@splinetool/react-spline'), {
-  ssr: false
-});
+import Spline from '@splinetool/react-spline';
 
 import { useRef } from 'react';
 
