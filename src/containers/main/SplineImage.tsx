@@ -20,13 +20,11 @@ export default function SplineImage() {
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Spline
-          scene="https://prod.spline.design/FTwZ9K6WYirSwbJG/scene.splinecode"
-          className={styles.spline}
-          onLoad={onLoad}
-        />
-      </Suspense>
+      <Spline
+        scene="https://prod.spline.design/FTwZ9K6WYirSwbJG/scene.splinecode"
+        className={styles.spline}
+        onLoad={onLoad}
+      />
     </>
   );
 }
