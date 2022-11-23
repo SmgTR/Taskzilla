@@ -4,11 +4,7 @@ import { useRef } from 'react';
 
 import styles from './styles/MainPageHero.module.scss';
 
-import dynamic from 'next/dynamic';
-
-const SplineImage = dynamic(() => import('./SplineImage'), {
-  ssr: false
-});
+import SplineImage from './SplineImage';
 
 interface Props {}
 
