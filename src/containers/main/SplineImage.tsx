@@ -1,24 +1,21 @@
 import dynamic from 'next/dynamic';
+import { Application } from '@splinetool/runtime';
 
-import Spline from '@splinetool/react-spline';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import styles from './styles/SplineImage.module.scss';
 
 export default function SplineImage() {
-  const splineItem = useRef();
-
-  function onLoad(spline: { findObjectById: (arg0: string) => any }) {
-    const obj = spline.findObjectById('72b294cc-9c84-42de-a37a-ea199438e5b7');
-
-    splineItem.current = obj;
-  }
+  const [splineItem, setSplineItem] = useState<Application>();
+  useEffect(() => {
+    const canvas = document.getElementById('canvas3d') as HTMLCanvasElement;
+    const spline = new Application(canvas);
+    spline.load('https://prod.spline.design/FTwZ9K6WYirSwbJG/scene.splinecode').then(() => {
+      setSplineItem(spline);
+    });
+  }, []);
 
   return (
-    <Spline
-      scene="https://prod.spline.design/FTwZ9K6WYirSwbJG/scene.splinecode"
-      className={styles.spline}
-      onLoad={onLoad}
-    />
+    <canvas id="canvas3d" className={`${styles.spline} ${splineItem ? styles.show : ''}`}></canvas>
   );
 }
