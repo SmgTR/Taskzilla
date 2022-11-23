@@ -1,10 +1,14 @@
 import { NextPage } from 'next';
 
-import { useRef } from 'react';
+import { Suspense, useRef } from 'react';
 
 import styles from './styles/MainPageHero.module.scss';
 
-import SplineImage from './SplineImage';
+import dynamic from 'next/dynamic';
+
+const SplineImage = dynamic(() => import('./SplineImage'), {
+  suspense: true
+});
 
 interface Props {}
 
@@ -36,7 +40,9 @@ const MainPageHero: NextPage<Props> = ({}) => {
         </div>
 
         <div className={styles.spline_container}>
-          <SplineImage />
+          <Suspense fallback={<div>Loading...</div>}>
+            <SplineImage />
+          </Suspense>
         </div>
       </div>
       <div className={styles.flares} ref={flares}>
