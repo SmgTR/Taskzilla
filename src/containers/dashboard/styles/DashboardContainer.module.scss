@@ -9,8 +9,16 @@
   //   radial-gradient(circle at right, rgb(137 56 67), transparent 20%);
 
   background: radial-gradient(circle at top center, rgb(115 52 67 / 65%), transparent 20%),
-    radial-gradient(circle at bottom left, rgb(113 52 67), transparent 20%),
-    radial-gradient(circle at right, rgb(118 52 61), transparent 20%);
+    radial-gradient(circle 60vw at bottom left, rgb(113 52 67), transparent 20%),
+    radial-gradient(circle at bottom right, rgb(118 52 61), transparent 20%);
   position: relative;
   overflow: hidden;
+}
+
+.ddada {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(238, 116, 116, 0.25) 0%,
+    rgba(170, 50, 50, 0) 100%
+  );
 }
