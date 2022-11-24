@@ -6,6 +6,8 @@ import { NextPage } from 'next';
 import ProjectNavigation from '@/src/components/dashboard/navigation/workspaceNavigation/WorkspaceNavigation';
 import Flare from '@/components/ui/misc/Flare';
 
+import styles from './Dashboard.module.scss';
+
 interface Props {
   children?: ReactNode;
 }
@@ -14,9 +16,9 @@ const Dashboard: NextPage<Props> = ({ children }) => {
   return (
     <>
       <DashboardContainer>
-        <Flare flareStyle="flareBottom" />
+        {/* <Flare flareStyle="flareBottom" />
         <Flare flareStyle="flareRight" />
-        <Flare flareStyle="flareTop" />
+        <Flare flareStyle="flareTop" /> */}
         <MainNavContainer />
         <ProjectNavigation />
         <DashboardContentContainer>

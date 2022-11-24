@@ -1,5 +1,9 @@
 .container {
   width: 100%;
-  padding: 20px;
+  padding: 50px 20px;
+  padding-top: 60px;
+  padding-right: 0;
   height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
 }

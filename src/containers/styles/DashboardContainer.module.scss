@@ -1,7 +1,16 @@
 .container {
   display: flex;
   height: 100%;
-  background: linear-gradient(0.05deg, #212844 99.96%, rgba(149, 155, 179, 0) 169.69%);
+  padding: 0px 20px;
+  padding-right: 0px;
+  padding-top: 0;
+  // background: radial-gradient(circle at top center, rgb(115 52 67), transparent 20%),
+  //   radial-gradient(circle at bottom left, rgb(113 52 67), transparent 20%),
+  //   radial-gradient(circle at right, rgb(137 56 67), transparent 20%);
+
+  background: radial-gradient(circle at top center, rgb(115 52 67 / 65%), transparent 20%),
+    radial-gradient(circle at bottom left, rgb(113 52 67), transparent 20%),
+    radial-gradient(circle at right, rgb(118 52 61), transparent 20%);
   position: relative;
   overflow: hidden;
 }

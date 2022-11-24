@@ -1,19 +1,25 @@
 .search {
   position: relative;
-  width: min-content;
+  margin: 0px 20px 30px;
 }
 .searchInput {
   background-color: $color-primary;
   border: none;
-  padding: $padding-vsmall $padding-medium;
-  border-radius: $radius-small;
+  padding: 14px $padding-medium;
+  border-radius: 15px;
+  width: 100%;
+  padding-left: 40px;
+
+  &::placeholder {
+    color: white;
+  }
 }
 
 .searchIcon {
   position: absolute;
   color: $color-primary;
   margin-right: 1rem;
-  right: 0;
+  left: 15px;
   top: 50%;
   transform: translateY(-50%);
 }

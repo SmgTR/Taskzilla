@@ -15,7 +15,7 @@ interface Props {
 const ColumnItem: NextPage<Props> = ({ column, projectId }) => {
   const addColumnTaskHandler = async () => {
     return await createTask({
-      name: 'new task',
+      name: 'Vestibulum pulvinar hendrerit nunc et volutpat. Aenean hendrerit tincidunt facilisis. Praesent non nunc enim. Pellentesque condimentum porttitor libero ut malesuada. Vivamus ac imperdiet neque.',
       projectId,
       columnId: column.id ?? ''
     });
@@ -25,7 +25,7 @@ const ColumnItem: NextPage<Props> = ({ column, projectId }) => {
     <>
       <li>
         <div className={styles.columnItem}>
-          {column.name}
+          <h4 className={styles.headline}>{column.name}</h4>
           <MoreButton btnType="button" title="Manage column" />
 
           <AddButton
