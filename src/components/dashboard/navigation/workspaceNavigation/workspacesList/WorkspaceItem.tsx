@@ -31,7 +31,7 @@ const WorkspaceItem = ({ projects, name, id, owner }: Workspace) => {
         <h4 className={styles.workspaceTitle}>{name}</h4>
         <AddButton title="Add Project" onClickHandler={addProjectHandler} btnText="+" />
       </div>
-      <ul>
+      <ul className={styles.workspaceProjectList}>
         {projects.map((project) => {
           return <ProjectItem project={project} key={project.id} />;
         })}

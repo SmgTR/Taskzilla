@@ -13,7 +13,12 @@
   display: flex;
   width: 100%;
   background-color: $color-primary;
-  padding: 2rem;
+  padding: 1rem 2rem;
   justify-content: space-between;
+  align-items: center;
   border-radius: $radius-small;
+}
+
+.workspaceProjectList {
+  margin-left: 16px;
 }

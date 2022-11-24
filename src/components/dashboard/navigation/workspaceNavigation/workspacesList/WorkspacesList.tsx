@@ -9,7 +9,7 @@ const WorkspacesList: NextPage = () => {
   const context = useWorkspacesContext();
   const { memberIn, guestIn } = context[0];
   return (
-    <div>
+    <div className={styles.container}>
       <h4 className={styles.title}>All workspaces</h4>
       <ul>
         {memberIn &&

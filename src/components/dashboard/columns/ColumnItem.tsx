@@ -30,7 +30,7 @@ const ColumnItem: NextPage<Props> = ({ column, projectId }) => {
     <>
       <li>
         <div className={styles.columnItem}>
-          {column.name}
+          <h4 className={styles.headline}>{column.name}</h4>
           <MoreButton btnType="button" title="Manage column" />
 
           <AddButton

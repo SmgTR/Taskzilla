@@ -1,8 +1,7 @@
 .columnsContainer {
   display: flex;
-  align-items: center;
-  overflow: scroll;
-  width: 95%;
+  align-items: flex-start;
+  height: 100%;
 
   button {
     margin-left: 2rem;
@@ -11,6 +10,12 @@
 
 .columnsList {
   display: flex;
+  display: flex;
+  width: 100%;
+  padding: 30px 20px;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
 
   & li:not(:first-child) {
     margin-left: $margin-medium;

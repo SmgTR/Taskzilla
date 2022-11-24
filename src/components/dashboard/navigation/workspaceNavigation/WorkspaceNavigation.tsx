@@ -4,6 +4,7 @@ import WorkspacesList from './workspacesList/WorkspacesList';
 
 import useSWR from 'swr';
 import { WorkspaceProvider } from '@/src/context/WorkspacesContext';
+import styles from './WorkspaceNavigation.module.scss';
 
 interface Props {}
 
@@ -13,7 +14,7 @@ const ProjectNavigation: NextPage<Props> = ({}) => {
   if (!data) return <p> Loading...</p>;
   if (error) return <p>Something went wrong please try again</p>;
   return (
-    <div>
+    <div className={styles.container}>
       <WorkspaceProvider memberIn={data.memberIn ?? []} guestIn={data.guestIn ?? []}>
         <SearchInput searchText="Search here..." />
         <WorkspacesList />
