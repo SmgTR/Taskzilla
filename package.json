@@ -30,8 +30,12 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@next-auth/prisma-adapter": "^1.0.4",
     "@prisma/client": "^4.3.1",
+    "@react-three/drei": "^9.43.3",
+    "@react-three/fiber": "^8.9.1",
     "@reduxjs/toolkit": "^1.8.6",
-    "@splinetool/react-spline": "^2.2.3",
+    "@splinetool/loader": "^0.9.144",
+    "@splinetool/r3f-spline": "^1.0.2",
+    "@splinetool/react-spline": "2.2.2",
     "@splinetool/runtime": "^0.9.143",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
@@ -39,7 +43,7 @@
     "cheerio": "^1.0.0-rc.12",
     "metadata-scraper": "^0.2.61",
     "multer": "^1.4.5-lts.1",
-    "next": "12.3.1",
+    "next": "12.2.5",
     "next-auth": "^4.10.3",
     "next-connect": "^0.13.0",
     "next-transpile-modules": "^9.0.0",
@@ -48,6 +52,7 @@
     "socket.io": "^4.5.3",
     "socket.io-client": "^4.5.3",
     "swr": "^1.3.0",
+    "three": "^0.146.0",
     "ts-node": "^10.9.1",
     "uuid": "^9.0.0"
   },
@@ -56,8 +61,8 @@
     "@testing-library/react": "^13.4.0",
     "@types/bcrypt": "^5.0.0",
     "@types/multer": "^1.4.7",
-    "@types/node": "18.7.18",
-    "@types/react": "18.0.20",
+    "@types/node": "^18.11.9",
+    "@types/react": "^18.0.25",
     "@types/react-dom": "18.0.6",
     "@types/uuid": "^8.3.4",
     "eslint": "8.23.1",
@@ -69,7 +74,7 @@
     "prettier": "^2.7.1",
     "prisma": "^4.3.1",
     "sass": "^1.55.0",
-    "typescript": "4.8.3"
+    "typescript": "^4.9.3"
   },
   "engines": {
     "node": "16.13.0"

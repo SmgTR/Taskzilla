@@ -7,4 +7,8 @@ declare module 'next-auth' {
       email?: string;
     };
   }
+  interface Session {
+    id: string | undefined;
+    accessToken: string | unknown;
+  }
 }

@@ -24,7 +24,7 @@ export default NextAuth({
         email: { label: 'Email', type: 'text', placeholder: 'jsmith@doe.com' },
         password: { label: 'Password', type: 'password' }
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<any> {
         if (!credentials?.email || !credentials.password) throw new Error();
 
         const user = await prisma.user.findUnique({ where: { email: credentials.email } });
