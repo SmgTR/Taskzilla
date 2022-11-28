@@ -3,12 +3,31 @@ import Image from 'next/image';
 
 import styles from './ProjectMemberItem.module.scss';
 
-interface Props {}
+interface Props {
+  user: {
+    lastName: string;
+    id: string;
+    name: string;
+    image: string;
+    email?: string;
+  };
+}
 
-const ProjectMemberItem: NextPage<Props> = ({}) => {
+const ProjectMemberItem: NextPage<Props> = ({ user }) => {
+  const lastName = user.lastName ? user.lastName.charAt(0) : '';
   return (
     <div className={styles.container}>
-      {0 ? <Image src="/logotz.svg" height="52px" width="52px" alt="avatar" /> : <span>A</span>}
+      {user.image ? (
+        <Image
+          src={user.image}
+          height="52px"
+          width="52px"
+          alt="avatar"
+          className={styles.user_avatar}
+        />
+      ) : (
+        <span>{`${(user.name.charAt(0) + lastName).toUpperCase()}`}</span>
+      )}
     </div>
   );
 };

@@ -5,6 +5,7 @@
 
   button {
     margin-left: 2rem;
+    min-width: max-content;
   }
 }
 
@@ -20,5 +21,16 @@
   & li:not(:first-child) {
     margin-left: $margin-medium;
     list-style: none;
+  }
+}
+
+.empty_columns {
+  display: flex;
+  align-items: center;
+  padding: 30px 35px;
+
+  p {
+    font-size: $font-text;
+    margin-right: $margin-small;
   }
 }

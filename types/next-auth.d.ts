@@ -10,5 +10,11 @@ declare module 'next-auth' {
   interface Session {
     id: string | undefined;
     accessToken: string | unknown;
+    user: {
+      lastName: string;
+      email: string;
+      image: string;
+      name: string;
+    };
   }
 }

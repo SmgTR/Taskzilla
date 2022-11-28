@@ -25,17 +25,11 @@ export default async function createWorkspace(
     return res.status(401).send({ error: 'You need to be authenticated to use this route' });
   }
 
-  const userRole = await prisma.workspace.findUnique({
+  const userRole = await prisma.workspaceMember.findFirst({
     where: {
-      id: workspaceId
-    },
-    include: {
-      workspaceMember: {
-        where: {
-          memberId: session.id,
-          role: 'admin'
-        }
-      }
+      workspaceId,
+      memberId: session.id,
+      role: 'admin'
     }
   });
 

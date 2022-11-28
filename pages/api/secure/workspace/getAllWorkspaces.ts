@@ -29,6 +29,11 @@ export const getAllWorkspaces: NextApiHandler<WorkspacesResponse | NextApiError>
       }
     },
     include: {
+      workspaceMember: {
+        where: {
+          memberId: session.id
+        }
+      },
       projects: {
         where: {
           OR: [

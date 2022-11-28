@@ -2,9 +2,11 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import { prisma } from 'prisma/prisma';
 
-type Workspace = {
+export type Workspace = {
   name: string;
 };
+
+export const path = '/api/secure/workspace/createWorkspace';
 
 export default async function createWorkspace(
   req: NextApiRequest,

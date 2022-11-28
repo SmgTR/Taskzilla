@@ -16,9 +16,6 @@ const Dashboard: NextPage<Props> = ({ children }) => {
   return (
     <>
       <DashboardContainer>
-        {/* <Flare flareStyle="flareBottom" />
-        <Flare flareStyle="flareRight" />
-        <Flare flareStyle="flareTop" /> */}
         <MainNavContainer />
         <ProjectNavigation />
         <DashboardContentContainer>
