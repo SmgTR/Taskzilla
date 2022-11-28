@@ -3,12 +3,7 @@ import { getSession } from 'next-auth/react';
 import { prisma } from 'prisma/prisma';
 
 type ProjectUpdateData = {
-  projectUpdateData: {
-    name?: string;
-    type?: string;
-    description?: string;
-    image?: string;
-  };
+  newMemberId: string;
 };
 
 export default async function removeWorkspace(
@@ -19,7 +14,7 @@ export default async function removeWorkspace(
 
   const { projectId } = req.query;
 
-  const { projectUpdateData } = req.body as ProjectUpdateData;
+  const { newMemberId } = req.body as ProjectUpdateData;
 
   if (!session || !session.id) {
     return res.status(401).send({ error: 'You need to be authenticated to use this route' });
@@ -45,7 +40,12 @@ export default async function removeWorkspace(
       id: projectId as string
     },
     data: {
-      ...projectUpdateData
+      projectMember: {
+        create: {
+          memberId: newMemberId,
+          roleId: 0
+        }
+      }
     }
   });
 

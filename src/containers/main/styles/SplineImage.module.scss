@@ -1,9 +1,8 @@
 .spline {
-  transform: translate(-50%, -50%) scale(0.6);
+  transform: translate(-50%, -50%), scale(0.6);
   position: relative;
   top: 50%;
   left: 50%;
-  height: 50vh;
-  width: 50vw;
-  background: red;
+  height: 100%;
+  width: 100%;
 }

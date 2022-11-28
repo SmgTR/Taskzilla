@@ -59,7 +59,7 @@ export function ColumnsProvider({ children, ...props }: Props) {
       const responseColumns = await getColumns(props.projectId).then((data) =>
         JSON.parse(JSON.stringify(data))
       );
-      console.log(responseColumns);
+
       setProjectColumns((prevState) => {
         return { ...prevState, loading: false, columns: responseColumns[0].Column };
       });

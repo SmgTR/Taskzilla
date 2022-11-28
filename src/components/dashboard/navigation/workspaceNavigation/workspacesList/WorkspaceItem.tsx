@@ -6,7 +6,7 @@ import ProjectItem from './ProjectItem';
 
 import styles from './WorkspaceItem.module.scss';
 
-const WorkspaceItem = ({ projects, name, id, owner }: Workspace) => {
+const WorkspaceItem = ({ projects, name, id, owner, workspaceMember }: Workspace) => {
   const router = useRouter();
 
   const [_, dispatch] = useWorkspacesContext();
@@ -29,7 +29,9 @@ const WorkspaceItem = ({ projects, name, id, owner }: Workspace) => {
     <div className={styles.container}>
       <div className={styles.workspaceManage}>
         <h4 className={styles.workspaceTitle}>{name}</h4>
-        <AddButton title="Add Project" onClickHandler={addProjectHandler} btnText="+" />
+        {workspaceMember && workspaceMember.length > 0 && workspaceMember[0].role === 'admin' && (
+          <AddButton title="Add Project" onClickHandler={addProjectHandler} btnText="+" />
+        )}
       </div>
       <ul className={styles.workspaceProjectList}>
         {projects.map((project) => {

@@ -26,6 +26,14 @@ export default function Workspace() {
     console.log(project);
   };
 
+  const addMember = async () => {
+    const project = await axios.post(
+      '/api/secure/project/addProjectMember/clazn8w2m0007q5jo6dd0572y',
+      { newMemberId: 'clazndw5c000cq5jojft32rtc' }
+    );
+    console.log(project);
+  };
+
   const onChange = async (formData: any) => {
     const config = {
       headers: { 'content-type': 'multipart/form-data' },
@@ -50,6 +58,7 @@ export default function Workspace() {
       <button onClick={() => getData()}>getData</button>
       <button onClick={() => getAll()}>getAll</button>
       <button onClick={() => getProject()}>getProject</button>
+      <button onClick={() => addMember()}>add member</button>
       {/* <button onClick={() => getPageData()}>getMeta</button> */}
       <FileInputButton
         inputTitle={'User Avatar'}

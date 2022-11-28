@@ -16,7 +16,7 @@ model Workspace {
   projectId       String[]
   type            String            @default("private")
   user            User              @relation(fields: [owner], references: [id], onDelete: Cascade)
-  workspaceMember WorkspaceMember[] 
+  workspaceMember WorkspaceMember[]
   createdAt       DateTime          @default(now()) @db.Timestamptz(3)
   updatedAt       DateTime          @updatedAt @db.Timestamptz(3)
   projects        Project[]
@@ -187,6 +187,7 @@ model Session {
 model User {
   id              String            @id @default(cuid())
   name            String?
+  lastName        String?
   email           String?           @unique
   emailVerified   Boolean?
   password        String?

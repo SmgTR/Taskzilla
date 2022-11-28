@@ -53,6 +53,8 @@ export default NextAuth({
       return token;
     },
     async session({ session, token }) {
+      const user = await prisma.user.findUnique({ where: { email: session.user?.email ?? '' } });
+      session.user.lastName = user?.lastName ?? '';
       session.id = token.sub;
       session.accessToken = token.accessToken;
       return session;

@@ -8,6 +8,13 @@ declare global {
     owner: string;
     id: string;
     projects: Project[];
+    workspaceMember?: workspaceMember[];
+  };
+
+  type workspaceMember = {
+    role: String;
+    memberId: String;
+    workspaceId: String;
   };
 
   type WorkspaceUpdate = {

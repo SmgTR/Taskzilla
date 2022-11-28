@@ -9,3 +9,13 @@
 .title {
   font-size: $font-medium;
 }
+
+.sub_title {
+  font-size: $font-small;
+  margin-top: $margin-small;
+}
+
+.add_title {
+  font-size: $font-small-text;
+  margin: $margin-small 0 0 $margin-small;
+}

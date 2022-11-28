@@ -47,7 +47,7 @@ const Columns: NextPage<Props> = ({ projectId }) => {
     );
   }
   return (
-    <>
+    <div className={styles.empty_columns}>
       <p>You dont have any columns yet</p>
       <PrimaryButton
         btnType="button"
@@ -55,7 +55,7 @@ const Columns: NextPage<Props> = ({ projectId }) => {
         title="Add Column"
         onClickHandler={addColumnHandler}
       />
-    </>
+    </div>
   );
 };
 
