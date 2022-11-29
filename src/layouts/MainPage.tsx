@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
-import { ReactNode } from 'react';
-import MainPageHeader from '../containers/main/MainPageHeader';
-import MainPageHero from '../containers/main/MainPageHero';
+import CookiePopup from '@/components/main/cookiePopup/CookiePopup';
+import MainPageHeader from '@/containers/main/MainPageHeader';
+import MainPageHero from '@/containers/main/MainPageHero';
 
 interface Props {}
 
@@ -10,6 +10,7 @@ const MainPage: NextPage<Props> = () => {
     <div className="main_page_layout">
       <MainPageHeader />
       <MainPageHero />
+      <CookiePopup />
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import { RefObject } from 'react';
 
 import styles from './AddButton.module.scss';
 
@@ -8,9 +9,17 @@ interface Props {
   btnType?: 'button' | 'submit' | 'reset';
   onClickHandler?: () => void;
   classStyle: string;
+  buttonRef?: RefObject<HTMLButtonElement>;
 }
 
-const Button: NextPage<Props> = ({ btnText, title, btnType, onClickHandler, classStyle }) => {
+const Button: NextPage<Props> = ({
+  btnText,
+  title,
+  btnType,
+  onClickHandler,
+  classStyle,
+  buttonRef
+}) => {
   return (
     <>
       <button
@@ -18,6 +27,7 @@ const Button: NextPage<Props> = ({ btnText, title, btnType, onClickHandler, clas
         title={title}
         type={btnType ? btnType : 'button'}
         onClick={onClickHandler}
+        ref={buttonRef}
       >
         {btnText}
       </button>
