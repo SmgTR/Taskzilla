@@ -1,0 +1,42 @@
+.cookiesContainer {
+  background: $color-dark;
+  top: 90%;
+  transform: translateY(-50%);
+  left: 4rem;
+  border-radius: 25px;
+  border: 1px solid $color-light;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  width: 30rem;
+  height: 15rem;
+  overflow: hidden;
+  padding: 2rem;
+
+  svg {
+    transform: scale(0.6);
+    overflow: visible !important;
+  }
+}
+
+.cookieText {
+  margin-left: 2.4rem;
+  width: 80%;
+  p {
+    font-size: 1.2rem;
+    margin-top: 0.4rem;
+  }
+}
+
+.cookieTitle {
+  font-size: $font-text;
+}
+
+.cookieButton {
+  background-color: $color-light;
+  color: $color-primary;
+  border: none;
+  padding: 0.4rem 1.2rem;
+  border-radius: 8px;
+  margin-top: 0.8rem;
+}

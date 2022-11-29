@@ -27,16 +27,16 @@ const MainPageHero: NextPage<Props> = ({}) => {
   };
 
   return (
-    <div className={styles.hero_container} onMouseMove={mouseMovementHandler} ref={container}>
-      <div className={styles.hero_content}>
-        <div className={styles.text_container}>
+    <div className={styles.heroContainer} onMouseMove={mouseMovementHandler} ref={container}>
+      <div className={styles.heroContent}>
+        <div className={styles.texContainer}>
           <h2>
             The fastest way to build <br></br> and scale your workflow.
           </h2>
           <p>Manage your projects easily with our app</p>
         </div>
 
-        <div className={styles.spline_container}>
+        <div className={styles.splineContainer}>
           <Scene />
         </div>
       </div>

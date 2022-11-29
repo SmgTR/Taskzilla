@@ -1,19 +1,19 @@
-.hero_container {
+.heroContainer {
   height: 100%;
 
-  .hero_content {
+  .heroContent {
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-height: 65vh;
 
-    .spline_container {
+    .splineContainer {
       width: 50%;
       position: relative;
       z-index: 100;
     }
 
-    .text_container {
+    .textContainer {
       width: 60%;
       position: relative;
     }
@@ -45,7 +45,8 @@
     }
 
     h2,
-    .image_container {
+    .image_container,
+    .flares {
       -webkit-user-select: none;
       -khtml-user-select: none;
       -moz-user-select: none;
@@ -53,7 +54,7 @@
       user-select: none;
     }
 
-    .image_container {
+    .imageContainer {
       z-index: 20;
       width: 80%;
       margin: 0 auto;
