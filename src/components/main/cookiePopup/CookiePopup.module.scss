@@ -14,7 +14,7 @@
   padding: 2rem;
 
   svg {
-    transform: scale(0.6);
+    padding: 1.2rem;
     overflow: visible !important;
   }
 }
@@ -39,4 +39,8 @@
   padding: 0.4rem 1.2rem;
   border-radius: 8px;
   margin-top: 0.8rem;
+}
+
+.hidePopup {
+  display: none;
 }

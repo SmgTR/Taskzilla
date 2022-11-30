@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { gsap } from 'gsap';
 
@@ -16,12 +16,18 @@ const CookiePopup: NextPage<Props> = ({}) => {
   const cookie = useRef<SVGSVGElement>(null);
   const crumbs = useRef<SVGSVGElement>(null);
 
+  const [showPopup, setShowPopup] = useState(false);
+
   useEffect(() => {
+    const cookieShouldBeDisplayed = localStorage.getItem('cookiePopup');
+
+    if (!cookieShouldBeDisplayed) setShowPopup(true);
+
     const timeline = gsap.timeline({ defaults: { duration: 0.75, ease: 'power1.out' } });
     timeline.fromTo(
       cookiesContainer.current ?? '',
-      { scale: 0 },
-      { scale: 1, ease: 'elastic.out(1, 0.6)', duration: 1.5 }
+      { scale: 0, opacity: 0 },
+      { scale: 1, ease: 'elastic.out(1, 0.6)', opacity: 1, duration: 1.5 }
     );
     timeline.fromTo(
       text.current ?? '',
@@ -40,11 +46,15 @@ const CookiePopup: NextPage<Props> = ({}) => {
   }, []);
 
   const closeCookiePopupHandler = () => {
+    localStorage.setItem('cookiePopup', 'false');
     gsap.to(cookiesContainer.current, { opacity: 0, y: 100, duration: 0.75, ease: 'power1.out' });
   };
 
   return (
-    <div className={styles.cookiesContainer} ref={cookiesContainer}>
+    <div
+      className={`${styles.cookiesContainer} ${!showPopup ? styles.hidePopup : ''}`}
+      ref={cookiesContainer}
+    >
       <CookieImage cookieRef={cookie} crumbsRef={crumbs} />
 
       <div className={styles.cookieText} ref={text}>
