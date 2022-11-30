@@ -17,7 +17,7 @@ const CookieImage: NextPage<Props> = ({ cookieRef, crumbsRef }) => {
       style={{ overflow: 'visible' }}
       ref={cookieRef}
     >
-      <g id="cookies-svgrepo-com 1">
+      <g id="cookie_g">
         <g>
           <path
             id="Vector"
