@@ -1,12 +1,20 @@
 import { NextPage } from 'next';
 import { signIn } from 'next-auth/react';
-import { useRef, FormEvent, useState } from 'react';
-import { createNewUser } from '../network/user/createUser';
+import { useRef, FormEvent, useState, useEffect } from 'react';
+import Button from '@/components/ui/buttons/Button';
+import MainInput from '@/components/ui/inputs/MainInput';
+import { createNewUser } from '@/network/user/createUser';
 
-import styles from './styles/SignUpForm.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
+
+import styles from './AuthForm.module.scss';
+import SocialLoginButton from '@/components/ui/buttons/SocialLoginButton';
 
 const SignUpForm: NextPage = () => {
   const formEl = useRef<HTMLFormElement>(null);
+
+  const [signUpErrors, setSignUpErrors] = useState([] as string[]);
 
   const joinWithSocialHandler = async (provider: string) => {
     return await signIn(provider, { callbackUrl: '' });
@@ -14,7 +22,7 @@ const SignUpForm: NextPage = () => {
 
   const registerUser = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const validationError = [];
+    const validationError = [] as string[];
 
     if (formEl.current) {
       const formInputs = Array.from(formEl.current.elements) as HTMLInputElement[];
@@ -73,6 +81,7 @@ const SignUpForm: NextPage = () => {
       });
 
       if (validationError.length == 0) {
+        setSignUpErrors([]);
         const userData = Object.assign({}, ...submittedValues);
         const newUser = await createNewUser(userData);
 
@@ -83,36 +92,82 @@ const SignUpForm: NextPage = () => {
             callbackUrl: '/'
           });
         }
+      } else {
+        setSignUpErrors(validationError);
       }
     }
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <h4 className={styles.pageTitle}>Sign Up</h4>
 
       <form ref={formEl} onSubmit={registerUser} className={styles.authForm}>
-        <label htmlFor="name">First Name:</label>
-        <input title="name" name="name" type="text" required />
-        <label htmlFor="lastName">Last Name:</label>
-        <input title="lastName" name="lastName" type="text" />
-        <label htmlFor="email">Email:</label>
-        <input title="email" name="email" type="email" required />
-        <label htmlFor="password">Password:</label>
-        <input title="password" name="password" type="password" required />
-        <button type="submit">Sign up</button>
+        <MainInput
+          name="name"
+          labelText="First Name *"
+          title="name"
+          type="text"
+          required={true}
+          id="name"
+          placeholder="John"
+        />
+        <MainInput
+          name="lastName"
+          labelText="Last Name"
+          title="lastName"
+          type="text"
+          required={false}
+          id="lastName"
+          placeholder="Doe"
+        />
+        <MainInput
+          name="email"
+          labelText="E-mail *"
+          title="email"
+          type="email"
+          required={true}
+          id="email"
+          placeholder="john.doe@gmail.com"
+        />
+        <MainInput
+          name="password"
+          labelText="Password *"
+          title="password"
+          type="password"
+          required={true}
+          id="password"
+        />
+        <Button
+          btnText="Sign up"
+          title="Sign up"
+          btnType="submit"
+          classStyle={styles.submitButton}
+        />
       </form>
 
       <div className={styles.socialSignUp}>
-        <span>or join with</span>
-        <button onClick={() => joinWithSocialHandler('google')} className={styles.socialButton}>
-          Join with Google
-        </button>
-        <button onClick={() => joinWithSocialHandler('facebook')} className={styles.socialButton}>
-          Join with Facebook
-        </button>
+        <span className={styles.socialLabel}>or join with</span>
+        <SocialLoginButton btnType="submit" onClickHandler={() => joinWithSocialHandler('google')}>
+          <FontAwesomeIcon icon={faGoogle} /> Join with Google
+        </SocialLoginButton>
+        <SocialLoginButton
+          btnType="submit"
+          onClickHandler={() => joinWithSocialHandler('facebook')}
+        >
+          <FontAwesomeIcon icon={faFacebook} /> Join with Facebook
+        </SocialLoginButton>
       </div>
-    </div>
+      <ul className={styles.errorList}>
+        {signUpErrors.map((error, index) => {
+          return (
+            <li key={index} className={styles.errorText}>
+              {error}
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 };
 

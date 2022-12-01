@@ -9,6 +9,10 @@ import { prisma } from 'prisma/prisma';
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
+  pages: {
+    signIn: '/auth/signIn',
+    newUser: '/auth/signUp'
+  },
   providers: [
     FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID!,

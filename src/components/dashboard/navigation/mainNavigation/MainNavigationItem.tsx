@@ -2,7 +2,6 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 
 import styles from './MainNavigationItem.module.scss';
 

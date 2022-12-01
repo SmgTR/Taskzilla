@@ -1,0 +1,83 @@
+.inputError {
+  border-color: $color-error;
+}
+
+.pageTitle {
+  font-size: $font-xl;
+}
+
+.submitButton {
+  border-radius: $radius-big;
+  margin-top: $margin-medium;
+  margin-bottom: $margin-small;
+  border: none;
+  padding: 1rem 0;
+  background-color: $color-primary;
+}
+
+.socialLabel {
+  font-size: 1.2rem;
+  position: relative;
+  margin-bottom: $margin-small;
+  display: block;
+
+  &:after,
+  &:before {
+    background-color: $color-primary;
+    content: '';
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 25%;
+  }
+
+  &:before {
+    right: 0.5em;
+    margin-left: -25%;
+  }
+
+  &:after {
+    left: 0.5em;
+    margin-right: -25%;
+  }
+}
+
+.errorText {
+  font-size: $font-small-text;
+}
+
+.errorList {
+  color: $color-error;
+  width: 100%;
+  text-align: center;
+  margin: $margin-small 0;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  label {
+    font-size: $font-small-text;
+    margin: 1.2rem 0;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+.socialSignUp {
+  text-align: center;
+  width: 100%;
+
+  button:first-of-type {
+    margin-bottom: $margin-vsmall;
+  }
+}
+
+.container {
+  width: 100%;
+}
