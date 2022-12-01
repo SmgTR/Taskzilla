@@ -129,3 +129,28 @@ li::marker {
   width: 100%;
   margin: 0 auto;
 }
+
+.signUpContainer {
+  margin-top: $margin-big;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .swiper-pagination .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    margin: 0;
+    margin-right: 14px;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.16);
+    bottom: 15px;
+    margin-top: 24px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: $color-highlight !important;
+  }
+}
