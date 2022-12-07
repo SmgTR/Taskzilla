@@ -1,5 +1,4 @@
 import { useColumnsContext } from '@/src/context/ColumnsContext';
-import { useProjectContext } from '@/src/context/ProjectContext';
 import { createColumn } from '@/src/network/secure/column/createColumn';
 import { NextPage } from 'next';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton';
@@ -10,8 +9,6 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import styles from './Columns.module.scss';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import Button from '../../ui/buttons/Button';
-import axios from 'axios';
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 interface Props {
   projectId: string;
@@ -36,7 +33,7 @@ const Columns: NextPage<Props> = ({ projectId }) => {
 
   useEffect(() => {
     socketInitializer(projectId);
-  }, [projectId, reorderColumns]);
+  }, [projectId]);
 
   const socketInitializer = async (projectId: string) => {
     await fetch('/api/socket');
@@ -134,12 +131,12 @@ const Columns: NextPage<Props> = ({ projectId }) => {
     ) {
       return;
     }
-    if (projectColumns.columns && projectColumns.columns?.length > 0) {
-      const updateColumnStart = projectColumns.columns.find((column) => {
+    if (reorderColumns && reorderColumns?.length > 0) {
+      const updateColumnStart = reorderColumns.find((column) => {
         if (column.id === source.droppableId) return column;
       });
 
-      const updateColumnFinish = projectColumns.columns.find((column) => {
+      const updateColumnFinish = reorderColumns.find((column) => {
         if (column.id === destination.droppableId) return column;
       });
 
@@ -256,7 +253,7 @@ const Columns: NextPage<Props> = ({ projectId }) => {
     return destinationDOm;
   };
 
-  if (projectColumns.columns && projectColumns.columns?.length > 0) {
+  if (reorderColumns && reorderColumns?.length > 0) {
     return (
       <div className={styles.columnsContainer}>
         <DragDropContext onDragEnd={onDragEnd} onDragUpdate={handleDragUpdate}>
