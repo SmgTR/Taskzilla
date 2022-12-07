@@ -19,3 +19,15 @@
   font-size: $font-small-text;
   margin: $margin-small 0 0 $margin-small;
 }
+
+.addWorkspace {
+  display: flex;
+  align-items: center;
+
+  button {
+    transform: translateY(50%);
+    width: 16px;
+    height: 16px;
+    margin-left: 1rem;
+  }
+}

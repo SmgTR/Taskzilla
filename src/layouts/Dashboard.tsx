@@ -3,10 +3,9 @@ import MainNavContainer from '@/src/containers/dashboard/MainNavContainer';
 import DashboardContentContainer from '@/src/containers/dashboard/DashboardContentContainer';
 import { ReactNode } from 'react';
 import { NextPage } from 'next';
-import ProjectNavigation from '@/src/components/dashboard/navigation/workspaceNavigation/WorkspaceNavigation';
-import Flare from '@/components/ui/misc/Flare';
+import WorkspaceNavigation from '@/src/components/dashboard/navigation/workspaceNavigation/WorkspaceNavigation';
 
-import styles from './Dashboard.module.scss';
+import { PopupContextProvider } from '../context/PopupContext';
 
 interface Props {
   children?: ReactNode;
@@ -15,13 +14,15 @@ interface Props {
 const Dashboard: NextPage<Props> = ({ children }) => {
   return (
     <>
-      <DashboardContainer>
-        <MainNavContainer />
-        <ProjectNavigation />
-        <DashboardContentContainer>
-          <main>{children}</main>
-        </DashboardContentContainer>
-      </DashboardContainer>
+      <PopupContextProvider>
+        <DashboardContainer>
+          <MainNavContainer />
+          <WorkspaceNavigation />
+          <DashboardContentContainer>
+            <main>{children}</main>
+          </DashboardContentContainer>
+        </DashboardContainer>
+      </PopupContextProvider>
     </>
   );
 };

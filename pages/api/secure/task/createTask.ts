@@ -4,6 +4,7 @@ import { prisma } from 'prisma/prisma';
 
 export type TaskRequest = {
   name: string;
+  order?: number;
   projectId: string;
   columnId: string;
 };
@@ -20,7 +21,7 @@ export default async function createTask(
 ) {
   const session = await getSession({ req });
 
-  const { name, projectId, columnId } = req.body as TaskRequest;
+  const { name, projectId, columnId, order } = req.body as TaskRequest;
 
   if (!session || !session.id) {
     return res.status(401).send({ error: 'You need to be authenticated to use this route' });
@@ -49,7 +50,8 @@ export default async function createTask(
   const newTask = await prisma.task.create({
     data: {
       name,
-      columnId
+      columnId,
+      order
     }
   });
 

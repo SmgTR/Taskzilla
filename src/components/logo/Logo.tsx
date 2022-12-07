@@ -8,7 +8,9 @@ const Logo: NextPage<Props> = ({}) => {
   return (
     <div>
       <Link href="/">
-        <Image src="/logotz.svg" height="50px" width="50px" alt="logo" />
+        <div>
+          <Image src="/logotz.svg" height="50px" width="50px" alt="logo" />
+        </div>
       </Link>
     </div>
   );

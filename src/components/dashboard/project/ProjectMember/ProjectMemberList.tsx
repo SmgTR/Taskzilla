@@ -13,8 +13,6 @@ import { useSession } from 'next-auth/react';
 
 interface Props {}
 
-let ownStyles = { padding: '8px 10px', minWidth: '140px', fontSize: '20px', fontWeight: 'bold' };
-
 let socket: Socket;
 
 const ProjectMemberList: NextPage<Props> = ({}) => {
@@ -58,7 +56,12 @@ const ProjectMemberList: NextPage<Props> = ({}) => {
         {userList.map((user) => (
           <ProjectMemberItem key={user.email} user={user} />
         ))}
-        <PrimaryButton btnType="button" btnText="Invite +" title="Invite" style={ownStyles} />
+        <PrimaryButton
+          btnType="button"
+          btnText="Invite +"
+          title="Invite"
+          styleClass={styles.inviteButton}
+        />
       </div>
     </>
   );

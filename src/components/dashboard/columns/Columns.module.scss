@@ -4,33 +4,82 @@
   height: 100%;
 
   button {
-    margin-left: 2rem;
     min-width: max-content;
   }
 }
 
 .columnsList {
   display: flex;
-  display: flex;
   width: 100%;
   padding: 30px 20px;
   height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
+}
 
-  & li:not(:first-child) {
-    margin-left: $margin-medium;
-    list-style: none;
-  }
+.addColumnButton {
+  border-radius: 8px;
+  padding: 1.4rem 2rem;
+  width: 240px;
+  justify-content: flex-start;
+}
+
+.addColumnInput {
+  border-radius: 8px;
+  padding: 0.8rem 2rem;
+  border: none;
+  background-color: $color-primary--dark;
+  width: 240px;
+  justify-content: flex-start;
+}
+
+.addForm {
+  padding: 1rem;
+}
+
+.openForm {
+  background-color: $color-primary--light;
+  padding: 1rem;
+  border-radius: 8px;
 }
 
 .empty_columns {
   display: flex;
-  align-items: center;
+  // align-items: center;
   padding: 30px 35px;
 
   p {
     font-size: $font-text;
     margin-right: $margin-small;
   }
+}
+
+.addColumnRow {
+  display: none;
+  margin-top: $margin-vsmall;
+}
+
+.hideElement {
+  display: none;
+}
+
+.showElement {
+  display: flex;
+  align-items: center;
+}
+
+.formButton {
+  padding: 0.8rem 1rem;
+  margin-right: 1rem;
+  border-radius: $radius-small;
+}
+
+.closeFormButton {
+  border: none;
+  background-color: transparent;
+  font-size: 1.8rem;
+}
+
+.columnsButton {
+  margin-left: 2rem;
 }

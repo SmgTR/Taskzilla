@@ -34,6 +34,9 @@ export default async function createWorkspace(
           }
         ]
       }
+    },
+    include: {
+      workspaceMember: true
     }
   });
 
