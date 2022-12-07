@@ -46,6 +46,9 @@ export default async function getAllColumns(
       Column: {
         include: {
           Task: {
+            orderBy: {
+              order: 'asc'
+            },
             include: {
               Attachment: true,
               ToDoList: true,

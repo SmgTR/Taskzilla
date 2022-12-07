@@ -1,3 +1,9 @@
+.columnContainer {
+  &:not(:first-of-type) {
+    margin-left: 2rem;
+  }
+}
+
 .columnItem {
   font-size: $font-medium;
   background-color: $color-primary--dark;
@@ -9,23 +15,45 @@
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   min-width: 300px;
   box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.25);
+
+  &:not(:first-of-type) {
+    margin-left: $margin-medium;
+    list-style: none;
+  }
+
+  button {
+    margin-left: 2rem;
+  }
 }
 
 .taskList {
   list-style: none;
   display: flex;
   flex-direction: column;
-  // background: #181a2aa6;
   background: $color-primary--dark;
   border-bottom-left-radius: $radius-small;
   border-bottom-right-radius: $radius-small;
-  padding: 0 20px;
+  padding: 20px 20px;
+  padding-top: 0;
   max-height: 600px;
-  overflow: auto;
+  overflow-y: auto;
+  position: relative;
 }
 
 .headline {
   text-transform: uppercase;
   font-size: 13px;
   margin-right: auto;
+}
+
+.placeholder {
+  margin-left: 0;
+  padding: 10px 0;
+  transform: translateY(20px);
+  background-color: lighten(rgb(22, 26, 45), 5%);
+  border-radius: $radius-small;
+}
+
+.dndList {
+  position: relative;
 }

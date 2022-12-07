@@ -6,18 +6,23 @@ interface Props {
   btnText: string;
   title: string;
   btnType: 'button' | 'submit' | 'reset';
-  style?: Object;
+  styleClass?: string;
   onClickHandler?: () => void;
 }
 
-const PrimaryButton: NextPage<Props> = ({ btnText, title, btnType, style, onClickHandler }) => {
+const PrimaryButton: NextPage<Props> = ({
+  btnText,
+  title,
+  btnType,
+  styleClass,
+  onClickHandler
+}) => {
   return (
     <>
       <button
-        className={styles.primaryButton}
+        className={`${styles.primaryButton} ${styleClass ?? ''}`}
         title={title}
         type={btnType}
-        style={style}
         onClick={onClickHandler}
       >
         {btnText}

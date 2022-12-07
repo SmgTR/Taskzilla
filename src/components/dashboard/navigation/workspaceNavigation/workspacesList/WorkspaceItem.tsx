@@ -1,28 +1,28 @@
 import AddButton from '@/src/components/ui/buttons/AddButton';
-import { addWorkspaceProject, useWorkspacesContext } from '@/src/context/WorkspacesContext';
-import { createProject } from '@/src/network/secure/project/createProject';
-import { useRouter } from 'next/router';
+import {
+  disablePopup,
+  setActivePopup,
+  setPopupParentId,
+  usePopupContext
+} from '@/src/context/PopupContext';
+
+import Portal from '@/src/hoc/Portal';
+
+import AddProjectPopup from './AddProjectPopup';
 import ProjectItem from './ProjectItem';
 
 import styles from './WorkspaceItem.module.scss';
 
 const WorkspaceItem = ({ projects, name, id, owner, workspaceMember }: Workspace) => {
-  const router = useRouter();
+  const [popupContext, popupDispatch] = usePopupContext();
 
-  const [_, dispatch] = useWorkspacesContext();
+  const hideModalHandler = () => {
+    popupDispatch(disablePopup());
+  };
 
   const addProjectHandler = async () => {
-    const project = await createProject({
-      name: 'New project',
-      description: 'DAdadada',
-      type: 'private',
-      image: '',
-      workspaceId: id
-    });
-    if (project) {
-      dispatch(addWorkspaceProject(project));
-      router.push(`/project/${project.id}`);
-    }
+    popupDispatch(setPopupParentId(id));
+    popupDispatch(setActivePopup({ activePopup: 'project' }));
   };
 
   return (
@@ -34,10 +34,17 @@ const WorkspaceItem = ({ projects, name, id, owner, workspaceMember }: Workspace
         )}
       </div>
       <ul className={styles.workspaceProjectList}>
-        {projects.map((project) => {
-          return <ProjectItem project={project} key={project.id} />;
-        })}
+        {projects &&
+          projects.length > 0 &&
+          projects.map((project) => {
+            return <ProjectItem project={project} key={project.id} />;
+          })}
       </ul>
+      {popupContext.activePopup === 'project' && (
+        <Portal>
+          <AddProjectPopup hidePopup={hideModalHandler} />
+        </Portal>
+      )}
     </div>
   );
 };

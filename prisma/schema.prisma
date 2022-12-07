@@ -79,6 +79,7 @@ model Task {
   availableTime Int?
   description   String?
   columnId      String
+  order         Int?
   column        Column          @relation(fields: [columnId], references: [id], onDelete: Cascade)
   createdAt     DateTime        @default(now()) @db.Timestamptz(3)
   updatedAt     DateTime        @updatedAt @db.Timestamptz(3)

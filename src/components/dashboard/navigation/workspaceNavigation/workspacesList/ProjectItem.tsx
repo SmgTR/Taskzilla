@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import Link from 'next/link';
+
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { io, Socket } from 'socket.io-client';
@@ -19,6 +19,7 @@ const ProjectItem: NextPage<{ project: Project }> = ({ project }) => {
   });
 
   const projectRouteHandler = () => {
+    console.log('dsadasdm,oasdmao');
     socket.disconnect();
     router.push(`/project/${id}`);
   };

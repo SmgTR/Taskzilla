@@ -1,6 +1,6 @@
 import { Socket } from 'net';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { connected } from 'process';
+import { prisma } from 'prisma/prisma';
 
 import { RemoteSocket, Server, ServerOptions, Socket as SocketIO } from 'socket.io';
 
@@ -25,6 +25,13 @@ interface ProjectActiveUsersSocket extends SocketIO {
 
 type SocketServer = {
   io: Server;
+};
+
+export type TaskData = {
+  taskOrder: { id: string; order: number }[];
+  targetColumnId?: string;
+  taskId?: string;
+  newOrder: Column[];
 };
 
 const socketHandler = async (req: NextApiRequest, res: SocketNextApiResponse) => {
@@ -82,6 +89,38 @@ const socketHandler = async (req: NextApiRequest, res: SocketNextApiResponse) =>
           socket.nsp.to(socket.room ?? 'room1').emit('connected-users', connectedUsers);
         }
       }
+    });
+  });
+
+  const columnAndTasksUpdate = io.of('/updateColumnTaskContent');
+
+  columnAndTasksUpdate.on('connection', async (socket: ProjectActiveUsersSocket) => {
+    socket.on('connect-to-room', async (roomName) => {
+      socket.join(roomName);
+      socket.room = roomName;
+    });
+
+    socket.on('update-task', async ({ taskOrder, targetColumnId, taskId, newOrder }: TaskData) => {
+      if (targetColumnId && taskId) {
+        await prisma.task.update({
+          where: { id: taskId },
+          data: {
+            columnId: targetColumnId
+          }
+        });
+      }
+      await Promise.all(
+        taskOrder.map(async (task) => {
+          return await prisma.task.update({
+            where: { id: task.id },
+            data: {
+              order: task.order
+            }
+          });
+        })
+      );
+
+      return socket.to(socket.room ?? '').emit('new-task-order', newOrder);
     });
   });
 

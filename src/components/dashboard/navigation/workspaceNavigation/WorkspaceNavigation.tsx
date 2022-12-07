@@ -1,6 +1,6 @@
 import SearchInput from '@/src/components/ui/inputs/SearchInput';
 import { NextPage } from 'next';
-import WorkspacesList from './workspacesList/WorkspacesList';
+import WorkspaceList from './workspacesList/WorkspacesList';
 
 import useSWR from 'swr';
 import { WorkspaceProvider } from '@/src/context/WorkspacesContext';
@@ -17,7 +17,7 @@ const ProjectNavigation: NextPage<Props> = ({}) => {
     <div className={styles.container}>
       <WorkspaceProvider memberIn={data.memberIn ?? []} guestIn={data.guestIn ?? []}>
         <SearchInput searchText="Search here..." />
-        <WorkspacesList />
+        <WorkspaceList />
       </WorkspaceProvider>
     </div>
   );

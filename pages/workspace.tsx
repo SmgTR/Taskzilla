@@ -28,7 +28,7 @@ export default function Workspace() {
 
   const addMember = async () => {
     const project = await axios.post(
-      '/api/secure/project/addProjectMember/clazn8w2m0007q5jo6dd0572y',
+      '/api/secure/project/addProjectMember/clbal3o780007q50x6rio4zyd',
       { newMemberId: 'clazndw5c000cq5jojft32rtc' }
     );
     console.log(project);

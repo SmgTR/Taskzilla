@@ -8,6 +8,7 @@ interface ColumnContext {
   updateColumns: (column: Column) => void;
   addTask: (task: Task, columnId: string) => void;
   updateTask: (taskId: string, taskData: TaskData) => void;
+  getTasksLength: (columnId: string) => number;
 }
 
 const columnsDefaultValues = {} as ColumnContext;
@@ -50,6 +51,15 @@ export function ColumnsProvider({ children, ...props }: Props) {
     });
   }
 
+  function getTasksLength(columnId: string) {
+    const column = projectColumns.columns.find((column) => {
+      if (column.id === columnId) {
+        return column;
+      }
+    });
+    return column?.Task?.length ?? 0;
+  }
+
   function updateTask(taskId: string, taskData: TaskData) {
     console.log(taskId, taskData);
   }
@@ -70,7 +80,9 @@ export function ColumnsProvider({ children, ...props }: Props) {
 
   return (
     <>
-      <ColumnsContext.Provider value={{ ...projectColumns, updateColumns, addTask, updateTask }}>
+      <ColumnsContext.Provider
+        value={{ ...projectColumns, updateColumns, addTask, updateTask, getTasksLength }}
+      >
         {children}
       </ColumnsContext.Provider>
     </>

@@ -1,4 +1,5 @@
 export {};
+import { DOMAttributes } from 'react';
 
 declare global {
   type NextApiError = { error: string };
@@ -37,13 +38,13 @@ declare global {
     id?: string;
     name: string;
     assignedTo?: [];
-    dueDate?: Date;
-    availableTime?: number;
-    description?: string;
+    dueDate: Date | null;
+    availableTime: number | null;
+    description: string | null;
     columnId: string;
-    createdAt?: Date;
+    createdAt: Date | null;
     updatedAt?: Date;
-    Attachments: [];
+    Attachments?: [];
   };
 
   type TaskData = {
@@ -65,4 +66,10 @@ declare global {
     projectId: string;
     Task?: Task[];
   };
+}
+
+declare module 'react' {
+  interface Attributes {
+    innerRef?: any;
+  }
 }
