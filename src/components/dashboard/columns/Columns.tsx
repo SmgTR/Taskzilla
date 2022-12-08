@@ -32,20 +32,18 @@ const Columns: NextPage<Props> = ({ projectId }) => {
   };
 
   useEffect(() => {
-    socketInitializer(projectId);
-  }, [projectId]);
-
-  const socketInitializer = async (projectId: string) => {
-    await fetch('/api/socket');
+    fetch('/api/socket');
     socket = io('/updateColumnTaskContent');
 
     socket.emit('connect-to-room', projectId);
 
     socket.on('new-task-order', (data) => {
       setReorderColumns(data);
-      console.log(reorderColumns, data);
     });
-  };
+    return () => {
+      socket.disconnect();
+    };
+  }, [projectId]);
 
   useEffect(() => {
     setOpenForm(false);

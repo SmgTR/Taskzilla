@@ -68,6 +68,7 @@ const socketHandler = async (req: NextApiRequest, res: SocketNextApiResponse) =>
       socket.join(roomName);
       socket.user = user;
       socket.room = roomName;
+      console.log('Active on conect');
       const socketsList = await getAllSocketsInRoomHandler(roomName);
       if (socketsList) {
         const connectedUsers = listOfUsersHandler(socketsList);
@@ -109,6 +110,7 @@ const socketHandler = async (req: NextApiRequest, res: SocketNextApiResponse) =>
           }
         });
       }
+
       await Promise.all(
         taskOrder.map(async (task) => {
           return await prisma.task.update({

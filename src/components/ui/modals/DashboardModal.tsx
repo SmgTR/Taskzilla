@@ -1,8 +1,9 @@
 import { NextPage } from 'next';
 
 import styles from './DashboardModal.module.scss';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 import { disablePopup, usePopupContext } from '@/src/context/PopupContext';
+import { gsap } from 'gsap';
 
 interface Props {
   children: ReactNode;
@@ -11,17 +12,31 @@ interface Props {
 
 const DashboardModal: NextPage<Props> = ({ children, modalTitle }) => {
   const [_, popupDispatch] = usePopupContext();
+  const modalContainer = useRef<HTMLDivElement>(null);
+  const backdrop = useRef<HTMLDivElement>(null);
 
-  const hideOnOutClickHandler = () => {
-    popupDispatch(disablePopup());
+  const hideHandler = () => {
+    const timeline = gsap.timeline({ default: { duration: 0.4 } });
+    timeline.fromTo(modalContainer.current, { scale: 1 }, { scale: 0, duration: 0.4 });
+    timeline.fromTo(
+      backdrop.current,
+      { opacity: 1 },
+      { opacity: 0, onComplete: () => popupDispatch(disablePopup()) }
+    ),
+      '<';
   };
+
+  useEffect(() => {
+    gsap.fromTo(modalContainer.current, { scale: 0.8 }, { scale: 1, duration: 0.4 });
+    gsap.fromTo(backdrop.current, { opacity: 0 }, { opacity: 1 });
+  }, []);
 
   return (
     <>
-      <div className={styles.backdrop} onClick={hideOnOutClickHandler}></div>
-      <div className={styles.container}>
+      <div className={styles.backdrop} onClick={hideHandler} ref={backdrop}></div>
+      <div className={styles.container} ref={modalContainer}>
         <h4 className={styles.title}>{modalTitle}</h4>
-        <span className={styles.close} onClick={() => popupDispatch(disablePopup())}>
+        <span className={styles.close} onClick={hideHandler}>
           x
         </span>
         {children}

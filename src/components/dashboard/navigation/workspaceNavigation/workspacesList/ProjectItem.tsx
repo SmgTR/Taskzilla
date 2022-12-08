@@ -19,7 +19,6 @@ const ProjectItem: NextPage<{ project: Project }> = ({ project }) => {
   });
 
   const projectRouteHandler = () => {
-    console.log('dsadasdm,oasdmao');
     socket.disconnect();
     router.push(`/project/${id}`);
   };
