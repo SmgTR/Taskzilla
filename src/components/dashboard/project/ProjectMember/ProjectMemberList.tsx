@@ -30,12 +30,16 @@ const ProjectMemberList: NextPage<Props> = ({}) => {
     }
   ]);
 
-  useEffect(() => {
-    if (session?.user) {
-      const project = projectContext;
-      if (project[0].id) socketInitializer(project[0].id);
-    }
-  }, [projectContext]);
+  // useEffect(() => {
+  //   if (session?.user) {
+  //     const project = projectContext;
+  //     if (project[0].id) socketInitializer(project[0].id);
+  //   }
+
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, []);
 
   const socketInitializer = async (projectId: string) => {
     await fetch('/api/socket');

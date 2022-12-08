@@ -42,7 +42,7 @@
 
   .close {
     color: $color-primary;
-    font-size: $font-small;
+    font-size: 2rem;
     position: absolute;
     right: 2rem;
     top: 2rem;
@@ -53,4 +53,13 @@
       color: $color-highlight;
     }
   }
+}
+
+.backdrop {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }

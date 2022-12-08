@@ -22,7 +22,7 @@ const WorkspaceItem = ({ projects, name, id, owner, workspaceMember }: Workspace
 
   const addProjectHandler = async () => {
     popupDispatch(setPopupParentId(id));
-    popupDispatch(setActivePopup({ activePopup: 'project' }));
+    popupDispatch(setActivePopup({ activePopup: 'project', popupId: id }));
   };
 
   return (
@@ -40,7 +40,7 @@ const WorkspaceItem = ({ projects, name, id, owner, workspaceMember }: Workspace
             return <ProjectItem project={project} key={project.id} />;
           })}
       </ul>
-      {popupContext.activePopup === 'project' && (
+      {popupContext.activePopup === 'project' && popupContext.popupId === id && (
         <Portal>
           <AddProjectPopup hidePopup={hideModalHandler} />
         </Portal>
