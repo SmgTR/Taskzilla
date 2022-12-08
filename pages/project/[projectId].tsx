@@ -1,6 +1,4 @@
 import { getSession } from 'next-auth/react';
-import { io, Socket } from 'socket.io-client';
-import { useEffect, useState } from 'react';
 
 import Dashboard from '@/src/layouts/Dashboard';
 import { ProjectProvider } from '@/src/context/ProjectContext';

@@ -41,9 +41,9 @@ const Columns: NextPage<Props> = ({ projectId }) => {
       setReorderColumns(data);
     });
     return () => {
-      socket.disconnect();
+      if (socket) socket.disconnect();
     };
-  }, [projectId]);
+  }, []);
 
   useEffect(() => {
     setOpenForm(false);

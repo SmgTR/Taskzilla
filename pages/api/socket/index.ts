@@ -68,13 +68,29 @@ const socketHandler = async (req: NextApiRequest, res: SocketNextApiResponse) =>
       socket.join(roomName);
       socket.user = user;
       socket.room = roomName;
-      console.log('Active on conect');
+
       const socketsList = await getAllSocketsInRoomHandler(roomName);
       if (socketsList) {
         const connectedUsers = listOfUsersHandler(socketsList);
         return socket.nsp.to(roomName).emit('connected-users', connectedUsers);
       }
       return;
+    });
+
+    socket.on('disconnect-user', async (roomName, user) => {
+      socket.user = user;
+      const socketsList = await getAllSocketsInRoomHandler(roomName ?? 'room1');
+      if (socketsList) {
+        const connectedUsers = listOfUsersHandler(socketsList);
+        const lastConnectedSocket = connectedUsers.filter((user) => {
+          if (user.email === socket.user?.email) return user;
+        });
+        if (lastConnectedSocket.length <= 1) {
+          const index = connectedUsers.findIndex((user) => user.email === socket.user?.email);
+          connectedUsers.splice(index, 1);
+          socket.nsp.to(roomName).emit('connected-users', connectedUsers);
+        }
+      }
     });
 
     socket.on('disconnecting', async () => {
