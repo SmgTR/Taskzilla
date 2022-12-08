@@ -30,16 +30,16 @@ const ProjectMemberList: NextPage<Props> = ({}) => {
     }
   ]);
 
-  // useEffect(() => {
-  //   if (session?.user) {
-  //     const project = projectContext;
-  //     if (project[0].id) socketInitializer(project[0].id);
-  //   }
+  useEffect(() => {
+    if (session?.user) {
+      const project = projectContext;
+      if (project[0].id) socketInitializer(project[0].id);
+    }
 
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, []);
+    return () => {
+      if (socket) socket.disconnect();
+    };
+  }, []);
 
   const socketInitializer = async (projectId: string) => {
     await fetch('/api/socket');
@@ -50,6 +50,7 @@ const ProjectMemberList: NextPage<Props> = ({}) => {
     });
 
     socket.on('connected-users', (user) => {
+      console.log(user);
       setUserList(user);
     });
   };
