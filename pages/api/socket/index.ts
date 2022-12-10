@@ -1,6 +1,7 @@
 import { Socket } from 'net';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from 'prisma/prisma';
+import { connected } from 'process';
 
 import { RemoteSocket, Server, ServerOptions, Socket as SocketIO } from 'socket.io';
 
@@ -72,6 +73,7 @@ const socketHandler = async (req: NextApiRequest, res: SocketNextApiResponse) =>
       const socketsList = await getAllSocketsInRoomHandler(roomName);
       if (socketsList) {
         const connectedUsers = listOfUsersHandler(socketsList);
+
         return socket.nsp.to(roomName).emit('connected-users', connectedUsers);
       }
       return;
@@ -88,9 +90,11 @@ const socketHandler = async (req: NextApiRequest, res: SocketNextApiResponse) =>
         if (lastConnectedSocket.length <= 1) {
           const index = connectedUsers.findIndex((user) => user.email === socket.user?.email);
           connectedUsers.splice(index, 1);
-          socket.nsp.to(roomName).emit('connected-users', connectedUsers);
+
+          socket.to(roomName).emit('disconnected-users', connectedUsers);
         }
       }
+      socket.leave(roomName);
     });
 
     socket.on('disconnecting', async () => {
@@ -103,10 +107,12 @@ const socketHandler = async (req: NextApiRequest, res: SocketNextApiResponse) =>
         if (lastConnectedSocket.length <= 1) {
           const index = connectedUsers.findIndex((user) => user.email === socket.user?.email);
           connectedUsers.splice(index, 1);
-          socket.nsp.to(socket.room ?? 'room1').emit('connected-users', connectedUsers);
+
+          socket.to(socket.room ?? 'room1').emit('disconnected-users', connectedUsers);
         }
       }
     });
+    socket.leave(socket.room ?? 'room1');
   });
 
   const columnAndTasksUpdate = io.of('/updateColumnTaskContent');

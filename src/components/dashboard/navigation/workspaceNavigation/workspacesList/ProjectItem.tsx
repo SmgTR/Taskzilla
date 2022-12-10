@@ -11,7 +11,7 @@ import styles from './ProjectItem.module.scss';
 let socket: Socket;
 
 const ProjectItem: NextPage<{ project: Project }> = ({ project }) => {
-  const session = useSession();
+  const { data: session } = useSession();
   const { name, owner, createdAt, id } = project;
   const router = useRouter();
 
@@ -25,8 +25,7 @@ const ProjectItem: NextPage<{ project: Project }> = ({ project }) => {
   }, []);
 
   const projectRouteHandler = () => {
-    socket.emit('disconnect-user', projectContext[0].id, session?.data?.user);
-    socket.emit('connect-user', id, session?.data?.user);
+    socket.emit('disconnect-user', projectContext[0].id, session?.user);
     router.push(`/project/${id}`);
   };
 

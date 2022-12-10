@@ -3,23 +3,33 @@ import { getSession } from 'next-auth/react';
 import Dashboard from '@/src/layouts/Dashboard';
 import { ProjectProvider } from '@/src/context/ProjectContext';
 import { prisma } from 'prisma/prisma';
-import { ColumnsProvider, useColumnsContext } from '@/src/context/ColumnsContext';
+import { ColumnsProvider } from '@/src/context/ColumnsContext';
 import Columns from '@/src/components/dashboard/columns/Columns';
 import ProjectContainer from '@/src/containers/dashboard/ProjectContainer';
+import { ActiveUsersProvider } from '@/src/context/ActiveUsersContext';
+import { useEffect, useState } from 'react';
 
 interface Props {
   project: Project;
 }
 
 export default function Project({ project }: Props) {
+  const [projectId, setProjectId] = useState('');
+
+  useEffect(() => {
+    setProjectId(project.id ?? '');
+  }, [project]);
+
   return (
     <>
       <ProjectProvider project={project}>
         <ColumnsProvider projectId={project.id ?? ''}>
-          <Dashboard>
-            <ProjectContainer />
-            <Columns projectId={project.id ?? ''} />
-          </Dashboard>
+          <ActiveUsersProvider>
+            <Dashboard project={project}>
+              <ProjectContainer />
+              <Columns projectId={project.id ?? ''} />
+            </Dashboard>
+          </ActiveUsersProvider>
         </ColumnsProvider>
       </ProjectProvider>
     </>
