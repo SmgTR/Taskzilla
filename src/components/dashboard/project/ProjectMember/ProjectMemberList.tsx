@@ -1,6 +1,4 @@
 import { NextPage } from 'next';
-import Logo from '@/components/logo/Logo';
-import MainNavigation from '@/dashboard/navigation/mainNavigation/MainNavigiation';
 import PrimaryButton from '@/src/components/ui/buttons/PrimaryButton';
 import ProjectMemberItem from './ProjectMemberItem';
 
@@ -10,6 +8,7 @@ import { useProjectContext } from '@/src/context/ProjectContext';
 import { Socket, io } from 'socket.io-client';
 
 import { useSession } from 'next-auth/react';
+import { useActiveUsersContext } from '@/src/context/ActiveUsersContext';
 
 interface Props {}
 
@@ -17,6 +16,8 @@ let socket: Socket;
 
 const ProjectMemberList: NextPage<Props> = ({}) => {
   const projectContext = useProjectContext();
+
+  const activeUsersContext = useActiveUsersContext();
 
   const { data: session } = useSession();
 
@@ -32,8 +33,7 @@ const ProjectMemberList: NextPage<Props> = ({}) => {
 
   useEffect(() => {
     if (session?.user) {
-      const project = projectContext;
-      if (project[0].id) socketInitializer(project[0].id);
+      socketInitializer();
     }
 
     return () => {
@@ -41,26 +41,30 @@ const ProjectMemberList: NextPage<Props> = ({}) => {
     };
   }, []);
 
-  const socketInitializer = async (projectId: string) => {
+  const socketInitializer = async () => {
     await fetch('/api/socket');
     socket = io('/projectActiveUsers');
 
-    socket.on('connect', () => {
-      socket.emit('connect-user', projectId, session?.user);
+    // socket.on('connect', () => {
+    //   socket.emit('connect-user', projectContext[0].id, session?.user);
+    // });
+
+    socket.on('connected-users', (users) => {
+      console.log('dadada');
+      setUserList(users);
     });
 
-    socket.on('connected-users', (user) => {
-      console.log(user);
-      setUserList(user);
+    socket.on('disconnected-users', (users) => {
+      return setUserList(users);
     });
   };
 
   return (
     <>
       <div className={styles.container}>
-        {userList.map((user) => (
-          <ProjectMemberItem key={user.email} user={user} />
-        ))}
+        {activeUsersContext[0].activeUsers.map((user) => {
+          return <ProjectMemberItem key={user.email} user={user} />;
+        })}
         <PrimaryButton
           btnType="button"
           btnText="Invite +"
