@@ -35,19 +35,25 @@ const Columns: NextPage<Props> = ({ projectId }) => {
     fetch('/api/socket');
     socket = io('/updateColumnTaskContent');
 
-    socket.emit('connect-to-room', projectId);
-
-    socket.on('new-task-order', (data) => {
-      setReorderColumns(data);
-    });
+    if (socket) {
+      socket.emit('connect-to-room', projectId);
+      socket.on('new-task-order', (data) => {
+        setReorderColumns(data);
+      });
+    }
     return () => {
       if (socket) socket.disconnect();
     };
-  }, []);
+  }, [projectId, reorderColumns]);
 
   useEffect(() => {
     setOpenForm(false);
+
     if (projectColumns.columns) setReorderColumns(projectColumns.columns);
+
+    return () => {
+      if (socket) socket.disconnect();
+    };
   }, [projectId, projectColumns.columns]);
 
   const addColumnHandler = async (event: FormEvent<HTMLFormElement>) => {
@@ -157,21 +163,20 @@ const Columns: NextPage<Props> = ({ projectId }) => {
           }
         }
       } else {
-        if (
-          updateColumnStart &&
-          updateColumnStart.Task &&
-          updateColumnFinish &&
-          updateColumnFinish.Task
-        ) {
-          const updateTask = updateColumnStart.Task.find((task) => {
+        if (updateColumnStart && updateColumnFinish) {
+          const updateTask = updateColumnStart?.Task?.find((task) => {
             if (task.id === draggableId) return task;
           });
           updateColumnStart?.Task!.splice(source.index, 1);
-          updateColumnFinish?.Task!.splice(destination.index, 0, updateTask!);
-          const taskOrder = updateColumnFinish.Task.map((task, index) => {
+          if (!updateColumnFinish.Task && updateTask) {
+            updateColumnFinish.Task = [updateTask];
+          } else {
+            updateColumnFinish?.Task!.splice(destination.index, 0, updateTask!);
+          }
+          const taskOrder = updateColumnFinish?.Task?.map((task, index) => {
             return { id: task.id, order: index };
           });
-          console.log(reorderColumns);
+
           socket.emit('update-task', {
             taskOrder,
             targetColumnId: destination.droppableId,
