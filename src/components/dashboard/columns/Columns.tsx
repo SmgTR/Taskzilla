@@ -4,15 +4,27 @@ import { NextPage } from 'next';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton';
 import ColumnItem from './ColumnItem';
 import { io, Socket } from 'socket.io-client';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import styles from './Columns.module.scss';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import Button from '../../ui/buttons/Button';
+import columnDragHelper from '@/src/utils/columnsUpdate/columnDragHelper';
+import taskDragHelper from '@/src/utils/columnsUpdate/taskDragHelper';
+import taskUpdateHelper from '@/src/utils/columnsUpdate/taskUpdateHelper';
+import columnUpdateHelper from '@/src/utils/columnsUpdate/columnUpdateHelper';
 
 interface Props {
   projectId: string;
 }
+
+export type ColumnProps = {
+  clientY: number;
+  clientX: number;
+  clientHeight: number;
+  clientWidth: number;
+  destination: string;
+};
 
 let socket: Socket;
 
@@ -25,7 +37,8 @@ const Columns: NextPage<Props> = ({ projectId }) => {
 
   const [openForm, setOpenForm] = useState(false);
   const [reorderColumns, setReorderColumns] = useState([] as Column[]);
-  const [placeholderProps, setPlaceholderProps] = useState({});
+  const [taskPlaceholderProps, setTaskPlaceholderProps] = useState({});
+  const [columnPlaceholderProps, setColumnPlaceholderProps] = useState({} as ColumnProps);
 
   const columnFormHandler = () => {
     setOpenForm(true);
@@ -37,7 +50,7 @@ const Columns: NextPage<Props> = ({ projectId }) => {
 
     if (socket) {
       socket.emit('connect-to-room', projectId);
-      socket.on('new-task-order', (data) => {
+      socket.on('new-order', (data) => {
         setReorderColumns(data);
       });
     }
@@ -126,8 +139,10 @@ const Columns: NextPage<Props> = ({ projectId }) => {
   );
 
   const onDragEnd = async (result: any) => {
-    setPlaceholderProps({});
-    const { destination, source, draggableId } = result;
+    setTaskPlaceholderProps({});
+    setColumnPlaceholderProps({} as ColumnProps);
+
+    const { destination, source, draggableId, type } = result;
 
     if (
       !destination ||
@@ -135,55 +150,18 @@ const Columns: NextPage<Props> = ({ projectId }) => {
     ) {
       return;
     }
-    if (reorderColumns && reorderColumns?.length > 0) {
-      const updateColumnStart = reorderColumns.find((column) => {
-        if (column.id === source.droppableId) return column;
+
+    if (type === 'column') {
+      columnDragHelper({
+        reorderColumns,
+        draggableId,
+        source,
+        destination,
+        socket
       });
-
-      const updateColumnFinish = reorderColumns.find((column) => {
-        if (column.id === destination.droppableId) return column;
-      });
-
-      if (updateColumnStart?.id === updateColumnFinish?.id) {
-        if (updateColumnStart && updateColumnStart.Task) {
-          const updateTask = updateColumnStart.Task.find((task) => {
-            if (task.id === draggableId) return task;
-          });
-
-          if (updateTask) {
-            updateColumnStart?.Task!.splice(source.index, 1);
-            updateColumnStart?.Task!.splice(destination.index, 0, updateTask);
-            const taskOrder = updateColumnStart.Task.map((task, index) => {
-              return { id: task.id, order: index };
-            });
-            socket.emit('update-task', {
-              taskOrder,
-              newOrder: reorderColumns
-            });
-          }
-        }
-      } else {
-        if (updateColumnStart && updateColumnFinish) {
-          const updateTask = updateColumnStart?.Task?.find((task) => {
-            if (task.id === draggableId) return task;
-          });
-          updateColumnStart?.Task!.splice(source.index, 1);
-          if (!updateColumnFinish.Task && updateTask) {
-            updateColumnFinish.Task = [updateTask];
-          } else {
-            updateColumnFinish?.Task!.splice(destination.index, 0, updateTask!);
-          }
-          const taskOrder = updateColumnFinish?.Task?.map((task, index) => {
-            return { id: task.id, order: index };
-          });
-
-          socket.emit('update-task', {
-            taskOrder,
-            targetColumnId: destination.droppableId,
-            taskId: draggableId,
-            newOrder: reorderColumns
-          });
-        }
+    } else {
+      if (reorderColumns && reorderColumns?.length > 0) {
+        taskDragHelper({ reorderColumns, draggableId, source, destination, socket });
       }
     }
   };
@@ -200,46 +178,12 @@ const Columns: NextPage<Props> = ({ projectId }) => {
       return;
     }
 
-    const { clientHeight, clientWidth } = draggedDOM;
-    const sourceIndex = event.source.index;
-    if (draggedDOM.parentNode && droppedDOM) {
-      const destinationIndex = event.destination.index;
+    if (event.type === 'task') {
+      taskUpdateHelper({ draggedDOM, droppedDOM, event, setTaskPlaceholderProps });
+    }
 
-      const childrenArray = Array.from(draggedDOM.parentNode.children);
-
-      const movedItem = childrenArray[sourceIndex];
-      childrenArray.splice(sourceIndex, 1);
-      const destinationChildrenArray = Array.from(droppedDOM.children[0].children);
-      let updatedArray;
-      if (draggedDOM.parentNode === droppedDOM) {
-        updatedArray = [
-          ...childrenArray.slice(0, destinationIndex),
-          movedItem,
-          ...childrenArray.slice(destinationIndex + 1)
-        ];
-      } else {
-        updatedArray = [
-          ...destinationChildrenArray.slice(0, destinationIndex),
-          movedItem,
-          ...destinationChildrenArray.slice(destinationIndex + 1)
-        ];
-      }
-
-      const clientY =
-        parseFloat(window.getComputedStyle(draggedDOM.parentNode as HTMLElement).paddingTop) +
-        updatedArray.slice(0, destinationIndex).reduce((total, curr) => {
-          const style = window.getComputedStyle(curr);
-          const marginTop = parseFloat(style.marginTop);
-          return total + curr.clientHeight + marginTop;
-        }, 0);
-
-      setPlaceholderProps({
-        destination: event.destination.droppableId,
-        clientHeight,
-        clientWidth,
-        clientY,
-        clientX: parseFloat(window.getComputedStyle(draggedDOM.parentNode as Element).paddingLeft)
-      });
+    if (event.type === 'column') {
+      columnUpdateHelper({ draggedDOM, droppedDOM, event, setColumnPlaceholderProps });
     }
   };
 
@@ -260,20 +204,42 @@ const Columns: NextPage<Props> = ({ projectId }) => {
     return (
       <div className={styles.columnsContainer}>
         <DragDropContext onDragEnd={onDragEnd} onDragUpdate={handleDragUpdate}>
-          <ul className={styles.columnsList}>
-            {reorderColumns.length > 0 &&
-              reorderColumns.map((column, index) => {
-                return (
-                  <ColumnItem
-                    column={column}
-                    projectId={projectId}
-                    key={(column.id ?? '') + index.toString()}
-                    placeholderProps={placeholderProps}
+          <Droppable droppableId={projectId} direction="horizontal" type="column">
+            {(provided) => (
+              <ul
+                className={styles.columnsList}
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {reorderColumns.length > 0 &&
+                  reorderColumns.map((column, index) => {
+                    return (
+                      <ColumnItem
+                        column={column}
+                        projectId={projectId}
+                        key={(column.id ?? '') + index.toString()}
+                        placeholderProps={taskPlaceholderProps}
+                        columnIndex={index}
+                      />
+                    );
+                  })}
+                {provided.placeholder}
+                {columnPlaceholderProps && (
+                  <li
+                    className={styles.columnPlaceholder}
+                    style={{
+                      position: 'absolute',
+                      top: columnPlaceholderProps.clientY,
+                      left: columnPlaceholderProps.clientX,
+                      height: columnPlaceholderProps.clientHeight,
+                      width: columnPlaceholderProps.clientWidth
+                    }}
                   />
-                );
-              })}
-            <li className={styles.columnsButton}>{addColumnForm}</li>
-          </ul>
+                )}
+                <li className={styles.columnsButton}>{addColumnForm}</li>
+              </ul>
+            )}
+          </Droppable>
         </DragDropContext>
       </div>
     );

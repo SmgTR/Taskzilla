@@ -5,7 +5,7 @@ import { setActivePopup, usePopupContext } from '@/src/context/PopupContext';
 import { addWorkspace, useWorkspacesContext } from '@/src/context/WorkspacesContext';
 import { createWorkspace } from '@/src/network/secure/workspace/createWorkspace';
 import { NextPage } from 'next';
-import { Dispatch, FormEvent, SetStateAction, useEffect, useRef, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 
 import styles from './WorkspacePopup.module.scss';
 

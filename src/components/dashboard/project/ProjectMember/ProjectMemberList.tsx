@@ -15,49 +15,7 @@ interface Props {}
 let socket: Socket;
 
 const ProjectMemberList: NextPage<Props> = ({}) => {
-  const projectContext = useProjectContext();
-
   const activeUsersContext = useActiveUsersContext();
-
-  const { data: session } = useSession();
-
-  const [userList, setUserList] = useState([
-    {
-      email: '',
-      name: '',
-      id: '',
-      image: '',
-      lastName: ''
-    }
-  ]);
-
-  useEffect(() => {
-    if (session?.user) {
-      socketInitializer();
-    }
-
-    return () => {
-      if (socket) socket.disconnect();
-    };
-  }, []);
-
-  const socketInitializer = async () => {
-    await fetch('/api/socket');
-    socket = io('/projectActiveUsers');
-
-    // socket.on('connect', () => {
-    //   socket.emit('connect-user', projectContext[0].id, session?.user);
-    // });
-
-    socket.on('connected-users', (users) => {
-      console.log('dadada');
-      setUserList(users);
-    });
-
-    socket.on('disconnected-users', (users) => {
-      return setUserList(users);
-    });
-  };
 
   return (
     <>

@@ -44,6 +44,9 @@ export default async function getAllColumns(
     },
     select: {
       Column: {
+        orderBy: {
+          order: 'asc'
+        },
         include: {
           Task: {
             orderBy: {

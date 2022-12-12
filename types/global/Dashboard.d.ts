@@ -34,6 +34,13 @@ declare global {
     Column?: Column[];
   };
 
+  type ActiveUserData = {
+    email: string;
+    name: string;
+    id: string;
+    image?: string;
+  };
+
   type Task = {
     id?: string;
     name: string;

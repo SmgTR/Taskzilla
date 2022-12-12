@@ -23,7 +23,7 @@ export default async function createUser(
   req: NextApiRequest,
   res: NextApiResponse<UserResponse | NextApiError>
 ) {
-  const { email, password, image, name } = req.body as UserRequest;
+  const { email, password, image, name, lastName } = req.body as UserRequest;
 
   const saltRounds = 10;
 
@@ -37,7 +37,8 @@ export default async function createUser(
       password: hashPassword,
       image: image || '',
       emailVerified: false,
-      name: name || ''
+      name: name || '',
+      lastName
     }
   });
 
@@ -47,7 +48,8 @@ export default async function createUser(
   const newUser = {
     id: createNewUser.id,
     email: createNewUser.email,
-    image: createNewUser.image || ''
+    image: createNewUser.image || '',
+    lastName: createNewUser.lastName
   };
 
   return res.status(201).send({ message: 'User created', data: newUser });
