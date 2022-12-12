@@ -1,5 +1,9 @@
 import { connectUser, disconnectUser } from '@/src/utils/socket/activeUsersSocketHelper';
-import { connectColumnSocket, updateTask } from '@/src/utils/socket/updateColumnDataHelper';
+import {
+  connectColumnSocket,
+  updateColumn,
+  updateTask
+} from '@/src/utils/socket/updateColumnDataHelper';
 import { Socket } from 'net';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -33,6 +37,11 @@ export interface TaskData {
   targetColumnId?: string;
   taskId?: string;
   newOrder: Column[];
+}
+
+export interface ColumnData {
+  columnOrder: { id: string; order: number }[];
+  newColumnOrder: Column[];
 }
 
 const socketHandler = async (req: NextApiRequest, res: SocketNextApiResponse) => {
@@ -69,6 +78,10 @@ const socketHandler = async (req: NextApiRequest, res: SocketNextApiResponse) =>
 
     socket.on('update-task', async ({ taskOrder, targetColumnId, taskId, newOrder }: TaskData) => {
       updateTask({ socket, taskOrder, targetColumnId, taskId, newOrder });
+    });
+
+    socket.on('update-column', async ({ columnOrder, newColumnOrder }) => {
+      updateColumn({ socket, columnOrder, newColumnOrder });
     });
   });
 
