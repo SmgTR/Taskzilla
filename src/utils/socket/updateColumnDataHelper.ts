@@ -1,7 +1,12 @@
 import { prisma } from 'prisma/prisma';
 
-import { ProjectActiveUsersSocket, TaskData } from '@/pages/api/socket';
+import { ProjectActiveUsersSocket, TaskData, ColumnData } from '@/pages/api/socket';
+
 interface TaskDataExtended extends TaskData {
+  socket: ProjectActiveUsersSocket;
+}
+
+interface ColumnDataExtended extends ColumnData {
   socket: ProjectActiveUsersSocket;
 }
 
@@ -37,5 +42,19 @@ export const updateTask = async ({
     })
   );
 
-  return socket.to(socket.room ?? '').emit('new-task-order', newOrder);
+  return socket.to(socket.room ?? '').emit('new-order', newOrder);
+};
+
+export const updateColumn = async ({ socket, columnOrder, newColumnOrder }: ColumnDataExtended) => {
+  await Promise.all(
+    columnOrder.map(async (column) => {
+      return await prisma.column.update({
+        where: { id: column.id },
+        data: {
+          order: column.order
+        }
+      });
+    })
+  );
+  return socket.nsp.to(socket.room ?? '').emit('new-order', newColumnOrder);
 };
