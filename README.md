@@ -4,7 +4,7 @@ Taskzilla is a project managment tool.
 
 🚧🛠 In Progress 🛠🚧
 
-Demo: https://taskzilla.herokuapp.com
+Demo: https://taskzilla.onrender.com
 
 ## 📺 App Design
 
