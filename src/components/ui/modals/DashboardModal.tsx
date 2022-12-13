@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 
 import styles from './DashboardModal.module.scss';
-import { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { disablePopup, usePopupContext } from '@/src/context/PopupContext';
 import { gsap } from 'gsap';
 
@@ -14,16 +14,24 @@ const DashboardModal: NextPage<Props> = ({ children, modalTitle }) => {
   const [_, popupDispatch] = usePopupContext();
   const modalContainer = useRef<HTMLDivElement>(null);
   const backdrop = useRef<HTMLDivElement>(null);
-
+  const [isClicked, setClicked] = useState(false);
   const hideHandler = () => {
-    const timeline = gsap.timeline({ default: { duration: 0.4 } });
-    timeline.fromTo(modalContainer.current, { scale: 1 }, { scale: 0, duration: 0.4 });
-    timeline.fromTo(
-      backdrop.current,
-      { opacity: 1 },
-      { opacity: 0, onComplete: () => popupDispatch(disablePopup()) }
-    ),
-      '<';
+    if (!isClicked) {
+      const timeline = gsap.timeline({ default: { duration: 0.4 } });
+      timeline.fromTo(modalContainer.current, { scale: 1 }, { scale: 0, duration: 0.4 });
+      timeline.fromTo(
+        backdrop.current,
+        { opacity: 1 },
+        {
+          opacity: 0,
+          onComplete: () => {
+            setClicked(false), popupDispatch(disablePopup());
+          }
+        }
+      ),
+        '<';
+    }
+    setClicked(true);
   };
 
   useEffect(() => {
