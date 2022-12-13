@@ -20,7 +20,7 @@ const SignInForm: NextPage = () => {
   const [loginErrors, setLoginErrors] = useState([] as string[]);
 
   const joinWithSocialHandler = async (provider: string) => {
-    return await signIn(provider, { callbackUrl: '' });
+    return await signIn(provider, { callbackUrl: '/' });
   };
 
   const loginHandler = async (event: FormEvent<HTMLFormElement>) => {

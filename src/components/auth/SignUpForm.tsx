@@ -17,7 +17,7 @@ const SignUpForm: NextPage = () => {
   const [signUpErrors, setSignUpErrors] = useState([] as string[]);
 
   const joinWithSocialHandler = async (provider: string) => {
-    return await signIn(provider, { callbackUrl: '' });
+    return await signIn(provider, { callbackUrl: '/' });
   };
 
   const registerUser = async (event: FormEvent<HTMLFormElement>) => {
