@@ -52,6 +52,7 @@
   transform: translateY(20px);
   background-color: lighten(rgb(22, 26, 45), 5%);
   border-radius: $radius-small;
+  z-index: 1;
 }
 
 .dndList {
