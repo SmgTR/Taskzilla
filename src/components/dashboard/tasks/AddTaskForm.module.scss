@@ -1,0 +1,83 @@
+.addTaskButton {
+  border-radius: $radius-small;
+  padding: 1.4rem 2rem;
+  width: $button-width;
+  justify-content: flex-start;
+  background-color: $color-primary--light;
+  @include flexLayout(flexCenter);
+}
+.addForm {
+  padding: 0;
+}
+.addTaskInput {
+  padding: $padding-vertical-medium;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  @include flexLayout(flexStart);
+  align-items: center;
+  background-color: $color-task;
+  width: $button-width;
+  border-radius: $radius-small;
+}
+.openForm {
+  height: 100%;
+  width: $button-width;
+  display: block;
+  border-radius: $radius-small;
+  font-size: $font-small-text;
+  box-sizing: border-box;
+  position: relative;
+}
+.addTask {
+  display: none;
+  margin-top: $margin-vsmall;
+}
+
+.hideElement {
+  display: none;
+}
+
+.showElement {
+  display: flex;
+  align-items: center;
+}
+
+.formButton {
+  padding: 0.8rem 1rem;
+  margin-right: 1rem;
+  border-radius: $radius-small;
+  background-color: $color-primary--light;
+  width: 40%;
+}
+
+.closeFormButton {
+  border: none;
+  background-color: transparent;
+  font-size: 1.8rem;
+}
+.Buttons {
+  @include flexLayout(flexStart);
+  flex-grow: 2;
+  bottom: -50%;
+  width: 260px;
+  left: 0;
+  margin-bottom: 2rem;
+}
+
+.wrongSize {
+  position: absolute;
+  right: 0;
+  color: $color-error;
+}
+.taskButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.rightSize {
+  position: absolute;
+  right: 0;
+  color: $color-placeholder;
+}

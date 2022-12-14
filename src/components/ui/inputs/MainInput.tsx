@@ -12,6 +12,7 @@ interface Props {
   labelClass?: string;
   id: string;
   placeholder?: string;
+  autoComplete?: string;
 }
 
 const MainInput: NextPage<Props> = ({
@@ -23,7 +24,8 @@ const MainInput: NextPage<Props> = ({
   inputClass,
   labelClass,
   id,
-  placeholder
+  placeholder,
+  autoComplete
 }) => {
   return (
     <>
@@ -38,6 +40,7 @@ const MainInput: NextPage<Props> = ({
         required={required}
         placeholder={placeholder}
         className={`${styles.mainInput} ${inputClass}`}
+        autoComplete={autoComplete}
       />
     </>
   );
