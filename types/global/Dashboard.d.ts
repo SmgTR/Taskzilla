@@ -4,6 +4,8 @@ import { DOMAttributes } from 'react';
 declare global {
   type NextApiError = { error: string };
 
+  type NextApiMsg = { message: string };
+
   type Workspace = {
     name: string;
     owner: string;
@@ -73,6 +75,19 @@ declare global {
     projectId: string;
     Task?: Task[];
   };
+
+  type NotificationData = {
+    id: string;
+    userId: string;
+    userInvite: string;
+    read: boolean;
+  };
+}
+
+declare module 'react' {
+  interface Attributes {
+    innerRef?: any;
+  }
 }
 
 declare module 'react' {

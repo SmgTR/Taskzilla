@@ -3,19 +3,25 @@ import PrimaryButton from '@/src/components/ui/buttons/PrimaryButton';
 import ProjectMemberItem from './ProjectMemberItem';
 
 import styles from './ProjectMemberList.module.scss';
-import { useEffect, useState } from 'react';
-import { useProjectContext } from '@/src/context/ProjectContext';
-import { Socket, io } from 'socket.io-client';
 
-import { useSession } from 'next-auth/react';
 import { useActiveUsersContext } from '@/src/context/ActiveUsersContext';
+import { disablePopup, setActivePopup, usePopupContext } from '@/src/context/PopupContext';
+import Portal from '@/src/hoc/Portal';
+import InviteMemberPopup from './InviteMemberPopup';
 
 interface Props {}
 
-let socket: Socket;
-
 const ProjectMemberList: NextPage<Props> = ({}) => {
   const activeUsersContext = useActiveUsersContext();
+  const [popupContext, popupDispatch] = usePopupContext();
+
+  const addProjectHandler = async () => {
+    popupDispatch(setActivePopup({ activePopup: 'invite' }));
+  };
+
+  const hideModalHandler = () => {
+    popupDispatch(disablePopup());
+  };
 
   return (
     <>
@@ -28,8 +34,14 @@ const ProjectMemberList: NextPage<Props> = ({}) => {
           btnText="Invite +"
           title="Invite"
           styleClass={styles.inviteButton}
+          onClickHandler={addProjectHandler}
         />
       </div>
+      {popupContext.activePopup === 'invite' && (
+        <Portal>
+          <InviteMemberPopup hidePopup={hideModalHandler} />
+        </Portal>
+      )}
     </>
   );
 };

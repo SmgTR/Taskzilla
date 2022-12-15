@@ -1,0 +1,21 @@
+.infoText {
+  font-size: $font-vsmall;
+  color: $color-primary;
+  text-align: center;
+  margin: $margin-small 0 $margin-vsmall 0;
+}
+
+.errorText {
+  color: $color-error;
+}
+
+.successText {
+  color: $color-success;
+}
+
+.errorText,
+.successText {
+  font-size: $font-vsmall;
+  margin-top: $margin-vsmall;
+  display: block;
+}

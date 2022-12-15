@@ -9,6 +9,7 @@ import { PopupContextProvider } from '../context/PopupContext';
 import { io, Socket } from 'socket.io-client';
 import { useSession } from 'next-auth/react';
 import { setActiveUsers, useActiveUsersContext } from '../context/ActiveUsersContext';
+import { NotificationsContextProvider } from '../context/NotificationsContext';
 
 interface Props {
   children?: ReactNode;
@@ -48,13 +49,15 @@ const Dashboard: NextPage<Props> = ({ children, project }) => {
   return (
     <>
       <PopupContextProvider>
-        <DashboardContainer>
-          <MainNavContainer />
-          <WorkspaceNavigation />
-          <DashboardContentContainer>
-            <main>{children}</main>
-          </DashboardContentContainer>
-        </DashboardContainer>
+        <NotificationsContextProvider>
+          <DashboardContainer>
+            <MainNavContainer />
+            <WorkspaceNavigation />
+            <DashboardContentContainer>
+              <main>{children}</main>
+            </DashboardContentContainer>
+          </DashboardContainer>
+        </NotificationsContextProvider>
       </PopupContextProvider>
     </>
   );
