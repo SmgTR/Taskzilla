@@ -8,6 +8,11 @@
     align-items: center;
     justify-content: center;
   }
+  @if $setLayout == flexStart {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
   @if $setLayout == rowCenterVertical {
     display: flex;
     align-items: center;

@@ -10,10 +10,10 @@ import { forwardRef } from 'react';
 
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-import AddButton from '../../ui/buttons/AddButton';
 import MoreButton from '../../ui/buttons/MoreButton';
+
 import TaskItem from '../tasks/TaskItem';
-import AddTaskPopup from './AddTaskPopup';
+import AddTaskForm from '../tasks/AddTaskForm';
 
 import styles from './ColumnItem.module.scss';
 
@@ -32,17 +32,6 @@ interface Props {
 
 const ColumnItem: NextPage<Props> = forwardRef(
   ({ column, projectId, placeholderProps, columnIndex }, ref) => {
-    const [popupContext, popupDispatch] = usePopupContext();
-
-    const hideModalHandler = () => {
-      popupDispatch(disablePopup());
-    };
-
-    const showTaskPopupHandler = () => {
-      popupDispatch(setActivePopup({ activePopup: 'task', popupId: column.id }));
-      popupDispatch(setPopupParentId(projectId));
-    };
-
     return (
       <>
         <Draggable draggableId={column.id ?? ''} index={columnIndex}>
@@ -56,13 +45,6 @@ const ColumnItem: NextPage<Props> = forwardRef(
                 <div className={styles.columnItem} {...provided.dragHandleProps}>
                   <h4 className={styles.headline}>{column.name}</h4>
                   <MoreButton btnType="button" title="Manage column" />
-
-                  <AddButton
-                    btnText="+"
-                    btnType="button"
-                    title="Add Task"
-                    onClickHandler={showTaskPopupHandler}
-                  />
                 </div>
                 <Droppable droppableId={column.id ?? 'drop-list'} type="task">
                   {(provided) => (
@@ -91,6 +73,7 @@ const ColumnItem: NextPage<Props> = forwardRef(
                           />
                         )}
                       </ul>
+                      <AddTaskForm projectId={projectId} columnId={column.id ?? ''}></AddTaskForm>
                     </div>
                   )}
                 </Droppable>
@@ -99,11 +82,11 @@ const ColumnItem: NextPage<Props> = forwardRef(
           )}
         </Draggable>
 
-        {popupContext.activePopup === 'task' && popupContext.popupId === column.id && (
+        {/* {popupContext.activePopup === 'task' && popupContext.popupId === column.id && (
           <Portal>
             <AddTaskPopup hidePopup={hideModalHandler} columnId={column.id!} />
           </Portal>
-        )}
+        )} */}
       </>
     );
   }
