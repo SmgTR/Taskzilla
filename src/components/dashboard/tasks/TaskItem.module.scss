@@ -1,15 +1,12 @@
 .taskItem {
-  width: 260px;
-  min-height: 110px;
+  width: $button-width;
   display: block;
-  background: #43445b;
-  border-radius: 8px;
-  margin-right: 0;
-  margin-left: 0;
-  margin-top: 20px;
-  margin-top: 20px;
-  padding: 10px;
-  margin-left: 0px !important;
+  background: $color-task;
+  border-radius: $radius-small;
+  margin: $radius-medium 0 $radius-medium;
+  padding: $radius-medium;
+  font-size: $font-small-text;
+  box-sizing: border-box;
   position: relative;
   z-index: 2;
 }

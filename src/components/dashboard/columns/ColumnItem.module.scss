@@ -58,3 +58,19 @@
 .dndList {
   position: relative;
 }
+.addTaskButton {
+  padding: 1.2rem 2rem;
+  font-size: $font-small-text;
+  border-radius: $radius-small;
+  margin-top: $margin-small;
+  background-color: $color-primary--light;
+  position: relative;
+  &::before {
+    content: '+';
+    position: absolute;
+    font-size: $font-small;
+    left: 35%;
+    top: 45%;
+    transform: translateX(-35%) translateY(-50%);
+  }
+}

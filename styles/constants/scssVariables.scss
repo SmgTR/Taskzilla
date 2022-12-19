@@ -14,6 +14,7 @@ $color-error: var(--color-error);
 $color-alert: var(--color-alert);
 $color-placeholder: var(--color-placeholder);
 $color-light: var(--color-light);
+$color-task: var(--color-task);
 
 $font-headings: 'Oswald', sans-serif;
 $font-text: 'Cantarell', sans-serif;
@@ -42,3 +43,6 @@ $padding-big: 4rem;
 $padding-medium: 2rem;
 $padding-small: 1.6rem;
 $padding-vsmall: 0.8rem;
+$padding-vertical-medium: 2rem 1rem;
+
+$button-width: 260px;
