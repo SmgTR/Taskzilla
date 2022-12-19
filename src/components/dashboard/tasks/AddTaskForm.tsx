@@ -3,12 +3,10 @@ import { usePopupContext } from '@/src/context/PopupContext';
 import { createTask } from '@/src/network/secure/tasks/createTask';
 import { NextPage } from 'next';
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
-
 import { io, Socket } from 'socket.io-client';
 
 import Button from '../../ui/buttons/Button';
 import PrimaryButton from '../../ui/buttons/PrimaryButton';
-import MainInput from '../../ui/inputs/MainInput';
 
 import styles from './AddTaskForm.module.scss';
 
@@ -18,14 +16,15 @@ interface Props {
 }
 let socket: Socket;
 const AddTaskForm: NextPage<Props> = ({ projectId, columnId }) => {
-  const [openForm, setOpenForm] = useState(false);
-  const projectTasks = useColumnsContext();
-  const [reorderTasks, setReordertasks] = useState([] as Column[]);
   const formEl = useRef<HTMLFormElement>(null);
+  const projectTasks = useColumnsContext();
+  const { addTask, getTasksLength } = useColumnsContext();
   const [popupContext] = usePopupContext();
+
+  const [reorderTasks, setReordertasks] = useState([] as Column[]);
+  const [openForm, setOpenForm] = useState(false);
   const [error, setError] = useState('');
   const [textLength, setTextLength] = useState(0);
-  const { addTask, getTasksLength } = useColumnsContext();
 
   const taskFormHandler = () => {
     setOpenForm(true);
