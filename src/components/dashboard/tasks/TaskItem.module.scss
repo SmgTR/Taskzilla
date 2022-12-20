@@ -3,8 +3,10 @@
   display: block;
   background: $color-task;
   border-radius: $radius-small;
-  margin: $margin-medium-px 0 $margin-medium-px;
-  padding: $padding-medium-px;
+  margin-top: $margin-medium-px;
+  margin-right: 0;
+  margin-left: 0;
+  padding: $padding-small;
   font-size: $font-small-text;
   box-sizing: border-box;
   position: relative;
