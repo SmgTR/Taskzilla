@@ -62,7 +62,6 @@
   bottom: -50%;
   width: 260px;
   left: 0;
-  margin-bottom: 2rem;
 }
 
 .wrongSize {
@@ -75,6 +74,14 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  width: $button-width;
+  border-radius: $radius-small;
+  margin: $margin-medium-px 0;
+  margin-bottom: 0;
+  font-size: $font-small-text;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
 }
 .rightSize {
   position: absolute;

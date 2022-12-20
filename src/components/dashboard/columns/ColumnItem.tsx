@@ -72,8 +72,8 @@ const ColumnItem: NextPage<Props> = forwardRef(
                             }}
                           />
                         )}
+                        <AddTaskForm projectId={projectId} columnId={column.id ?? ''}></AddTaskForm>
                       </ul>
-                      <AddTaskForm projectId={projectId} columnId={column.id ?? ''}></AddTaskForm>
                     </div>
                   )}
                 </Droppable>
