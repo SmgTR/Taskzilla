@@ -10,7 +10,7 @@
   padding: 0;
 }
 .addTaskInput {
-  padding: $padding-vertical-medium;
+  padding: $padding-medium-px;
   border: none;
   outline: none;
   background-color: transparent;
@@ -28,6 +28,7 @@
   font-size: $font-small-text;
   box-sizing: border-box;
   position: relative;
+  margin-bottom: $margin-medium-px;
 }
 .addTask {
   display: none;
@@ -62,7 +63,6 @@
   bottom: -50%;
   width: 260px;
   left: 0;
-  margin-bottom: 2rem;
 }
 
 .wrongSize {
@@ -75,6 +75,14 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  width: $button-width;
+  border-radius: $radius-small;
+  margin: $margin-medium-px 0;
+  margin-bottom: 0;
+  font-size: $font-small-text;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
 }
 .rightSize {
   position: absolute;

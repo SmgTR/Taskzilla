@@ -16,6 +16,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   position: relative;
+  list-style-type: none;
 }
 
 .addColumnButton {
@@ -39,7 +40,7 @@
 }
 
 .openForm {
-  background-color: $color-primary--light;
+  background-color: $color-task;
   padding: 1rem;
   border-radius: 8px;
 }
