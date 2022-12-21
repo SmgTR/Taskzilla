@@ -35,7 +35,7 @@
   border-bottom-right-radius: $radius-small;
   padding: 20px 20px;
   padding-top: 0;
-  max-height: 600px;
+  max-height: 420px;
   overflow-y: auto;
   position: relative;
 }
@@ -57,6 +57,10 @@
 
 .dndList {
   position: relative;
+  overflow: visible;
+  &:empty + div {
+    margin-top: 15px;
+  }
 }
 .addTaskButton {
   padding: 1.2rem 2rem;

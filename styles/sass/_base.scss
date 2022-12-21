@@ -7,6 +7,7 @@
   padding: 0;
   box-sizing: inherit;
   font-family: 'Cantarell', sans-serif;
+  color: $color-light;
 }
 
 html {
@@ -20,10 +21,13 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   font-family: 'Cantarell', sans-serif;
-
+  background-color: $color-primary--light;
   input:-webkit-autofill,
   input:-webkit-autofill:focus {
     transition: background-color 600000s 0s, color 600000s 0s;
+  }
+  ul {
+    list-style: none;
   }
   input[data-autocompleted] {
     background-color: transparent !important;
