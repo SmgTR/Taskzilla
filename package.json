@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build-render": "yarn build && yarn db-dev-push && yarn db-dev-seed",
+    "build-render": "yarn db-dev-push && npx prisma generate && yarn db-dev-seed && yarn build",
     "db-dev-set": "npx prisma generate && npx prisma migrate dev",
     "db-dev-push": "npx prisma db push",
     "db-dev-seed": "npx prisma db seed",
