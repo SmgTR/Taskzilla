@@ -7,7 +7,7 @@ interface ColumnContext {
   error: Error | null;
   updateColumns: (column: Column) => void;
   addTask: (task: Task, columnId: string) => void;
-  updateTask: (taskId: string, taskData: TaskData) => void;
+  updateTask: (taskId: string) => void;
   getTasksLength: (columnId: string) => number;
 }
 
@@ -50,6 +50,20 @@ export function ColumnsProvider({ children, ...props }: Props) {
       return { ...state };
     });
   }
+  function editTask(task: Task, columnId: string) {
+    setProjectColumns((state) => {
+      state.columns.find((column) => {
+        if (column.id === columnId && column.Task) {
+          column.Task.push(task);
+        }
+
+        if (column.id === columnId && !column.Task) {
+          column.Task = [task];
+        }
+      });
+      return { ...state };
+    });
+  }
 
   function getTasksLength(columnId: string) {
     const column = projectColumns.columns.find((column) => {
@@ -60,8 +74,8 @@ export function ColumnsProvider({ children, ...props }: Props) {
     return column?.Task?.length ?? 0;
   }
 
-  function updateTask(taskId: string, taskData: TaskData) {
-    console.log(taskId, taskData);
+  function updateTask(taskId: string) {
+    console.log(taskId);
   }
 
   useEffect(() => {

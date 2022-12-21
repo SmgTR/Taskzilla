@@ -1,6 +1,6 @@
 .taskItem {
   width: $button-width;
-  display: block;
+  @include flexLayout(flexBetween);
   background: $color-task;
   border-radius: $radius-small;
   margin-top: $margin-medium-px;
@@ -11,4 +11,19 @@
   box-sizing: border-box;
   position: relative;
   z-index: 2;
+}
+.editButton {
+  @include flexLayout(flexEvenly);
+  flex-direction: column;
+  color: $color-light;
+  background-color: transparent;
+  border: none;
+  height: 2rem;
+  span {
+    height: 0.4rem;
+    width: 0.4rem;
+    background-color: $color-light;
+    border-radius: 50%;
+    display: inline-block;
+  }
 }

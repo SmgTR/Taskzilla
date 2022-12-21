@@ -10,7 +10,7 @@ interface Props {
   onClickHandler?: () => void;
 }
 
-const PrimaryButton: NextPage<Props> = ({
+const PrimaryButton: React.FC<Props> = ({
   btnText,
   title,
   btnType,

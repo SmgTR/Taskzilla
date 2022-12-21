@@ -1,0 +1,22 @@
+.removeButton {
+  background: $color-error;
+}
+.button {
+  width: 30%;
+}
+.editModal {
+  height: 70vh;
+  width: 40%;
+  min-height: fit-content;
+  @include flexLayout(flexStart);
+  flex-direction: column;
+  border-radius: $radius-small;
+}
+.formButtons {
+  width: 100%;
+  @include flexLayout(flexBetween);
+}
+.editForm {
+  width: 100%;
+  height: 100%;
+}

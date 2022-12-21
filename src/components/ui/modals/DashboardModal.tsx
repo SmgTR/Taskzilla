@@ -8,9 +8,10 @@ import { gsap } from 'gsap';
 interface Props {
   children: ReactNode;
   modalTitle: string;
+  styleClass?: string;
 }
 
-const DashboardModal: NextPage<Props> = ({ children, modalTitle }) => {
+const DashboardModal: NextPage<Props> = ({ children, modalTitle, styleClass }) => {
   const [_, popupDispatch] = usePopupContext();
   const modalContainer = useRef<HTMLDivElement>(null);
   const backdrop = useRef<HTMLDivElement>(null);
@@ -42,7 +43,7 @@ const DashboardModal: NextPage<Props> = ({ children, modalTitle }) => {
   return (
     <>
       <div className={styles.backdrop} onClick={hideHandler} ref={backdrop}></div>
-      <div className={styles.container} ref={modalContainer}>
+      <div className={`${styles.container} ${styleClass ? styleClass : ''}`} ref={modalContainer}>
         <h4 className={styles.title}>{modalTitle}</h4>
         <span className={styles.close} onClick={hideHandler}>
           x

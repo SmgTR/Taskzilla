@@ -56,7 +56,14 @@ const ColumnItem: NextPage<Props> = forwardRef(
                       <ul className={styles.dndList}>
                         {column.Task && column.Task?.length > 0
                           ? column.Task?.map((task, index) => {
-                              return <TaskItem key={task.id} task={task} index={index} />;
+                              return (
+                                <TaskItem
+                                  key={task.id}
+                                  task={task}
+                                  projectId={projectId}
+                                  index={index}
+                                />
+                              );
                             })
                           : ''}
                         {provided.placeholder}
@@ -81,12 +88,6 @@ const ColumnItem: NextPage<Props> = forwardRef(
             </li>
           )}
         </Draggable>
-
-        {/* {popupContext.activePopup === 'task' && popupContext.popupId === column.id && (
-          <Portal>
-            <AddTaskPopup hidePopup={hideModalHandler} columnId={column.id!} />
-          </Portal>
-        )} */}
       </>
     );
   }
