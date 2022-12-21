@@ -16,9 +16,10 @@ interface Props {
   task: Task;
   index: number;
   projectId: string;
+  columnId: string;
 }
 
-const TaskItem: NextPage<Props> = ({ task, index, projectId }) => {
+const TaskItem: NextPage<Props> = ({ task, index, projectId, columnId }) => {
   const [popupContext, popupDispatch] = usePopupContext();
 
   const hideModalHandler = () => {
@@ -51,7 +52,13 @@ const TaskItem: NextPage<Props> = ({ task, index, projectId }) => {
       </Draggable>
       {popupContext.activePopup === 'task' && popupContext.popupId === task.id && (
         <Portal>
-          <EditTaskPopup taskId={task.id} hidePopup={hideModalHandler} columnId={task.id!} />
+          <EditTaskPopup
+            index={index}
+            taskId={task.id!}
+            hidePopup={hideModalHandler}
+            columnId={columnId}
+            projectId={projectId}
+          />
         </Portal>
       )}
     </>

@@ -62,6 +62,7 @@ const ColumnItem: NextPage<Props> = forwardRef(
                                   task={task}
                                   projectId={projectId}
                                   index={index}
+                                  columnId={column.id ?? ''}
                                 />
                               );
                             })

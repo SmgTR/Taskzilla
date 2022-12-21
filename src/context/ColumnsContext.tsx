@@ -7,8 +7,9 @@ interface ColumnContext {
   error: Error | null;
   updateColumns: (column: Column) => void;
   addTask: (task: Task, columnId: string) => void;
-  updateTask: (taskId: string) => void;
+  updateTask: (taskId: string, columnId: string) => void;
   getTasksLength: (columnId: string) => number;
+  removeTask: (task: Task, index: number, taskId: string, columnId: string) => void;
 }
 
 const columnsDefaultValues = {} as ColumnContext;
@@ -50,17 +51,14 @@ export function ColumnsProvider({ children, ...props }: Props) {
       return { ...state };
     });
   }
-  function editTask(task: Task, columnId: string) {
+  function removeTask(task: Task, index: number, taskId: string, columnId: string) {
     setProjectColumns((state) => {
       state.columns.find((column) => {
         if (column.id === columnId && column.Task) {
-          column.Task.push(task);
-        }
-
-        if (column.id === columnId && !column.Task) {
-          column.Task = [task];
+          column.Task.splice(index, 1);
         }
       });
+      console.log({ ...state }, task);
       return { ...state };
     });
   }
@@ -95,7 +93,14 @@ export function ColumnsProvider({ children, ...props }: Props) {
   return (
     <>
       <ColumnsContext.Provider
-        value={{ ...projectColumns, updateColumns, addTask, updateTask, getTasksLength }}
+        value={{
+          ...projectColumns,
+          updateColumns,
+          addTask,
+          updateTask,
+          getTasksLength,
+          removeTask
+        }}
       >
         {children}
       </ColumnsContext.Provider>
