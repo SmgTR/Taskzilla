@@ -50,11 +50,13 @@
 
 .switchForm {
   font-size: $font-small-text;
+  color: $color-primary;
 
   span {
     text-decoration: underline;
     cursor: pointer;
     transition: color 0.3s;
+    color: $color-primary;
 
     &:hover {
       color: $color-highlight;
