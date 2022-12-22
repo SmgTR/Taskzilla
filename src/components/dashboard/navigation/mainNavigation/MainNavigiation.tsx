@@ -9,12 +9,12 @@ import { useEffect, useState } from 'react';
 interface Props {}
 
 const MainNavigation: NextPage<Props> = ({}) => {
-  const [notificationsContext] = useNotificationsContext();
+  const [notificationsState, _] = useNotificationsContext();
   const [notifications, setNotifications] = useState(0);
 
   useEffect(() => {
-    setNotifications(notificationsContext.unreadMessages);
-  }, [notificationsContext]);
+    setNotifications(notificationsState.unreadMessages);
+  }, [notificationsState]);
 
   return (
     <nav className={styles.container}>
