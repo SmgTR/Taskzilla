@@ -2,6 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import { prisma } from 'prisma/prisma';
 
+export const path = '/api/secure/notifications/updateNotifications';
+
 export default async function updateNotifications(
   req: NextApiRequest,
   res: NextApiResponse<Notification[] | NextApiMsg | NextApiError>
