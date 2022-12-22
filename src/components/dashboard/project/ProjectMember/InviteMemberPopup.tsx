@@ -1,28 +1,38 @@
+import { io, Socket } from 'socket.io-client';
+import axios from 'axios';
+import { useRef, useState, FormEvent, FC, useEffect } from 'react';
+
 import PrimaryButton from '@/src/components/ui/buttons/PrimaryButton';
 import MainInput from '@/src/components/ui/inputs/MainInput';
 import DashboardModal from '@/src/components/ui/modals/DashboardModal';
 import { useProjectContext } from '@/src/context/ProjectContext';
+import CircleLoader from '@/src/components/ui/loaders/CircleLoader';
 
 import styles from './InviteMemberPopup.module.scss';
-
-import axios from 'axios';
-import { NextPage } from 'next';
-import { useRef, useState, FormEvent } from 'react';
 
 interface Props {
   hidePopup: () => void;
 }
 
-const InviteMemberPopup: NextPage<Props> = ({ hidePopup }) => {
+let notificationsSocket: Socket;
+
+const InviteMemberPopup: FC<Props> = ({ hidePopup }) => {
   const formEl = useRef<HTMLFormElement>(null);
   const [error, setError] = useState('');
+  const [loader, setLoader] = useState(false);
   const [message, setMessage] = useState('');
   const projectContext = useProjectContext();
+
+  useEffect(() => {
+    fetch('/api/socket');
+    notificationsSocket = io('/notifications');
+  }, []);
 
   const sendInviteHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError('');
     setMessage('');
+    setLoader(true);
     if (formEl.current) {
       const formInputs = Array.from(formEl.current.elements) as HTMLInputElement[];
       const inputType = formInputs.filter((element) => {
@@ -35,16 +45,22 @@ const InviteMemberPopup: NextPage<Props> = ({ hidePopup }) => {
       const userData = Object.assign({}, ...submittedValues);
 
       await axios
-        .post('/api/secure/invite/sendInvite', {
+        .post('/api/secure/invitation/sendInvite', {
           receiverEmail: userData.email,
           projectId: projectContext[0].id ?? ''
         })
-        .then((data) => {
-          setMessage('Invite successfully send');
+        .then(() => {
+          setTimeout(() => {
+            setLoader(false);
+            setMessage('Invite successfully send');
+            notificationsSocket.emit('send-notification', userData.email);
+          }, 2000);
         })
         .catch((err) => {
-          console.log(err);
-          setError(err.response.data.error);
+          setTimeout(() => {
+            setLoader(false);
+            setError(err.response.data.error);
+          }, 2000);
         });
     }
   };
@@ -52,6 +68,11 @@ const InviteMemberPopup: NextPage<Props> = ({ hidePopup }) => {
   return (
     <div>
       <DashboardModal modalTitle="Invite new project member">
+        {loader && (
+          <div className={styles.loaderBackdrop}>
+            <CircleLoader styleClass={styles.loader} />
+          </div>
+        )}
         <p className={styles.infoText}>Currently, you can invite only already registered users.</p>
         <form ref={formEl} onSubmit={sendInviteHandler}>
           <MainInput
