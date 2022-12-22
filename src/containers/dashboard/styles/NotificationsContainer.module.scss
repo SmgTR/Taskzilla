@@ -1,4 +1,9 @@
 .notificationsTitle {
-  margin-top: $margin-vsmall;
+  margin: $margin-vsmall 0;
   font-size: $font-medium;
+  margin-bottom: $margin-small;
+}
+
+.notificationContainer {
+  padding-right: 30px;
 }

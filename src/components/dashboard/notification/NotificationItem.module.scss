@@ -1,0 +1,55 @@
+.notification {
+  width: 100%;
+  background-color: $color-light;
+  border-radius: 8px;
+  margin: $margin-vsmall 0;
+  padding: $padding-vsmall 0;
+  display: flex;
+  align-items: center;
+  color: $color-primary;
+}
+
+.inactive {
+  background-color: $color-accent;
+}
+
+.notificationItem {
+  padding: 0 $padding-small;
+  font-size: $font-vsmall;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+
+  & p {
+    color: $color-primary;
+  }
+
+  & span {
+    margin-left: auto;
+    display: block;
+  }
+}
+
+.acceptButton,
+.rejectButton {
+  padding: $padding-vsmall;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.acceptButton {
+  background-color: $color-primary;
+  margin-right: 1.2rem;
+  border: 1px solid transparent;
+}
+
+.rejectButton {
+  background-color: transparent;
+  border: 1px solid $color-primary;
+  color: $color-primary;
+}
+
+.dateText {
+  color: $color-primary;
+}
