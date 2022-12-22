@@ -60,7 +60,7 @@ const AddProjectPopup: NextPage<Props> = ({ hidePopup }) => {
   };
 
   return (
-    <DashboardModal modalTitle="Add project">
+    <DashboardModal changeHandler={() => {}} modalTitle="Add project">
       <form ref={formEl} onSubmit={addProjectHandler}>
         <MainInput
           labelText="Project name:"

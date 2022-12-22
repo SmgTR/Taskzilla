@@ -7,7 +7,7 @@ interface ColumnContext {
   error: Error | null;
   updateColumns: (column: Column) => void;
   addTask: (task: Task, columnId: string) => void;
-  updateTask: (task: Task, columnId: string) => void;
+  updateTask: (task: Task, columnId: string, message: string) => void;
   getTasksLength: (columnId: string) => number;
   removeTask: (task: Task, index: number, taskId: string, columnId: string) => void;
 }
@@ -72,12 +72,15 @@ export function ColumnsProvider({ children, ...props }: Props) {
     return column?.Task?.length ?? 0;
   }
 
-  function updateTask(inputTask: Task, columnId: string) {
+  function updateTask(inputTask: Task, columnId: string, message: string) {
     setProjectColumns((state) => {
       state.columns.find((column) => {
         if (column.id === columnId && column.Task) {
           column.Task.find((Task) => {
-            if (Task.id === inputTask.id) Task.name = inputTask.name;
+            if (Task.id === inputTask.id) {
+              Task.name = inputTask.name;
+              Task.description = message;
+            }
           });
         }
 

@@ -58,6 +58,7 @@ const TaskItem: NextPage<Props> = ({ task, index, projectId, columnId }) => {
             hidePopup={hideModalHandler}
             columnId={columnId}
             projectId={projectId}
+            task={task.name}
           />
         </Portal>
       )}

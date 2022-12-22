@@ -9,9 +9,10 @@ interface Props {
   children: ReactNode;
   modalTitle: string;
   styleClass?: string;
+  changeHandler: () => void;
 }
 
-const DashboardModal: NextPage<Props> = ({ children, modalTitle, styleClass }) => {
+const DashboardModal: NextPage<Props> = ({ children, modalTitle, styleClass, changeHandler }) => {
   const [_, popupDispatch] = usePopupContext();
   const modalContainer = useRef<HTMLDivElement>(null);
   const backdrop = useRef<HTMLDivElement>(null);
@@ -33,6 +34,7 @@ const DashboardModal: NextPage<Props> = ({ children, modalTitle, styleClass }) =
         '<';
     }
     setClicked(true);
+    changeHandler();
   };
 
   useEffect(() => {
@@ -45,9 +47,7 @@ const DashboardModal: NextPage<Props> = ({ children, modalTitle, styleClass }) =
       <div className={styles.backdrop} onClick={hideHandler} ref={backdrop}></div>
       <div className={`${styles.container} ${styleClass ? styleClass : ''}`} ref={modalContainer}>
         <h4 className={styles.title}>{modalTitle}</h4>
-        <span className={styles.close} onClick={hideHandler}>
-          x
-        </span>
+
         {children}
       </div>
     </>

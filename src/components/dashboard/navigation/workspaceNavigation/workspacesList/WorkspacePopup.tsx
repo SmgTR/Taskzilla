@@ -44,7 +44,7 @@ const WorkspacePopup: NextPage<Props> = ({ hidePopup }) => {
   };
 
   return (
-    <DashboardModal modalTitle="Add workspace">
+    <DashboardModal changeHandler={() => {}} modalTitle="Add workspace">
       <form className={styles.content} ref={formEl} onSubmit={addWorkspaceHandler}>
         <MainInput
           labelText="Workspace name:"

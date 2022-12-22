@@ -60,7 +60,7 @@ const AddTaskPopup: NextPage<Props> = ({ hidePopup, columnId }) => {
   };
 
   return (
-    <DashboardModal modalTitle="Add task">
+    <DashboardModal changeHandler={() => {}} modalTitle="Add task">
       <form ref={formEl} onSubmit={addPopupHandler}>
         <MainInput labelText="Task name:" title="Task name" id="name" name="name" type="text" />
         <PrimaryButton btnText="Add task" title="Add task" btnType="submit" />

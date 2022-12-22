@@ -7,6 +7,7 @@ export type TaskRequest = {
   projectId: string;
   columnId: string;
   taskId: string;
+  description?: string;
 };
 
 type Task = {
@@ -21,7 +22,7 @@ export default async function updateTask(
 ) {
   const session = await getSession({ req });
 
-  const { name, projectId, taskId } = req.body as TaskRequest;
+  const { name, projectId, taskId, description } = req.body as TaskRequest;
 
   if (!session || !session.id) {
     return res.status(401).send({ error: 'You need to be authenticated to use this route' });
@@ -52,7 +53,8 @@ export default async function updateTask(
       id: taskId
     },
     data: {
-      name
+      name,
+      description
     }
   });
 

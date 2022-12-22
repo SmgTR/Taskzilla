@@ -13,9 +13,11 @@ interface Props {
   id: string;
   placeholder?: string;
   autoComplete?: string;
+  defaultValue?: string;
+  onChange?: () => void;
 }
 
-const MainInput: NextPage<Props> = ({
+const MainInput: React.FC<Props> = ({
   labelText,
   title,
   name,
@@ -25,7 +27,9 @@ const MainInput: NextPage<Props> = ({
   labelClass,
   id,
   placeholder,
-  autoComplete
+  defaultValue,
+  autoComplete,
+  onChange
 }) => {
   return (
     <>
@@ -41,6 +45,8 @@ const MainInput: NextPage<Props> = ({
         placeholder={placeholder}
         className={`${styles.mainInput} ${inputClass}`}
         autoComplete={autoComplete}
+        onChange={onChange}
+        defaultValue={defaultValue}
       />
     </>
   );
