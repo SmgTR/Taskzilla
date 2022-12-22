@@ -4,6 +4,7 @@
 
 .pageTitle {
   font-size: $font-xl;
+  color: $color-primary;
 }
 
 .submitButton {
@@ -20,6 +21,7 @@
   position: relative;
   margin-bottom: $margin-small;
   display: block;
+  color: $color-primary;
 
   &:after,
   &:before {
@@ -62,6 +64,7 @@
   label {
     font-size: $font-small-text;
     margin: 1.2rem 0;
+    color: $color-primary;
   }
 
   button {
@@ -80,4 +83,5 @@
 
 .container {
   width: 100%;
+  color: $color-primary;
 }
