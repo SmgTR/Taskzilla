@@ -2,13 +2,15 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import { prisma } from 'prisma/prisma';
 
-type ProjectUpdateData = {
+export type ProjectUpdateData = {
   newMemberId: string;
   invitationId: string;
   reject?: boolean;
 };
 
-export default async function manageInvite(
+export const path = '/api/secure/invitation/manageInvitation';
+
+export default async function manageInvitation(
   req: NextApiRequest,
   res: NextApiResponse<Project | NextApiError | NextApiMsg>
 ) {
@@ -27,6 +29,11 @@ export default async function manageInvite(
     }
   });
 
+  if (!invitation || invitation.active === false)
+    res
+      .status(400)
+      .send({ error: 'Something went wrong, invitation probably do not exist or is outdated' });
+
   if (reject) {
     await prisma.invitation.update({
       where: {
@@ -36,25 +43,8 @@ export default async function manageInvite(
         active: false
       }
     });
-    return res.status(204).send({ message: 'Invitation rejected' });
+    return res.status(200).send({ message: 'Invitation rejected' });
   }
-
-  if (!invitation || invitation.active === false)
-    res
-      .status(400)
-      .send({ error: 'Something went wrong, invitation probably do not exist or is outdated' });
-
-  const userProjectRole = await prisma.projectMember.findFirst({
-    where: {
-      memberId: session.id,
-      projectId: invitation?.projectId as string
-    }
-  });
-
-  if (!userProjectRole || userProjectRole?.roleId !== 0)
-    res
-      .status(404)
-      .send({ error: "Project probably do not exist or you don't have required permissions" });
 
   const projectUpdate = await prisma.project.update({
     where: {
@@ -65,6 +55,21 @@ export default async function manageInvite(
         create: {
           memberId: newMemberId,
           roleId: 2
+        }
+      }
+    },
+    include: {
+      workspace: {
+        include: {
+          projects: {
+            where: {
+              projectMember: {
+                some: {
+                  memberId: newMemberId
+                }
+              }
+            }
+          }
         }
       }
     }
