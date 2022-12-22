@@ -49,12 +49,23 @@ const currentWorkspaceSlice = createSlice({
     },
     addWorkspace: (state, action: PayloadAction<any>) => {
       state.memberIn = [...state.memberIn, action.payload];
+    },
+    addGuestWorkspace: (state, action: PayloadAction<any>) => {
+      const workspaceExist = state.guestIn.findIndex(
+        (workspace) => workspace.id === action.payload.id
+      );
+      if (workspaceExist !== -1) {
+        state.guestIn[workspaceExist].projects = action.payload.projects;
+      } else {
+        state.guestIn = [...state.guestIn, action.payload];
+      }
     }
   },
   initialState: DefaultWorkspaceContextData
 });
 
-export const { setNewState, addWorkspaceProject, addWorkspace } = currentWorkspaceSlice.actions;
+export const { setNewState, addWorkspaceProject, addWorkspace, addGuestWorkspace } =
+  currentWorkspaceSlice.actions;
 
 const WorkspaceContext = createContext<WorkspaceContextType>([
   DefaultWorkspaceContextData,
