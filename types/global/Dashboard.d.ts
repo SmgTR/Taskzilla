@@ -34,6 +34,7 @@ declare global {
     projectMembers?: [];
     workspaceId?: string;
     Column?: Column[];
+    workspace?: Workspace;
   };
 
   type ActiveUserData = {
@@ -81,8 +82,24 @@ declare global {
     userId: string;
     userInvite: string;
     read: boolean;
+    type: 'INVITATION';
+    invitation: InvitationData;
+    createdAt: Date;
   };
 }
+
+type InvitationData = {
+  active: boolean;
+  createdAt: Date;
+  id: string;
+  invitationHost: string;
+  projectId: string;
+  receiverEmail: string;
+  user: User;
+  project: {
+    name: string;
+  };
+};
 
 declare module 'react' {
   interface Attributes {

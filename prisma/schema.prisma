@@ -26,7 +26,7 @@ model WorkspaceMember {
   role        String
   memberId    String
   workspaceId String
-  user        User      @relation(fields: [memberId], references: [id])
+  user        User      @relation(fields: [memberId], references: [id], onDelete: Cascade)
   workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
   @@id([memberId, workspaceId])
@@ -211,20 +211,21 @@ model Invitation {
   invitationHost String
   active         Boolean        @default(true)
   projectId      String
-  project        Project        @relation(fields: [projectId], references: [id])
-  user           User           @relation(fields: [invitationHost], references: [id])
+  project        Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user           User           @relation(fields: [invitationHost], references: [id], onDelete: Cascade)
   createdAt      DateTime       @default(now()) @db.Timestamptz(3)
   Notification   Notification[]
 }
 
 model Notification {
-  id         String      @id @default(cuid())
+  id         String           @id @default(cuid())
   userId     String
   userInvite String?
-  read   Boolean     @default(false)
-  type      NotificationType
-  invitation Invitation? @relation(fields: [userInvite], references: [id])
-  user       User        @relation(fields: [userId], references: [id])
+  read       Boolean          @default(false)
+  type       NotificationType
+  invitation Invitation?      @relation(fields: [userInvite], references: [id], onDelete: Cascade)
+  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime         @default(now()) @db.Timestamptz(3)
 }
 
 model VerificationToken {
@@ -235,8 +236,7 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-
-enum NotificationType{
+enum NotificationType {
   INVITATION
   ASSIGN
 }
