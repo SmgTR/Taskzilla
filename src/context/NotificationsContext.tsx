@@ -9,18 +9,22 @@ import {
   useReducer
 } from 'react';
 import { AnyAction } from 'redux';
+import { getAllNotifications } from '../network/secure/notifications/getAllNotifications';
 import { getUnreadNotifications } from '../network/secure/notifications/getUnreadNotifications';
 
 interface NotificationsContextData {
   unreadMessages: number;
+  notifications: NotificationData[];
 }
 
 const DefaultNotificationsContextData: NotificationsContextData = {
-  unreadMessages: 0
+  unreadMessages: 0,
+  notifications: []
 };
 
 type Props = {
   children: ReactNode;
+  notifications?: NotificationData[];
 };
 
 type NotificationsContextType = [NotificationsContextData, Dispatch<AnyAction>];
@@ -29,16 +33,26 @@ type NotificationsContextType = [NotificationsContextData, Dispatch<AnyAction>];
 const notificationsSlice = createSlice({
   name: 'Notifications',
   reducers: {
-    addNewNotification: (state, action: PayloadAction) => {
+    addNewNotification: (state) => {
       state.unreadMessages = state.unreadMessages++;
     },
-    setNotifications: (state, action: PayloadAction<number>) => {
+    setUnreadMessages: (state, action: PayloadAction<number>) => {
       state.unreadMessages = action.payload;
+    },
+    setNotificationsData: (state, action: PayloadAction<NotificationData[]>) => {
+      state.notifications = [...action.payload];
+    },
+    updateNotification: (state, action: PayloadAction<string>) => {
+      const notificationIndex = state.notifications.findIndex(
+        (notification) => notification.id === action.payload
+      );
+      state.notifications[notificationIndex].invitation.active = false;
     }
   },
   initialState: DefaultNotificationsContextData
 });
-export const { addNewNotification, setNotifications } = notificationsSlice.actions;
+export const { addNewNotification, setUnreadMessages, setNotificationsData, updateNotification } =
+  notificationsSlice.actions;
 
 /* ------------------------CONTEXT------------------------ */
 export const NotificationsContext = createContext<NotificationsContextType>([
@@ -53,12 +67,17 @@ export const NotificationsContextProvider = ({ children }: Props) => {
   );
 
   useEffect(() => {
-    const unreadNotifications = async () => {
-      const notifications = await getUnreadNotifications();
-      return dispatch(setNotifications(notifications?.length ?? 0));
+    const getNotifications = async () => {
+      const notifications = (await getAllNotifications()) as NotificationData[];
+
+      if (notifications) {
+        const unreadMessages = notifications.filter((notification) => notification.read === false);
+        dispatch(setUnreadMessages(unreadMessages.length ?? 0));
+        dispatch(setNotificationsData(notifications));
+      }
     };
 
-    unreadNotifications();
+    getNotifications();
   }, []);
 
   return (
