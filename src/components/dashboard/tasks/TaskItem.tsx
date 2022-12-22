@@ -40,7 +40,10 @@ const TaskItem: NextPage<Props> = ({ task, index, projectId, columnId }) => {
             {...provided.draggableProps}
             ref={provided.innerRef}
           >
-            {task.name}
+            <div className={`${styles.content} ${task.description ? '' : styles.noDescription}`}>
+              <h1 className={styles.taskName}>{task.name}</h1>
+              {task.description ? <p className={styles.taskDescription}>{task.description}</p> : ''}
+            </div>
             <MoreButton
               className={styles.editButton}
               onClickHandler={showTaskPopupHandler}
@@ -59,6 +62,7 @@ const TaskItem: NextPage<Props> = ({ task, index, projectId, columnId }) => {
             columnId={columnId}
             projectId={projectId}
             task={task.name}
+            message={`${task.description ? task.description : ''}`}
           />
         </Portal>
       )}

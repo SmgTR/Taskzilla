@@ -1,6 +1,7 @@
 .taskItem {
   width: $button-width;
   @include flexLayout(flexBetween);
+  align-items: flex-start;
   background: $color-task;
   border-radius: $radius-small;
   margin-top: $margin-medium-px;
@@ -11,6 +12,27 @@
   box-sizing: border-box;
   position: relative;
   z-index: 2;
+  max-height: 200px;
+  overflow: hidden;
+}
+.noDescription {
+  .taskName {
+    font-size: $font-small-text;
+  }
+}
+.taskName {
+  font-size: $font-small;
+}
+
+.content {
+  width: 70%;
+  max-height: 11rem;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 }
 .editButton {
   @include flexLayout(flexEvenly);

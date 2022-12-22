@@ -3,6 +3,11 @@
 }
 .button {
   width: 30%;
+  padding: $padding-vsmall;
+  &:hover {
+    filter: saturate(1.2);
+    color: $color-light;
+  }
 }
 .editModal {
   height: 80vh;
@@ -12,10 +17,6 @@
   flex-direction: column;
   border-radius: $radius-small;
   background-color: $color-popup;
-}
-.formButtons {
-  width: 100%;
-  @include flexLayout(flexBetween);
 }
 .editForm {
   width: 100%;
@@ -42,9 +43,11 @@
   border: none;
   color: $color-text-dark;
   padding: $margin-small $margin-medium;
+  background: transparent;
+  outline: 1px solid $color-accent;
   &:focus,
   &:focus-within {
-    outline: none;
+    outline: 1px solid $color-accent;
   }
 }
 .nameLabel {

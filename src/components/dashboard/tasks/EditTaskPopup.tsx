@@ -17,6 +17,7 @@ interface Props {
   index: number;
   projectId: string;
   task: string;
+  message: string;
 }
 
 const EditTaskPopup: NextPage<Props> = ({
@@ -25,7 +26,8 @@ const EditTaskPopup: NextPage<Props> = ({
   taskId,
   index,
   projectId,
-  task
+  task,
+  message
 }) => {
   const formEl = useRef<HTMLFormElement>(null);
   const textArea = useRef<HTMLTextAreaElement>(null);
@@ -44,8 +46,9 @@ const EditTaskPopup: NextPage<Props> = ({
       });
 
       const userData = Object.assign({}, ...submittedValues);
+
+      console.log(userData.message);
       if (userData.name.length >= 4 && userData.name.length <= 25) {
-        console.log(userData.message);
         const task = await editTask({
           name: userData.name,
           description: userData.message,
@@ -106,19 +109,18 @@ const EditTaskPopup: NextPage<Props> = ({
           name="message"
           className={styles.messageInput}
           autoComplete="false"
-          defaultValue=""
+          defaultValue={message}
         />
-        <div className={styles.formButtons}>
-          <PrimaryButton
-            btnText="Remove task"
-            title="Remove task"
-            btnType="button"
-            styleClass={`${styles.removeButton} ${styles.button}`}
-            onClickHandler={() => {
-              removeTaskHandler(index, columnId, taskId);
-            }}
-          />
-        </div>
+
+        <PrimaryButton
+          btnText="Remove task"
+          title="Remove task"
+          btnType="button"
+          styleClass={`${styles.removeButton} ${styles.button}`}
+          onClickHandler={() => {
+            removeTaskHandler(index, columnId, taskId);
+          }}
+        />
       </form>
       <span>{error}</span>
     </DashboardModal>
