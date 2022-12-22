@@ -9,7 +9,7 @@ export type InviteData = {
   projectId: string;
 };
 
-export const path = 'api/secure/invite/sendInvite';
+export const path = 'api/secure/invitation/sendInvite';
 
 export default async function removeWorkspace(
   req: NextApiRequest,
@@ -27,15 +27,15 @@ export default async function removeWorkspace(
     return res.status(400).send({ error: 'Please check provided data' });
   }
 
-  const userWorkspaceRole = await prisma.projectMember.findFirst({
+  const userProjectRole = await prisma.projectMember.findFirst({
     where: {
       memberId: session.id,
       projectId: projectId as string
     }
   });
 
-  if (userWorkspaceRole?.roleId !== 0)
-    res
+  if (userProjectRole?.roleId !== 0)
+    return res
       .status(404)
       .send({ error: "Project probably do not exist or you don't have required permissions" });
 
