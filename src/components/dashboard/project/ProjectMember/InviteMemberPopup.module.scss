@@ -1,0 +1,37 @@
+.infoText {
+  font-size: $font-vsmall;
+  color: $color-primary;
+  text-align: center;
+  margin: $margin-small 0 $margin-vsmall 0;
+}
+
+.errorText {
+  color: $color-error;
+}
+
+.successText {
+  color: $color-success;
+}
+
+.errorText,
+.successText {
+  font-size: $font-vsmall;
+  margin-top: $margin-vsmall;
+  display: block;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loaderBackdrop {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: $color-over;
+}

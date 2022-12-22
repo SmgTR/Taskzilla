@@ -41,7 +41,6 @@ const AddTaskForm: NextPage<Props> = ({ projectId, columnId }) => {
   }, [projectId, projectTasks.columns]);
   const lengthHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputLength = event.target.value;
-    console.log(inputLength.length);
     setTextLength(inputLength.length);
   };
   const closeFormHandler = () => {

@@ -11,7 +11,7 @@ type ProjectUpdateData = {
   };
 };
 
-export default async function removeWorkspace(
+export default async function updateProject(
   req: NextApiRequest,
   res: NextApiResponse<Project | NextApiError>
 ) {

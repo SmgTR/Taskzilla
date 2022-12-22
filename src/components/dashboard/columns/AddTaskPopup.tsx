@@ -3,17 +3,12 @@ import MainInput from '@/src/components/ui/inputs/MainInput';
 import DashboardModal from '@/src/components/ui/modals/DashboardModal';
 import { useColumnsContext } from '@/src/context/ColumnsContext';
 import { usePopupContext } from '@/src/context/PopupContext';
-import {
-  addWorkspace,
-  addWorkspaceProject,
-  useWorkspacesContext
-} from '@/src/context/WorkspacesContext';
-import { createProject } from '@/src/network/secure/project/createProject';
+
 import { createTask } from '@/src/network/secure/tasks/createTask';
-import { createWorkspace } from '@/src/network/secure/workspace/createWorkspace';
+
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { Dispatch, FormEvent, SetStateAction, useRef, useState } from 'react';
+
+import { FormEvent, useRef, useState } from 'react';
 
 interface Props {
   hidePopup: () => void;
