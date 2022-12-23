@@ -1,5 +1,9 @@
 import { connectUser, disconnectUser } from '@/src/utils/socket/activeUsersSocketHelper';
 import {
+  notificationsConnectUser,
+  sendNotificationToUser
+} from '@/src/utils/socket/notificiationsSocketHelper';
+import {
   connectColumnSocket,
   updateColumn,
   updateTask
@@ -26,6 +30,13 @@ export interface ProjectActiveUsersSocket extends SocketIO {
   };
   room?: string;
   id: string;
+}
+
+export interface NotificationsUser extends SocketIO {
+  user?: {
+    email: string;
+    id: string;
+  };
 }
 
 type SocketServer = {
@@ -65,7 +76,7 @@ const socketHandler = async (req: NextApiRequest, res: SocketNextApiResponse) =>
     });
 
     socket.on('disconnecting', async () => {
-      disconnectUser('', null, socket, activeProjectUsers);
+      disconnectUser(socket.room ?? '', null, socket, activeProjectUsers);
     });
   });
 
@@ -82,6 +93,18 @@ const socketHandler = async (req: NextApiRequest, res: SocketNextApiResponse) =>
 
     socket.on('update-column', async ({ columnOrder, newColumnOrder }) => {
       updateColumn({ socket, columnOrder, newColumnOrder });
+    });
+  });
+
+  const notifications = io.of('/notifications');
+
+  notifications.on('connection', async (notificationSocket: NotificationsUser) => {
+    notificationSocket.on('connect-notification', async (user) => {
+      notificationsConnectUser(notificationSocket, user);
+    });
+
+    notificationSocket.on('send-notification', async (receiverEmail) => {
+      sendNotificationToUser(notificationSocket, notifications, receiverEmail);
     });
   });
 

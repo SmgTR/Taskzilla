@@ -1,19 +1,36 @@
 .navigationItem {
   margin-top: 4rem;
-  padding: 0rem 2rem;
+  padding: 0rem 1.2rem;
   border: 2px solid transparent;
-  height: 30px;
+  height: 100%;
   display: flex;
   justify-content: center;
   width: 100%;
+  position: relative;
 
   button {
     width: 100%;
     background-color: transparent;
     border: none;
+    height: 100%;
+    padding: 1rem 0.8rem;
   }
 }
 
 .activeNavItem {
   border-right: 2px solid $color-menu--highlight;
+}
+
+.notificationInfo {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  background-color: $color-light-red;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

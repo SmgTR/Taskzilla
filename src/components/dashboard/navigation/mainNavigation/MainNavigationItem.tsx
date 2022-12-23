@@ -13,9 +13,16 @@ interface NavigationItem {
   };
   href?: string;
   title: string;
+  notifications?: number;
 }
 
-const MainNavigationItem: NextPage<NavigationItem> = ({ icon, iconStyle, href, title }) => {
+const MainNavigationItem: NextPage<NavigationItem> = ({
+  icon,
+  iconStyle,
+  href,
+  title,
+  notifications
+}) => {
   const url = useRouter();
 
   const defaultIconStyle = {
@@ -33,6 +40,11 @@ const MainNavigationItem: NextPage<NavigationItem> = ({ icon, iconStyle, href, t
     <div
       className={`${styles.navigationItem} ${url.pathname === path ? styles.activeNavItem : ''}`}
     >
+      {notifications && notifications > 0 ? (
+        <div className={styles.notificationInfo}>{notifications}</div>
+      ) : (
+        ''
+      )}
       <button onClick={menuNavHandler} title={title}>
         <FontAwesomeIcon icon={icon} style={iconStyle ? iconStyle : defaultIconStyle} />
       </button>

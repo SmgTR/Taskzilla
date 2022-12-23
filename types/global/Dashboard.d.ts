@@ -4,6 +4,8 @@ import { DOMAttributes } from 'react';
 declare global {
   type NextApiError = { error: string };
 
+  type NextApiMsg = { message: string };
+
   type Workspace = {
     name: string;
     owner: string;
@@ -32,6 +34,7 @@ declare global {
     projectMembers?: [];
     workspaceId?: string;
     Column?: Column[];
+    workspace?: Workspace;
   };
 
   type ActiveUserData = {
@@ -73,6 +76,35 @@ declare global {
     projectId: string;
     Task?: Task[];
   };
+
+  type NotificationData = {
+    id: string;
+    userId: string;
+    userInvite: string;
+    read: boolean;
+    type: 'INVITATION';
+    invitation: InvitationData;
+    createdAt: Date;
+  };
+}
+
+type InvitationData = {
+  active: boolean;
+  createdAt: Date;
+  id: string;
+  invitationHost: string;
+  projectId: string;
+  receiverEmail: string;
+  user: User;
+  project: {
+    name: string;
+  };
+};
+
+declare module 'react' {
+  interface Attributes {
+    innerRef?: any;
+  }
 }
 
 declare module 'react' {

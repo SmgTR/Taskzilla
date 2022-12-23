@@ -47,7 +47,6 @@ export default function columnUpdateHelper({
       parseFloat(window.getComputedStyle(draggedDOM.closest('ul') as HTMLElement).paddingRight) +
       updatedArray.slice(0, destinationIndex).reduce((total, curr) => {
         const marginLeft = parseFloat(window.getComputedStyle(curr).marginLeft);
-        console.log(curr);
         return total + curr.clientWidth + marginLeft;
       }, 0);
 
