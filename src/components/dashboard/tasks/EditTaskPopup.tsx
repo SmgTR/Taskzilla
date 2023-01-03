@@ -9,6 +9,7 @@ import { NextPage } from 'next';
 
 import React, { useRef, useState } from 'react';
 import styles from './EditTaskPopup.module.scss';
+import AddButton from '../../ui/buttons/AddButton';
 
 interface Props {
   hidePopup: () => void;
@@ -102,6 +103,34 @@ const EditTaskPopup: NextPage<Props> = ({
           autoComplete="false"
           defaultValue={task}
         />
+        <div className={styles.formData}>
+          <div className={styles.assignedContainer}>
+            <div className={styles.assignedTitle}>assigned to</div>
+            <div className={styles.assignedPeople}>
+              <div className={styles.person}>A</div>
+              <div className={styles.person}>B</div>
+              <div className={styles.person}>C</div>
+            </div>
+          </div>
+          <div className={styles.tagsContainer}>
+            <div className={styles.tagsTitle}>tags</div>
+            <div className={styles.tagsSelection}>
+              <div className={styles.tag}>Front</div>
+              <div className={styles.tag}>Back</div>
+              <div className={styles.tag}>Data</div>
+              <AddButton btnText="+" title="addTag"></AddButton>
+            </div>
+          </div>
+          <div className={styles.createdContainer}>
+            <div className={styles.createdTitle}>created</div>
+            <div className={styles.createdAt}>MAR 11 2021,6:40AM</div>
+          </div>
+          <div className={styles.dueContainer}>
+            <div className={styles.dueTitle}>due date</div>
+            <div className={styles.dueAt}>-/-</div>
+          </div>
+        </div>
+
         <textarea
           title="Message"
           id="Message"
@@ -110,6 +139,7 @@ const EditTaskPopup: NextPage<Props> = ({
           className={styles.messageInput}
           autoComplete="false"
           defaultValue={message}
+          placeholder="Set your task description here"
         />
 
         <PrimaryButton

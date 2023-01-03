@@ -20,7 +20,7 @@ $color-task: var(--color-task);
 $color-over: var(--color-over);
 $color-popup: var(--color-popup);
 $color-text-dark: var(--text-dark);
-
+$color-popup-field: var(--color-popup-field);
 $font-headings: 'Oswald', sans-serif;
 $font-text: 'Cantarell', sans-serif;
 
@@ -37,7 +37,10 @@ $font-vsmall: 1.2rem;
 $radius-big: 25px;
 $radius-medium: 15px;
 $radius-small: 8px;
+$radius-vsmall: 4px;
 $radius-circle: 50%;
+$padding-small-rem: 1.6rem;
+$padding-medium-rem: 2rem;
 
 $margin-big: 4rem;
 $margin-medium: 2rem;
