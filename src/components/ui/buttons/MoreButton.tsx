@@ -6,10 +6,11 @@ interface Props {
   title: string;
   btnType: 'button' | 'submit' | 'reset';
   className?: string;
+  dotsClass?: string;
   onClickHandler?: () => void;
 }
 
-const MoreButton: NextPage<Props> = ({ className, title, btnType, onClickHandler }) => {
+const MoreButton: NextPage<Props> = ({ dotsClass, className, title, btnType, onClickHandler }) => {
   return (
     <>
       <button
@@ -18,9 +19,11 @@ const MoreButton: NextPage<Props> = ({ className, title, btnType, onClickHandler
         type={btnType}
         onClick={onClickHandler}
       >
-        <span className={`${className ? '' : styles.moreButton_dot}`}></span>
-        <span className={`${className ? '' : styles.moreButton_dot}`}></span>
-        <span className={`${className ? '' : styles.moreButton_dot}`}></span>
+        <div className={dotsClass}>
+          <span className={`${className ? '' : styles.moreButton_dot}`}></span>
+          <span className={`${className ? '' : styles.moreButton_dot}`}></span>
+          <span className={`${className ? '' : styles.moreButton_dot}`}></span>
+        </div>
       </button>
     </>
   );

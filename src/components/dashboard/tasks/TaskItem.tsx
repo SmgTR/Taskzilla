@@ -35,6 +35,7 @@ const TaskItem: NextPage<Props> = ({ task, index, projectId, columnId }) => {
       <Draggable draggableId={task.id!} index={index}>
         {(provided) => (
           <li
+            onClick={showTaskPopupHandler}
             className={styles.taskItem}
             {...provided.dragHandleProps}
             {...provided.draggableProps}
@@ -46,6 +47,7 @@ const TaskItem: NextPage<Props> = ({ task, index, projectId, columnId }) => {
             </div>
             <MoreButton
               className={styles.editButton}
+              dotsClass={styles.dots}
               onClickHandler={showTaskPopupHandler}
               title="more"
               btnType="button"

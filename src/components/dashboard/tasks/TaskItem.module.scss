@@ -17,11 +17,16 @@
 }
 .noDescription {
   .taskName {
-    font-size: $font-small-text;
+    font-size: $font-small;
   }
 }
 .taskName {
+  font-family: $font-text;
+  font-weight: normal;
   font-size: $font-small;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .content {
@@ -39,8 +44,20 @@
   flex-direction: column;
   color: $color-light;
   background-color: transparent;
+  width: 5%;
   border: none;
-  height: 2rem;
+  height: 3rem;
+
+  transition: all 200ms linear;
+  &:hover {
+    opacity: 0.4;
+  }
+  .dots {
+    @include flexLayout(flexStart);
+    flex-direction: column;
+    height: 100%;
+    gap: 0.4rem;
+  }
   span {
     height: 0.4rem;
     width: 0.4rem;
