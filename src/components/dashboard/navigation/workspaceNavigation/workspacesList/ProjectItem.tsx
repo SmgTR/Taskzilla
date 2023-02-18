@@ -1,4 +1,6 @@
+import Project from '@/pages/project/[projectId]';
 import { useProjectContext } from '@/src/context/ProjectContext';
+import { setNewState } from '@/src/context/WorkspacesContext';
 import { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
 
@@ -15,7 +17,7 @@ const ProjectItem: NextPage<{ project: Project }> = ({ project }) => {
   const { name, owner, createdAt, id } = project;
   const router = useRouter();
 
-  const projectContext = useProjectContext();
+  const [projectContext] = useProjectContext();
 
   useEffect(() => {
     if (!socket) {
@@ -25,7 +27,7 @@ const ProjectItem: NextPage<{ project: Project }> = ({ project }) => {
   }, []);
 
   const projectRouteHandler = () => {
-    socket.emit('disconnect-user', projectContext[0].id, session?.user);
+    socket.emit('disconnect-user', projectContext.id, session?.user);
     router.push(`/project/${id}`);
   };
 
