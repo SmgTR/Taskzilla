@@ -87,7 +87,7 @@ const Columns: NextPage = () => {
         if (newColumn) {
           projectColumns.updateColumns(newColumn);
           setOpenForm(false);
-          socket.emit('add-column', [...reorderColumns, newColumn]);
+          socket.emit('add-column-data', [...reorderColumns, newColumn]);
         }
       }
     }

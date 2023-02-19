@@ -1,10 +1,3 @@
-import {
-  disablePopup,
-  setActivePopup,
-  setPopupParentId,
-  usePopupContext
-} from '@/src/context/PopupContext';
-import Portal from '@/src/hoc/Portal';
 import { NextPage } from 'next';
 import { forwardRef } from 'react';
 
@@ -81,12 +74,6 @@ const ColumnItem: NextPage<Props> = forwardRef(
             </li>
           )}
         </Draggable>
-
-        {/* {popupContext.activePopup === 'task' && popupContext.popupId === column.id && (
-          <Portal>
-            <AddTaskPopup hidePopup={hideModalHandler} columnId={column.id!} />
-          </Portal>
-        )} */}
       </>
     );
   }

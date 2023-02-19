@@ -36,7 +36,7 @@ export default function taskDragHelper({
           return { id: task.id, order: index };
         });
 
-        socket.emit('update-task', {
+        socket.emit('update-task-order', {
           taskOrder,
           newOrder: reorderColumns
         });
@@ -57,7 +57,7 @@ export default function taskDragHelper({
         return { id: task.id, order: index };
       });
 
-      socket.emit('update-task', {
+      socket.emit('update-task-order', {
         taskOrder,
         targetColumnId: destination.droppableId,
         taskId: draggableId,

@@ -25,7 +25,7 @@ export default function columnDragHelper({
       return { id: task.id, order: index };
     });
 
-    socket.emit('update-column', {
+    socket.emit('update-column-order', {
       columnOrder,
       newColumnOrder
     });
