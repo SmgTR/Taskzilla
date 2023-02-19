@@ -1,59 +1,24 @@
+import { NextApiRequest } from 'next';
+import { Server, ServerOptions } from 'socket.io';
+
 import { connectUser, disconnectUser } from '@/src/utils/socket/activeUsersSocketHelper';
 import {
   notificationsConnectUser,
   sendNotificationToUser
-} from '@/src/utils/socket/notificiationsSocketHelper';
+} from '@/src/utils/socket/notificationsSocketHelper';
 import {
+  addColumn,
   connectColumnSocket,
   updateColumn,
   updateTask
 } from '@/src/utils/socket/updateColumnDataHelper';
-import { Socket } from 'net';
-import { NextApiRequest, NextApiResponse } from 'next';
 
-import { Server, ServerOptions, Socket as SocketIO } from 'socket.io';
-
-interface SocketNextApiResponse extends NextApiResponse {
-  socket: ExtendedSocket;
-}
-
-interface ExtendedSocket extends Socket {
-  server: Partial<ServerOptions> & SocketServer;
-}
-
-export interface ProjectActiveUsersSocket extends SocketIO {
-  user?: {
-    email: string;
-    name: string;
-    id: string;
-    image?: string;
-  };
-  room?: string;
-  id: string;
-}
-
-export interface NotificationsUser extends SocketIO {
-  user?: {
-    email: string;
-    id: string;
-  };
-}
-
-type SocketServer = {
-  io: Server;
-};
-
-export interface TaskData {
-  taskOrder: { id: string; order: number }[];
-  targetColumnId?: string;
-  taskId?: string;
-  newOrder: Column[];
-}
-
-export interface ColumnData {
-  columnOrder: { id: string; order: number }[];
-  newColumnOrder: Column[];
-}
+import {
+  SocketNextApiResponse,
+  ProjectActiveUsersSocket,
+  TaskData,
+  NotificationsUser
+} from '@/types/SocketTypes';
 
 const socketHandler = async (req: NextApiRequest, res: SocketNextApiResponse) => {
   if (res.socket.server?.io) {
@@ -93,6 +58,10 @@ const socketHandler = async (req: NextApiRequest, res: SocketNextApiResponse) =>
 
     socket.on('update-column', async ({ columnOrder, newColumnOrder }) => {
       updateColumn({ socket, columnOrder, newColumnOrder });
+    });
+
+    socket.on('add-column', async (columns) => {
+      addColumn({ socket, columns });
     });
   });
 
