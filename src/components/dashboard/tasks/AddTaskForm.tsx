@@ -1,10 +1,9 @@
-import { useColumnsContext } from '@/src/context/ColumnsContext';
-import { usePopupContext } from '@/src/context/PopupContext';
-import { createTask } from '@/src/network/secure/tasks/createTask';
 import { NextPage } from 'next';
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 
+import { useColumnsContext } from '@/src/context/ColumnsContext';
+import { createTask } from '@/src/network/secure/tasks/createTask';
 import Button from '../../ui/buttons/Button';
 import PrimaryButton from '../../ui/buttons/PrimaryButton';
 
@@ -17,11 +16,10 @@ interface Props {
 let socket: Socket;
 const AddTaskForm: NextPage<Props> = ({ projectId, columnId }) => {
   const formEl = useRef<HTMLFormElement>(null);
-  const projectTasks = useColumnsContext();
+  const { columns } = useColumnsContext();
   const { addTask, getTasksLength } = useColumnsContext();
-  const [popupContext] = usePopupContext();
 
-  const [reorderTasks, setReordertasks] = useState([] as Column[]);
+  const [columnsData, setColumnsData] = useState([] as Column[]);
   const [openForm, setOpenForm] = useState(false);
   const [error, setError] = useState('');
   const [textLength, setTextLength] = useState(0);
@@ -31,14 +29,18 @@ const AddTaskForm: NextPage<Props> = ({ projectId, columnId }) => {
   };
 
   useEffect(() => {
+    fetch('/api/socket');
+    socket = io('/updateColumnTaskContent');
+    if (socket) {
+      socket.emit('connect-to-room', projectId);
+    }
     setOpenForm(false);
-
-    if (projectTasks.columns) setReordertasks(projectTasks.columns);
 
     return () => {
       if (socket) socket.disconnect();
     };
-  }, [projectId, projectTasks.columns]);
+  }, [projectId]);
+
   const lengthHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputLength = event.target.value;
     setTextLength(inputLength.length);
@@ -72,12 +74,12 @@ const AddTaskForm: NextPage<Props> = ({ projectId, columnId }) => {
           addTask(task, columnId);
           setTextLength(0);
           setOpenForm(false);
+          socket.emit('add-column-data', columns);
         }
       } else {
         setError('Task name cannot be less than 4 characters and more than 25 characters');
         alert(error);
       }
-      console.log(userData.name, projectId, order, columnId);
     }
   };
   const addTaskForm = (

@@ -1,6 +1,7 @@
-import { NotificationsUser } from '@/api/socket/index';
 import { prisma } from 'prisma/prisma';
-import { Namespace, RemoteSocket } from 'socket.io';
+import { Namespace } from 'socket.io';
+
+import { NotificationsUser } from '@/types/SocketTypes';
 
 export const notificationsConnectUser = async (socket: NotificationsUser, user: ActiveUserData) => {
   return (socket.user = user);
