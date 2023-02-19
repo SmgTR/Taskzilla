@@ -23,7 +23,8 @@
     "format": "prettier --write .",
     "test-all": "yarn run check-format && yarn run check-lint && npm run check-types &&  yarn run test --watchAll=false && yarn build",
     "prepare": "husky install",
-    "test": "jest test --watchAll --verbose"
+    "test": "jest test --watchAll --verbose",
+    "postinstall": "yarn prepare && chmod +x .husky/pre-push"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
