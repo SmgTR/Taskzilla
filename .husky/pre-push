@@ -7,15 +7,20 @@ branch=$(git rev-parse --abbrev-ref HEAD)
 # Get the current date
 date=$(date +%Y-%m-%d)
 
+# Get the user's name and email address
+name=$(git config user.name)
+email=$(git config user.email)
+
 # Update the changelog file
 changelog_path="./changelog.md"
 changelog_content=$(cat $changelog_path)
-new_changelog_content="## ${branch} (${date})\n\n${changelog_content}"
+new_changelog_content="## ${branch} (${date}) by ${name} <${email}>\n\n${changelog_content}"
 echo -e $new_changelog_content > $changelog_path
 
 # Commit the changes
 git add $changelog_path
-git commit -m "Update changelog for ${branch} (${date})"
+commit_message="Update changelog for ${branch} (${date}) by ${name} <${email}>"
+git commit -m "$commit_message"
 
 # Exit with status code 0 to allow the push to continue
 exit 0
