@@ -1,6 +1,6 @@
 import { Namespace, RemoteSocket, Server, Socket as SocketIO } from 'socket.io';
 
-import { ProjectActiveUsersSocket } from '@/pages/api/socket';
+import { ProjectActiveUsersSocket } from '@/types/SocketTypes';
 
 const listOfUsersHandler = (socketsList: RemoteSocket<any, any>[]) => {
   const listOfAllUsers = socketsList.map((socket: any) => socket.user);
