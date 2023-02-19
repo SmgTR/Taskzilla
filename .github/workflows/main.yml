@@ -15,6 +15,9 @@ jobs:
         with:
           ref: main # checkout dev branch.
           fetch-depth: 0 # fetch all history.
+          
+      - run: git config --global user.email "smagokpnd@gmail.com"
+      - run: git config --global user.name "SmgTR"
 
       - name: Create Changelog Entry String
         run: |
