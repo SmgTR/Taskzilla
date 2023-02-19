@@ -5,9 +5,7 @@ import PrimaryButton from '../../ui/buttons/PrimaryButton';
 import MainInput from '../../ui/inputs/MainInput';
 
 import styles from './EditTaskForm.module.scss';
-
 import { useColumnsContext } from '@/src/context/ColumnsContext';
-import { editTask } from '@/src/network/secure/tasks/editTask';
 import { deleteTask } from '@/src/network/secure/tasks/deleteTask';
 interface Props {
   hidePopup: () => void;
@@ -15,8 +13,8 @@ interface Props {
   taskId: string;
   index: number;
   projectId: string;
-  task: string;
   message: string;
+  taskName: string;
 }
 const EditTaskForm: React.FC<Props> = ({
   hidePopup,
@@ -24,8 +22,8 @@ const EditTaskForm: React.FC<Props> = ({
   taskId,
   index,
   projectId,
-  task,
-  message
+  message,
+  taskName
 }) => {
   const formEl = useRef<HTMLFormElement>(null);
   const textArea = useRef<HTMLTextAreaElement>(null);
@@ -63,8 +61,8 @@ const EditTaskForm: React.FC<Props> = ({
         inputClass={styles.nameInput}
         labelClass={styles.nameLabel}
         autoComplete="false"
-        defaultValue={task}
         onChange={() => lengthHandler}
+        defaultValue={taskName}
       />
       {error}
       <div className={styles.formData}>

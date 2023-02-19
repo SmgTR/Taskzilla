@@ -17,27 +17,29 @@
 }
 .noDescription {
   .taskName {
+    padding-top: 2.5px;
+    font-weight: bold;
     font-size: $font-small;
   }
 }
 .taskName {
-  font-family: $font-text;
-  font-weight: normal;
-  font-size: $font-small;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  font-size: $font-small-text;
+  overflow: visible;
+  max-width: 14ch;
+  overflow-wrap: break-word;
+  font-weight: bold;
 }
 
 .content {
-  width: 70%;
   max-height: 11rem;
   word-wrap: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: lighter;
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
+  font-size: $font-vsmall;
 }
 .editButton {
   @include flexLayout(flexEvenly);
@@ -47,7 +49,7 @@
   width: 5%;
   border: none;
   height: 3rem;
-
+  padding-top: 2.5px;
   transition: all 200ms linear;
   &:hover {
     opacity: 0.4;

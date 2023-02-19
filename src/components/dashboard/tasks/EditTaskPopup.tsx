@@ -1,14 +1,11 @@
-import PrimaryButton from '@/src/components/ui/buttons/PrimaryButton';
-import MainInput from '@/src/components/ui/inputs/MainInput';
 import DashboardModal from '@/src/components/ui/modals/DashboardModal';
 import { useColumnsContext } from '@/src/context/ColumnsContext';
 
 import { editTask } from '@/src/network/secure/tasks/editTask';
-import { NextPage } from 'next';
 
 import React, { useRef, useState } from 'react';
 import styles from './EditTaskPopup.module.scss';
-import AddButton from '../../ui/buttons/AddButton';
+
 import EditTaskForm from './EditTaskForm';
 
 interface Props {
@@ -17,7 +14,7 @@ interface Props {
   taskId: string;
   index: number;
   projectId: string;
-  task: string;
+  taskName: string;
   message: string;
 }
 
@@ -27,11 +24,11 @@ const EditTaskPopup: React.FC<Props> = ({
   taskId,
   index,
   projectId,
-  task,
-  message
+  message,
+  taskName
 }) => {
   const formEl = useRef<HTMLFormElement>(null);
-
+  let checkedTags: any[] = [];
   const { updateTask } = useColumnsContext();
   const [error, setError] = useState('');
 
@@ -67,7 +64,6 @@ const EditTaskPopup: React.FC<Props> = ({
         setError('Task name cannot be less than 4 characters and more than 25 characters');
       }
     }
-    console.log(formEl);
   };
 
   return (
@@ -90,8 +86,8 @@ const EditTaskPopup: React.FC<Props> = ({
           columnId={columnId}
           taskId={taskId}
           index={index}
+          taskName={taskName}
           projectId={projectId}
-          task={task}
           message={message}
         ></EditTaskForm>
       </form>

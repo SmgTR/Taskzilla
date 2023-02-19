@@ -1,17 +1,17 @@
+import { NextPage } from 'next';
+import { Draggable } from 'react-beautiful-dnd';
 import {
   disablePopup,
   setActivePopup,
   setPopupParentId,
   usePopupContext
 } from '@/src/context/PopupContext';
-import { NextPage } from 'next';
 
-import styles from './TaskItem.module.scss';
-
-import { Draggable } from 'react-beautiful-dnd';
-import MoreButton from '../../ui/buttons/MoreButton';
 import Portal from '@/src/hoc/Portal';
+
+import MoreButton from '@/src/components/ui/buttons/MoreButton';
 import EditTaskPopup from './EditTaskPopup';
+import styles from './TaskItem.module.scss';
 interface Props {
   task: Task;
   index: number;
@@ -63,7 +63,7 @@ const TaskItem: NextPage<Props> = ({ task, index, projectId, columnId }) => {
             hidePopup={hideModalHandler}
             columnId={columnId}
             projectId={projectId}
-            task={task.name}
+            taskName={task.name}
             message={`${task.description ? task.description : ''}`}
           />
         </Portal>
