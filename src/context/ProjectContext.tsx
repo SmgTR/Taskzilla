@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 import {
   createContext,
   Dispatch,
@@ -37,8 +37,8 @@ const DefaultProjectContextData: ProjectContextData = {
 const currentProjectSlice = createSlice({
   name: 'project',
   reducers: {
-    setNewState: (state, action: PayloadAction<{ project: Project }>) => {
-      state = { ...action.payload.project };
+    setNewState: (state, action: PayloadAction<{ project: any }>) => {
+      return { ...action.payload.project };
     }
   },
   initialState: DefaultProjectContextData
@@ -48,26 +48,21 @@ export const { setNewState } = currentProjectSlice.actions;
 
 const ProjectContext = createContext<ProjectContextType>([DefaultProjectContextData, () => null]);
 
-function reducer(state: any, action: any) {
-  switch (action.type) {
-    case 'set':
-      return (state = action.payload);
-  }
-}
-
 export function ProjectProvider({ children, ...props }: Props) {
-  const [state, dispatch] = useReducer<Reducer<ProjectContextData, AnyAction>>(reducer, {
-    id: props.project.id,
-    name: props.project.name,
-    owner: props.project.owner,
-    createdAt: props.project.createdAt,
-    projectMembers: props.project.projectMembers
-  });
+  const [state, dispatch] = useReducer<Reducer<ProjectContextData, AnyAction>>(
+    currentProjectSlice.reducer,
+    {
+      id: props.project.id,
+      name: props.project.name,
+      owner: props.project.owner,
+      createdAt: props.project.createdAt,
+      projectMembers: props.project.projectMembers
+    }
+  );
 
   useEffect(() => {
     dispatch(setNewState({ project: props.project }));
-    dispatch({ type: 'set', payload: props.project });
-  }, [props.project, state]);
+  }, [props.project]);
   return (
     <>
       <ProjectContext.Provider value={[state, dispatch]}>{children}</ProjectContext.Provider>

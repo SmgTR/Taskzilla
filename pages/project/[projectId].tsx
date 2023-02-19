@@ -14,20 +14,14 @@ interface Props {
 }
 
 export default function Project({ project }: Props) {
-  const [projectId, setProjectId] = useState('');
-
-  useEffect(() => {
-    setProjectId(project.id ?? '');
-  }, [project]);
-
   return (
     <>
       <ProjectProvider project={project}>
         <ColumnsProvider projectId={project.id ?? ''}>
           <ActiveUsersProvider>
-            <Dashboard project={project}>
+            <Dashboard>
               <ProjectContainer />
-              <Columns projectId={project.id ?? ''} />
+              <Columns />
             </Dashboard>
           </ActiveUsersProvider>
         </ColumnsProvider>

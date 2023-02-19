@@ -12,26 +12,27 @@ import { setActiveUsers, useActiveUsersContext } from '../context/ActiveUsersCon
 import { NotificationsContextProvider } from '../context/NotificationsContext';
 import { WorkspaceProvider } from '../context/WorkspacesContext';
 import useSWR from 'swr';
+import { useProjectContext } from '../context/ProjectContext';
 
 interface Props {
   children?: ReactNode;
-  project?: Project;
 }
 
 let userSocket: Socket;
 
-const Dashboard: FC<Props> = ({ children, project }) => {
+const Dashboard: FC<Props> = ({ children }) => {
   const { data: session } = useSession();
+
+  const [projectContext] = useProjectContext();
 
   const [_, dispatchActiveUsers] = useActiveUsersContext();
 
   useEffect(() => {
-    if (project) userSocketInitializer(project);
-
+    if (projectContext) userSocketInitializer(projectContext);
     return () => {
-      if (project) userSocket.disconnect();
+      if (projectContext && userSocket) userSocket.disconnect();
     };
-  }, [project]);
+  }, [projectContext]);
 
   const userSocketInitializer = async (socketProject: Project) => {
     await fetch('/api/socket');

@@ -38,17 +38,16 @@ export function ColumnsProvider({ children, ...props }: Props) {
   }
 
   function addTask(task: Task, columnId: string) {
-    setProjectColumns((state) => {
-      state.columns.find((column) => {
-        if (column.id === columnId && column.Task) {
-          column.Task.push(task);
-        }
+    setProjectColumns((prevState) => {
+      const column = prevState.columns.find((column) => column.id === columnId);
 
-        if (column.id === columnId && !column.Task) {
-          column.Task = [task];
-        }
-      });
-      return { ...state };
+      if (column && !column.Task) {
+        column.Task = [task];
+      } else {
+        column?.Task?.push(task);
+      }
+
+      return { ...prevState, column };
     });
   }
   function removeTask(task: Task, index: number, taskId: string, columnId: string) {

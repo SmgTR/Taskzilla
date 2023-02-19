@@ -1,21 +1,18 @@
 import { prisma } from 'prisma/prisma';
 
-import { ProjectActiveUsersSocket, TaskData, ColumnData } from '@/pages/api/socket';
-
-interface TaskDataExtended extends TaskData {
-  socket: ProjectActiveUsersSocket;
-}
-
-interface ColumnDataExtended extends ColumnData {
-  socket: ProjectActiveUsersSocket;
-}
+import {
+  ProjectActiveUsersSocket,
+  TaskDataExtended,
+  AddColumnDataExtended,
+  UpdateColumnDataExtended
+} from '@/types/SocketTypes';
 
 export const connectColumnSocket = (socket: ProjectActiveUsersSocket, roomName: string) => {
   socket.join(roomName);
   socket.room = roomName;
 };
 
-export const updateTask = async ({
+export const updateTaskOrder = async ({
   socket,
   taskOrder,
   targetColumnId,
@@ -45,7 +42,15 @@ export const updateTask = async ({
   return socket.to(socket.room ?? '').emit('new-order', newOrder);
 };
 
-export const updateColumn = async ({ socket, columnOrder, newColumnOrder }: ColumnDataExtended) => {
+export const addColumnData = async ({ socket, columns }: AddColumnDataExtended) => {
+  return socket.to(socket.room ?? '').emit('new-order', columns);
+};
+
+export const updateColumnOrder = async ({
+  socket,
+  columnOrder,
+  newColumnOrder
+}: UpdateColumnDataExtended) => {
   await Promise.all(
     columnOrder.map(async (column) => {
       return await prisma.column.update({

@@ -1,10 +1,3 @@
-import {
-  disablePopup,
-  setActivePopup,
-  setPopupParentId,
-  usePopupContext
-} from '@/src/context/PopupContext';
-import Portal from '@/src/hoc/Portal';
 import { NextPage } from 'next';
 import { forwardRef } from 'react';
 

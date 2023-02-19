@@ -13,10 +13,7 @@ import columnDragHelper from '@/src/utils/columnsUpdate/columnDragHelper';
 import taskDragHelper from '@/src/utils/columnsUpdate/taskDragHelper';
 import taskUpdateHelper from '@/src/utils/columnsUpdate/taskUpdateHelper';
 import columnUpdateHelper from '@/src/utils/columnsUpdate/columnUpdateHelper';
-
-interface Props {
-  projectId: string;
-}
+import { useProjectContext } from '@/src/context/ProjectContext';
 
 export type ColumnProps = {
   clientY: number;
@@ -28,11 +25,15 @@ export type ColumnProps = {
 
 let socket: Socket;
 
-const Columns: NextPage<Props> = ({ projectId }) => {
+const Columns: NextPage = () => {
   const queryAttr = 'data-rbd-drag-handle-draggable-id';
   const destinationQuertAttr = 'data-rbd-droppable-id';
 
+  const [projectContext] = useProjectContext();
+
   const projectColumns = useColumnsContext();
+
+  const { id: projectId } = projectContext;
   const formEl = useRef<HTMLFormElement>(null);
 
   const [openForm, setOpenForm] = useState(false);
@@ -57,16 +58,12 @@ const Columns: NextPage<Props> = ({ projectId }) => {
     return () => {
       if (socket) socket.disconnect();
     };
-  }, [projectId, reorderColumns]);
+  }, [projectId]);
 
   useEffect(() => {
     setOpenForm(false);
 
     if (projectColumns.columns) setReorderColumns(projectColumns.columns);
-
-    return () => {
-      if (socket) socket.disconnect();
-    };
   }, [projectId, projectColumns.columns]);
 
   const addColumnHandler = async (event: FormEvent<HTMLFormElement>) => {
@@ -85,11 +82,12 @@ const Columns: NextPage<Props> = ({ projectId }) => {
       if (userData.name.length > 0) {
         const newColumn = await createColumn({
           name: userData.name,
-          projectId
+          projectId: projectId ?? ''
         });
         if (newColumn) {
           projectColumns.updateColumns(newColumn);
           setOpenForm(false);
+          socket.emit('add-column-data', [...reorderColumns, newColumn]);
         }
       }
     }
@@ -204,7 +202,7 @@ const Columns: NextPage<Props> = ({ projectId }) => {
     return (
       <div className={styles.columnsContainer}>
         <DragDropContext onDragEnd={onDragEnd} onDragUpdate={handleDragUpdate}>
-          <Droppable droppableId={projectId} direction="horizontal" type="column">
+          <Droppable droppableId={projectId ?? ''} direction="horizontal" type="column">
             {(provided) => (
               <ul
                 className={styles.columnsList}
@@ -216,7 +214,7 @@ const Columns: NextPage<Props> = ({ projectId }) => {
                     return (
                       <ColumnItem
                         column={column}
-                        projectId={projectId}
+                        projectId={projectId ?? ''}
                         key={(column.id ?? '') + index.toString()}
                         placeholderProps={taskPlaceholderProps}
                         columnIndex={index}
