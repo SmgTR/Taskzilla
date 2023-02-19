@@ -25,7 +25,7 @@ jobs:
           cl_entry="${cl_entry//'%'/'%25'}"
           cl_entry="${cl_entry//$'\n'/'%0A'}"
           cl_entry="${cl_entry//$'\r'/'%0D'}"
-          echo "::set-output name=content::$cl_entry"
+          echo "CONTENT=$cl_entry" >> $GITHUB_ENV
         id: changelog
 
       # Update changelog.
