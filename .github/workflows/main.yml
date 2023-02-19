@@ -27,7 +27,7 @@ jobs:
 
       # Update changelog.
       - run: |
-          echo "${{ steps.changelog.outputs.content }}" >> changelog-dev.md
+          echo "${{ steps.changelog.outputs.content }}" >> changelog.md
 
       # Commit changes.
       - run: git add changelog.md
