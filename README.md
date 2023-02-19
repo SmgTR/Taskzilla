@@ -18,6 +18,8 @@ Demo: https://taskzilla.onrender.com
 
 Requries: PosgreSQL and env configuration.
 
+You can run PosgresSQL database with provided docker file.
+
 ```env
 .env
 DATABASE_URL=""
