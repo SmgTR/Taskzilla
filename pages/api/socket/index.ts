@@ -7,10 +7,10 @@ import {
   sendNotificationToUser
 } from '@/src/utils/socket/notificationsSocketHelper';
 import {
-  addColumn,
+  updateColumnOrder,
   connectColumnSocket,
-  updateColumn,
-  updateTask
+  addColumnData,
+  updateTaskOrder
 } from '@/src/utils/socket/updateColumnDataHelper';
 
 import {
@@ -52,16 +52,19 @@ const socketHandler = async (req: NextApiRequest, res: SocketNextApiResponse) =>
       connectColumnSocket(socket, roomName);
     });
 
-    socket.on('update-task', async ({ taskOrder, targetColumnId, taskId, newOrder }: TaskData) => {
-      updateTask({ socket, taskOrder, targetColumnId, taskId, newOrder });
+    socket.on(
+      'update-task-order',
+      async ({ taskOrder, targetColumnId, taskId, newOrder }: TaskData) => {
+        updateTaskOrder({ socket, taskOrder, targetColumnId, taskId, newOrder });
+      }
+    );
+
+    socket.on('update-column-order', async ({ columnOrder, newColumnOrder }) => {
+      updateColumnOrder({ socket, columnOrder, newColumnOrder });
     });
 
-    socket.on('update-column', async ({ columnOrder, newColumnOrder }) => {
-      updateColumn({ socket, columnOrder, newColumnOrder });
-    });
-
-    socket.on('add-column', async (columns) => {
-      addColumn({ socket, columns });
+    socket.on('add-column-data', async (columns) => {
+      addColumnData({ socket, columns });
     });
   });
 

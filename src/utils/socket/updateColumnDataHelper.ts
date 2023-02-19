@@ -12,7 +12,7 @@ export const connectColumnSocket = (socket: ProjectActiveUsersSocket, roomName: 
   socket.room = roomName;
 };
 
-export const updateTask = async ({
+export const updateTaskOrder = async ({
   socket,
   taskOrder,
   targetColumnId,
@@ -42,11 +42,11 @@ export const updateTask = async ({
   return socket.to(socket.room ?? '').emit('new-order', newOrder);
 };
 
-export const addColumn = async ({ socket, columns }: AddColumnDataExtended) => {
-  return socket.nsp.to(socket.room ?? '').emit('new-order', columns);
+export const addColumnData = async ({ socket, columns }: AddColumnDataExtended) => {
+  return socket.to(socket.room ?? '').emit('new-order', columns);
 };
 
-export const updateColumn = async ({
+export const updateColumnOrder = async ({
   socket,
   columnOrder,
   newColumnOrder
