@@ -7,7 +7,6 @@ import { ColumnsProvider } from '@/src/context/ColumnsContext';
 import Columns from '@/src/components/dashboard/columns/Columns';
 import ProjectContainer from '@/src/containers/dashboard/ProjectContainer';
 import { ActiveUsersProvider } from '@/src/context/ActiveUsersContext';
-import { useEffect, useState } from 'react';
 
 interface Props {
   project: Project;
