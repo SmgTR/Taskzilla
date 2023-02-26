@@ -10,7 +10,7 @@ import {
 } from 'react';
 import { AnyAction } from 'redux';
 
-interface ActiveUser {
+export interface ActiveUser {
   email: string;
   name: string;
   id: string;

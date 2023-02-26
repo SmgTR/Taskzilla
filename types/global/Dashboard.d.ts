@@ -86,6 +86,14 @@ declare global {
     invitation: InvitationData;
     createdAt: Date;
   };
+
+  interface ActiveUser {
+    email: string;
+    name: string;
+    id: string;
+    image: string;
+    lastName: string;
+  }
 }
 
 type InvitationData = {
