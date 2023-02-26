@@ -1,0 +1,25 @@
+.users_popup {
+  max-height: 100%;
+}
+.users_list {
+  padding: 2rem 0;
+  max-height: 40rem;
+  overflow-y: auto;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  margin: $margin-small 0;
+
+  &_image {
+    border-radius: 50%;
+  }
+
+  &_name {
+    color: $color-primary--dark;
+    font-size: $font-vsmall;
+    margin-left: $margin-small;
+    max-width: 20rem;
+  }
+}
