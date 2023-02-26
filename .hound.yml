@@ -15,13 +15,6 @@ eslint:
     - 'plugin:@typescript-eslint/recommended'
   rules:
     # Add any custom rules or overrides here
-patterns:
-  - '**/*.ts'
-  - '**/*.tsx'
-
-# Sass configuration
-stylelint:
-  config: '.stylelintrc.json'
-  # You can add any additional flags or options here
   patterns:
-    - '**/*.scss'
+    - '**/*.ts'
+    - '**/*.tsx'
